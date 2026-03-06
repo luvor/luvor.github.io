@@ -28,7 +28,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="hero-load">
+  <div class="noise-overlay" aria-hidden="true"></div>
   <a href="#about" class="skip-link">Skip to content</a>
   <div id="scroll-progress" aria-hidden="true"></div>
   <div id="cursor-glow" aria-hidden="true"></div>
@@ -373,9 +374,9 @@
           Selected <span class="gradient-text">work</span>
         </h2>
       </div>
-      <div class="projects-grid">
+      <div class="projects-grid bento">
 
-        <article class="project-card reveal-scale" data-tilt>
+        <article class="project-card featured reveal-scale" data-tilt>
           <span class="project-badge">Featured</span>
           <div class="project-image">
             <img src="assets/portfolio/IMG_0167.jpg" alt="Telegram Semantic Search RAG system" loading="lazy">

@@ -23,16 +23,49 @@
     if (anchor) navAnchors[id] = anchor;
   });
 
-  // ── Hero loaded state + word reveal ──
+  // ── Orchestrated page load sequence ──
   function triggerHeroReveal() {
     const hero = document.querySelector('.hero');
     if (!hero || hero.classList.contains('loaded')) return;
     hero.classList.add('loaded');
 
+    const body = document.body;
+
+    // Step 1: Switch from hero-load to hero-revealed (enables transitions)
+    body.classList.add('hero-revealed');
+
+    // Step 2: Staggered reveals
+    const delays = {
+      '.navbar': 0,
+      '.hero-badge': 300,
+      '.hero-title': 400,
+      '.hero-subtitle': 550,
+      '.hero-actions': 700,
+      '.hero-visual': 500,
+      '#hero-canvas': 900,
+      '.hero-scroll-indicator': 1200,
+    };
+
+    Object.entries(delays).forEach(([selector, delay]) => {
+      const el = document.querySelector(selector);
+      if (el) {
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }, delay);
+      }
+    });
+
+    // Step 3: Word reveals (existing behavior)
     const words = hero.querySelectorAll('.word-reveal');
     words.forEach((word, i) => {
       setTimeout(() => word.classList.add('visible'), 600 + i * 80);
     });
+
+    // Step 4: Remove hero-load class after all animations complete
+    setTimeout(() => {
+      body.classList.remove('hero-load');
+    }, 1500);
   }
 
   window.addEventListener('load', triggerHeroReveal);

@@ -43,9 +43,8 @@
   // Observe timeline items
   document.querySelectorAll('.timeline-item').forEach((item) => revealObserver.observe(item));
 
-  // Observe sections (set initial opacity)
+  // Observe sections for clip-path reveal
   document.querySelectorAll('.section').forEach((section) => {
-    section.style.opacity = '1';
     revealObserver.observe(section);
   });
 
