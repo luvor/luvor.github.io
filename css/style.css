@@ -2239,6 +2239,545 @@ html {
   }
 }
 
+/* ============================================
+   Mobile Tab Bar
+   ============================================ */
+.mobile-tab-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 0;
+  padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .mobile-tab-bar {
+    display: flex;
+  }
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  min-width: 48px;
+  min-height: 48px;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  transition: color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+.tab-item.active {
+  color: var(--color-accent-1);
+}
+
+.tab-item .tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tab-item .tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.tab-item.active .tab-icon {
+  transform: scale(1.1);
+}
+
+/* Active indicator dot */
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: calc(2px + env(safe-area-inset-bottom, 0px));
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent-1);
+}
+
+/* ============================================
+   Navbar Auto-Hide on Mobile
+   ============================================ */
+@media (max-width: 768px) {
+  .navbar {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+  }
+
+  .navbar.nav-hidden {
+    transform: translateY(-100%);
+  }
+
+  /* Keep scroll progress visible */
+  #scroll-progress {
+    z-index: 1002;
+  }
+}
+
+/* ============================================
+   Scroll Snap + Card Containers (Mobile)
+   ============================================ */
+@media (max-width: 768px) {
+  main {
+    scroll-snap-type: y proximity;
+  }
+
+  .section,
+  .hero {
+    scroll-snap-align: start;
+  }
+
+  /* Card containers for sections */
+  .section > .container {
+    background: rgba(255, 255, 255, 0.015);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 32px 20px;
+    margin: 0 8px;
+  }
+
+  /* Body padding for tab bar */
+  body {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ============================================
+   Horizontal Carousels (Mobile)
+   ============================================ */
+@media (max-width: 768px) {
+  .gallery-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 8vw;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    grid-template-columns: none !important;
+  }
+
+  .gallery-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-item,
+  .gallery-item--wide {
+    flex: 0 0 80vw;
+    scroll-snap-align: center;
+    aspect-ratio: 3/4;
+    grid-column: span 1 !important;
+  }
+
+  .projects-grid,
+  .projects-grid.bento {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 8vw;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+  }
+
+  .projects-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-card,
+  .project-card.featured {
+    flex: 0 0 82vw;
+    scroll-snap-align: center;
+    grid-row: span 1 !important;
+  }
+}
+
+/* Carousel dot indicators */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--spacing-md);
+  padding: 8px 0;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: var(--color-accent-1);
+  width: 20px;
+  border-radius: 3px;
+}
+
+/* ============================================
+   Touch Feedback (Mobile)
+   ============================================ */
+@media (pointer: coarse) {
+  .btn {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background var(--transition-fast);
+  }
+
+  .btn:active {
+    transform: scale(0.93) !important;
+    filter: brightness(0.85);
+    transition-duration: 0.08s;
+  }
+
+  .project-card:active,
+  .skill-category:active,
+  .education-card:active,
+  .contact-card:active,
+  .stat:active {
+    transform: scale(0.97) !important;
+    filter: brightness(0.9);
+    transition-duration: 0.08s;
+  }
+
+  .tab-item:active {
+    transform: scale(0.9);
+    transition-duration: 0.08s;
+  }
+
+  /* Remove hover-dependent styles on touch */
+  .project-card:hover,
+  .education-card:hover,
+  .contact-card:hover,
+  .skill-category:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   Progressive Disclosure — Timeline Collapse
+   ============================================ */
+@media (max-width: 768px) {
+  .timeline-card.collapsed .timeline-desc,
+  .timeline-card.collapsed .timeline-tags {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                margin 0.3s ease;
+  }
+
+  .timeline-card.expanded .timeline-desc,
+  .timeline-card.expanded .timeline-tags {
+    max-height: 500px;
+    opacity: 1;
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease 0.1s;
+  }
+
+  .timeline-card.collapsed::after {
+    content: 'Tap to expand';
+    display: block;
+    font-size: 11px;
+    color: var(--color-accent-1);
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+
+  .timeline-card.expanded::after {
+    content: '';
+    display: none;
+  }
+
+  .timeline-card {
+    cursor: pointer;
+  }
+}
+
+/* ============================================
+   Hero Mobile Redesign
+   ============================================ */
+@media (max-width: 768px) {
+  .hero-image-wrapper {
+    max-width: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .hero-image-wrapper img {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .hero-badge {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-actions .btn-primary {
+    background: var(--color-gradient);
+    border: none;
+    color: #fff;
+  }
+}
+
+/* ============================================
+   Pull-to-Refresh Easter Egg
+   ============================================ */
+.pull-refresh-indicator {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.pull-refresh-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  transition: transform 0.1s linear;
+}
+
+.pull-refresh-indicator.triggered .pull-refresh-logo {
+  animation: pull-spin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pull-refresh-text {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+@keyframes pull-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* ============================================
+   Toast Notification
+   ============================================ */
+.toast-notification {
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 10000;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  color: var(--color-text);
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.toast-notification.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   Long Press Hero Spin
+   ============================================ */
+.hero-image-wrapper.spin-reveal {
+  animation: hero-spin 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes hero-spin {
+  0% { transform: perspective(800px) rotateY(0deg); }
+  100% { transform: perspective(800px) rotateY(360deg); }
+}
+
+/* ============================================
+   Party Mode (Easter Egg)
+   ============================================ */
+.party-mode .orb--blue {
+  background: rgba(41, 151, 255, 0.35) !important;
+  animation-duration: 3s !important;
+}
+.party-mode .orb--purple {
+  background: rgba(191, 90, 242, 0.30) !important;
+  animation-duration: 2.5s !important;
+}
+.party-mode .orb--green {
+  background: rgba(48, 209, 88, 0.25) !important;
+  animation-duration: 2s !important;
+}
+.party-mode .gradient-text {
+  animation-duration: 0.5s !important;
+}
+
+/* ============================================
+   Standalone PWA Mode
+   ============================================ */
+@media (display-mode: standalone) {
+  html, body {
+    overscroll-behavior: none;
+  }
+
+  #scroll-progress {
+    top: env(safe-area-inset-top, 0px);
+  }
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+  .navbar {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* Mobile: hide scrollbar on carousels */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html {
+    scrollbar-width: none;
+  }
+}
+
+/* ============================================
+   Mobile Lightbox Enhancements
+   ============================================ */
+@media (max-width: 768px) {
+  .lightbox-prev,
+  .lightbox-next {
+    opacity: 0.3;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .lightbox-img {
+    transition: transform 0.3s ease;
+  }
+
+  .lightbox-counter {
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ============================================
+   Noise Overlay (already exists, ensure it works)
+   ============================================ */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: noise-shift 0.4s steps(6) infinite;
+}
+
+@keyframes noise-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-5%, -5%); }
+  40% { transform: translate(3%, -2%); }
+  60% { transform: translate(-3%, 5%); }
+  80% { transform: translate(5%, 2%); }
+  100% { transform: translate(-2%, -3%); }
+}
+
+/* ============================================
+   Mobile Typography & Spacing Polish
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --spacing-section: clamp(3rem, 2.5rem + 2vw, 5rem);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 1.75rem);
+  }
+
+  .section-header {
+    margin-bottom: var(--spacing-xl);
+  }
+}
+
 /* Print styles */
 @media print {
   .navbar, #hero-canvas, #cursor-glow, .hero-scroll-indicator,
