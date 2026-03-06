@@ -18,9 +18,9 @@
 
   // Config
   const CONFIG = {
-    particleCount: 80,
-    maxDistance: 150,
-    particleSize: { min: 1, max: 2.5 },
+    particleCount: 120,
+    maxDistance: 180,
+    particleSize: { min: 1.5, max: 4 },
     speed: { min: 0.1, max: 0.4 },
     mouseRadius: 200,
     mouseForce: 0.02,
@@ -29,8 +29,8 @@
       'rgba(191, 90, 242, ',   // purple
       'rgba(48, 209, 88, ',    // green
     ],
-    lineOpacity: 0.15,
-    particleOpacity: { min: 0.3, max: 0.8 },
+    lineOpacity: 0.25,
+    particleOpacity: { min: 0.4, max: 1.0 },
     fps: 60,
   };
 
@@ -96,10 +96,16 @@
     }
 
     draw() {
+      // Glow for larger particles
+      if (this.size > 2.5) {
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = this.color + '0.6)';
+      }
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fillStyle = this.color + this.currentOpacity + ')';
       ctx.fill();
+      ctx.shadowBlur = 0;
     }
   }
 
@@ -138,8 +144,8 @@
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(41, 151, 255, ${opacity})`;
-          ctx.lineWidth = 0.5;
+          ctx.strokeStyle = particles[i].color + opacity + ')';
+          ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
@@ -165,7 +171,7 @@
     // Mouse glow
     if (mouse.x > 0 && mouse.y > 0) {
       const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
-      gradient.addColorStop(0, 'rgba(41, 151, 255, 0.03)');
+      gradient.addColorStop(0, 'rgba(41, 151, 255, 0.06)');
       gradient.addColorStop(1, 'transparent');
       ctx.fillStyle = gradient;
       ctx.fillRect(mouse.x - 150, mouse.y - 150, 300, 300);

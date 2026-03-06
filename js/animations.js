@@ -6,7 +6,7 @@
   'use strict';
 
   // ── Scroll Reveal ──
-  const revealElements = document.querySelectorAll('.reveal, .reveal-scale, .reveal-slide, .reveal-stagger');
+  const revealElements = document.querySelectorAll('.reveal, .reveal-scale, .reveal-slide, .reveal-stagger, .reveal-title');
 
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -144,5 +144,35 @@
     section.style.opacity = '1';
     sectionObserver.observe(section);
   });
+
+  // ── Scroll Progress Bar ──
+  const scrollProgress = document.getElementById('scroll-progress');
+  if (scrollProgress) {
+    function updateScrollProgress() {
+      const scrollY = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      scrollProgress.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+  }
+
+  // ── Ambient orbs scroll-linked color shift ──
+  const orbs = document.querySelectorAll('.orb');
+  if (orbs.length > 0) {
+    function updateAmbient() {
+      const scrollY = window.scrollY;
+      const docHeight = document.body.scrollHeight;
+      const progress = scrollY / docHeight;
+
+      // Shift orbs position slightly based on scroll
+      orbs.forEach((orb, i) => {
+        const speed = 0.03 + i * 0.01;
+        orb.style.transform = `translateY(${scrollY * speed}px)`;
+      });
+    }
+    window.addEventListener('scroll', updateAmbient, { passive: true });
+  }
 
 })();
