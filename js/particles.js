@@ -1,7 +1,7 @@
 /**
  * Hero Canvas — Particle network animation
  * Creates an interactive particle system with connections
- * Optimized for performance with requestAnimationFrame and spatial hashing
+ * Optimized with spatial hashing and squared-distance checks
  */
 (function () {
   'use strict';
@@ -20,9 +20,11 @@
   const CONFIG = {
     particleCount: 120,
     maxDistance: 180,
+    maxDistanceSq: 180 * 180, // pre-computed squared
     particleSize: { min: 1.5, max: 4 },
     speed: { min: 0.1, max: 0.4 },
     mouseRadius: 200,
+    mouseRadiusSq: 200 * 200,
     mouseForce: 0.02,
     colors: [
       'rgba(41, 151, 255, ',   // blue
@@ -31,7 +33,6 @@
     ],
     lineOpacity: 0.25,
     particleOpacity: { min: 0.4, max: 1.0 },
-    fps: 60,
   };
 
   // Adjust particle count for mobile
@@ -56,15 +57,17 @@
       this.opacity = CONFIG.particleOpacity.min + Math.random() * (CONFIG.particleOpacity.max - CONFIG.particleOpacity.min);
       this.pulseSpeed = 0.005 + Math.random() * 0.01;
       this.pulseOffset = Math.random() * Math.PI * 2;
+      this.isGlow = this.size > 2.5;
     }
 
     update(time) {
-      // Mouse interaction
+      // Mouse interaction — use squared distance
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const distSq = dx * dx + dy * dy;
 
-      if (dist < CONFIG.mouseRadius) {
+      if (distSq < CONFIG.mouseRadiusSq) {
+        const dist = Math.sqrt(distSq);
         const force = (1 - dist / CONFIG.mouseRadius) * CONFIG.mouseForce;
         this.vx += dx * force;
         this.vy += dy * force;
@@ -75,8 +78,10 @@
       this.vy *= 0.99;
 
       // Speed limit
-      const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-      if (speed > CONFIG.speed.max) {
+      const speedSq = this.vx * this.vx + this.vy * this.vy;
+      const maxSpeedSq = CONFIG.speed.max * CONFIG.speed.max;
+      if (speedSq > maxSpeedSq) {
+        const speed = Math.sqrt(speedSq);
         this.vx = (this.vx / speed) * CONFIG.speed.max;
         this.vy = (this.vy / speed) * CONFIG.speed.max;
       }
@@ -94,18 +99,86 @@
       // Pulse opacity
       this.currentOpacity = this.opacity + Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.2;
     }
+  }
 
-    draw() {
-      // Glow for larger particles
-      if (this.size > 2.5) {
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = this.color + '0.6)';
+  // ── Spatial Grid for O(n) connection checks ──
+  const cellSize = CONFIG.maxDistance;
+  let gridCols, gridRows;
+  let grid;
+
+  function buildGrid() {
+    gridCols = Math.ceil(width / cellSize) + 1;
+    gridRows = Math.ceil(height / cellSize) + 1;
+    grid = new Array(gridCols * gridRows);
+
+    for (let i = 0; i < grid.length; i++) {
+      grid[i] = [];
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      const col = Math.floor(p.x / cellSize);
+      const row = Math.floor(p.y / cellSize);
+      if (col >= 0 && col < gridCols && row >= 0 && row < gridRows) {
+        grid[row * gridCols + col].push(i);
       }
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = this.color + this.currentOpacity + ')';
-      ctx.fill();
-      ctx.shadowBlur = 0;
+    }
+  }
+
+  function drawConnections() {
+    buildGrid();
+
+    const maxDistSq = CONFIG.maxDistanceSq;
+
+    for (let row = 0; row < gridRows; row++) {
+      for (let col = 0; col < gridCols; col++) {
+        const cellIdx = row * gridCols + col;
+        const cell = grid[cellIdx];
+        if (cell.length === 0) continue;
+
+        // Check same cell + right + bottom + bottom-right + bottom-left (avoid double-checking)
+        const neighbors = [
+          cellIdx,                                      // same cell
+          col + 1 < gridCols ? cellIdx + 1 : -1,       // right
+          row + 1 < gridRows ? cellIdx + gridCols : -1, // bottom
+          col + 1 < gridCols && row + 1 < gridRows ? cellIdx + gridCols + 1 : -1, // bottom-right
+          col - 1 >= 0 && row + 1 < gridRows ? cellIdx + gridCols - 1 : -1,       // bottom-left
+        ];
+
+        for (let ci = 0; ci < cell.length; ci++) {
+          const pi = cell[ci];
+          const a = particles[pi];
+
+          for (let ni = 0; ni < neighbors.length; ni++) {
+            const neighborIdx = neighbors[ni];
+            if (neighborIdx === -1) continue;
+
+            const neighborCell = grid[neighborIdx];
+            // For same cell, start from ci+1 to avoid duplicate pairs
+            const startJ = neighborIdx === cellIdx ? ci + 1 : 0;
+
+            for (let j = startJ; j < neighborCell.length; j++) {
+              const pj = neighborCell[j];
+              const b = particles[pj];
+
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const distSq = dx * dx + dy * dy;
+
+              if (distSq < maxDistSq) {
+                const dist = Math.sqrt(distSq);
+                const opacity = (1 - dist / CONFIG.maxDistance) * CONFIG.lineOpacity;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = a.color + opacity + ')';
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -117,7 +190,6 @@
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
 
-    // Reinit particles on significant resize
     const count = getParticleCount();
     if (Math.abs(particles.length - count) > 10) {
       initParticles();
@@ -132,26 +204,6 @@
     }
   }
 
-  function drawConnections() {
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < CONFIG.maxDistance) {
-          const opacity = (1 - dist / CONFIG.maxDistance) * CONFIG.lineOpacity;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = particles[i].color + opacity + ')';
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
   function animate(time) {
     if (!isVisible) {
       animationId = requestAnimationFrame(animate);
@@ -160,11 +212,32 @@
 
     ctx.clearRect(0, 0, width, height);
 
-    // Update and draw particles
+    // Update all particles
     for (const p of particles) {
       p.update(time);
-      p.draw();
     }
+
+    // Draw non-glow particles first (no shadowBlur state change)
+    ctx.shadowBlur = 0;
+    for (const p of particles) {
+      if (p.isGlow) continue;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.currentOpacity + ')';
+      ctx.fill();
+    }
+
+    // Draw glow particles with single shadowBlur set
+    ctx.shadowBlur = 12;
+    for (const p of particles) {
+      if (!p.isGlow) continue;
+      ctx.shadowColor = p.color + '0.6)';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.currentOpacity + ')';
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
 
     drawConnections();
 
@@ -200,7 +273,6 @@
     }
   }
 
-  // Visibility API — pause when tab is hidden
   function onVisibilityChange() {
     isVisible = !document.hidden;
   }
@@ -219,7 +291,6 @@
     document.addEventListener('visibilitychange', onVisibilityChange);
   }
 
-  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

@@ -1,8 +1,27 @@
 /**
- * Main — Navigation, tilt effects, cursor glow, smooth scroll
+ * Main — Navigation, tilt effects, cursor glow, smooth scroll,
+ *        unified scroll handler, parallax, timeline progress
  */
 (function () {
   'use strict';
+
+  // ── Cached queries ──
+  const hasFineCursor = window.matchMedia('(pointer: fine)').matches;
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  const scrollProgress = document.getElementById('scroll-progress');
+  const timelineProgress = document.querySelector('.timeline-progress');
+  const timeline = document.querySelector('.timeline');
+  const parallaxElements = document.querySelectorAll('[data-parallax]');
+  const orbs = document.querySelectorAll('.orb');
+
+  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
+  const navAnchors = {};
+  sectionIds.forEach((id) => {
+    const anchor = navLinks?.querySelector(`a[href="#${id}"]`);
+    if (anchor) navAnchors[id] = anchor;
+  });
 
   // ── Hero loaded state + word reveal ──
   function triggerHeroReveal() {
@@ -10,7 +29,6 @@
     if (!hero || hero.classList.contains('loaded')) return;
     hero.classList.add('loaded');
 
-    // Staggered word reveal on subtitle
     const words = hero.querySelectorAll('.word-reveal');
     words.forEach((word, i) => {
       setTimeout(() => word.classList.add('visible'), 600 + i * 80);
@@ -20,29 +38,90 @@
   window.addEventListener('load', triggerHeroReveal);
   if (document.readyState === 'complete') triggerHeroReveal();
 
-  // ── Navbar scroll state ──
-  const navbar = document.getElementById('navbar');
-  let lastScroll = 0;
+  // ══════════════════════════════════════════════
+  //  UNIFIED SCROLL HANDLER (RAF-throttled)
+  // ══════════════════════════════════════════════
+  let ticking = false;
 
-  function onScroll() {
+  function onScrollFrame() {
     const scrollY = window.scrollY;
+    const windowH = window.innerHeight;
+    const docHeight = document.body.scrollHeight;
 
+    // 1. Navbar scroll state
     if (scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
 
-    lastScroll = scrollY;
+    // 2. Active nav link + section-aware tinting (merged)
+    const threshold = scrollY + windowH / 3;
+    let current = '';
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section && section.offsetTop <= threshold) {
+        current = id;
+      }
+    });
+
+    Object.values(navAnchors).forEach((a) => a.classList.remove('active'));
+    if (current && navAnchors[current]) {
+      navAnchors[current].classList.add('active');
+    }
+    if (current) {
+      navbar.setAttribute('data-section', current);
+    }
+
+    // 3. Scroll progress bar
+    if (scrollProgress) {
+      const scrollable = docHeight - windowH;
+      const progress = scrollable > 0 ? (scrollY / scrollable) * 100 : 0;
+      scrollProgress.style.width = progress + '%';
+    }
+
+    // 4. Timeline progress
+    if (timeline && timelineProgress) {
+      const rect = timeline.getBoundingClientRect();
+      if (rect.top < windowH && rect.bottom > 0) {
+        const scrolled = windowH - rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / rect.height));
+        timelineProgress.style.height = (progress * 100) + '%';
+      }
+    }
+
+    // 5. Parallax
+    if (parallaxElements.length > 0) {
+      parallaxElements.forEach((el) => {
+        const speed = parseFloat(el.dataset.parallax) || 0.1;
+        const rect = el.getBoundingClientRect();
+        const offset = (rect.top + scrollY - windowH / 2) * speed;
+        el.style.transform = `translateY(${offset}px)`;
+      });
+    }
+
+    // 6. Ambient orbs scroll-linked shift
+    if (orbs.length > 0) {
+      orbs.forEach((orb, i) => {
+        const speed = 0.03 + i * 0.01;
+        orb.style.transform = `translateY(${scrollY * speed}px)`;
+      });
+    }
+
+    ticking = false;
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(onScrollFrame);
+    }
+  }, { passive: true });
+
+  // Initial call
+  onScrollFrame();
 
   // ── Mobile nav toggle ──
-  const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('active');
@@ -50,7 +129,6 @@
       document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
 
-    // Close on link click
     navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         navToggle.classList.remove('active');
@@ -80,38 +158,10 @@
     });
   });
 
-  // ── Active nav link on scroll ──
-  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
-  const navAnchors = {};
-
-  sectionIds.forEach((id) => {
-    const anchor = navLinks?.querySelector(`a[href="#${id}"]`);
-    if (anchor) navAnchors[id] = anchor;
-  });
-
-  function updateActiveNav() {
-    const scrollY = window.scrollY + window.innerHeight / 3;
-
-    let current = '';
-    sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
-      if (section && section.offsetTop <= scrollY) {
-        current = id;
-      }
-    });
-
-    Object.values(navAnchors).forEach((a) => a.classList.remove('active'));
-    if (current && navAnchors[current]) {
-      navAnchors[current].classList.add('active');
-    }
-  }
-
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-
   // ── Cursor glow follow ──
   const cursorGlow = document.getElementById('cursor-glow');
 
-  if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+  if (cursorGlow && hasFineCursor) {
     let glowX = 0, glowY = 0;
     let targetX = 0, targetY = 0;
 
@@ -134,7 +184,7 @@
   // ── 3D Tilt effect on project cards ──
   const tiltCards = document.querySelectorAll('[data-tilt]');
 
-  if (window.matchMedia('(pointer: fine)').matches) {
+  if (hasFineCursor) {
     tiltCards.forEach((card) => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -161,10 +211,8 @@
   }
 
   // ── Magnetic effect on buttons ──
-  const magneticElements = document.querySelectorAll('.btn-primary, .btn-ghost');
-
-  if (window.matchMedia('(pointer: fine)').matches) {
-    magneticElements.forEach((el) => {
+  if (hasFineCursor) {
+    document.querySelectorAll('.btn-primary, .btn-ghost').forEach((el) => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
@@ -193,7 +241,7 @@
   const heroImageWrapper = document.querySelector('.hero-image-wrapper');
   const heroSection = document.querySelector('.hero');
 
-  if (heroImageWrapper && window.matchMedia('(pointer: fine)').matches) {
+  if (heroImageWrapper && hasFineCursor) {
     heroSection.addEventListener('mousemove', (e) => {
       const rect = heroImageWrapper.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -201,7 +249,6 @@
       heroImageWrapper.style.setProperty('--spot-x', x + '%');
       heroImageWrapper.style.setProperty('--spot-y', y + '%');
 
-      // Subtle 3D tilt
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const rotateY = ((e.clientX - centerX) / rect.width) * 8;
@@ -217,32 +264,20 @@
   }
 
   // ── Card spotlight effect (Apple-style) ──
-  const spotlightCards = document.querySelectorAll('.skill-category, .timeline-card, .education-card, .contact-card, .stat');
-
-  if (window.matchMedia('(pointer: fine)').matches) {
-    spotlightCards.forEach((card) => {
-      card.classList.add('glass-spotlight');
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--glow-x', x + '%');
-        card.style.setProperty('--glow-y', y + '%');
-      }, { passive: true });
-    });
+  if (hasFineCursor) {
+    document
+      .querySelectorAll('.skill-category, .timeline-card, .education-card, .contact-card, .stat')
+      .forEach((card) => {
+        card.classList.add('glass-spotlight');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          card.style.setProperty('--glow-x', x + '%');
+          card.style.setProperty('--glow-y', y + '%');
+        }, { passive: true });
+      });
   }
-
-  // ── Section-aware nav tinting ──
-  function updateNavSection() {
-    const scrollY = window.scrollY + window.innerHeight / 3;
-    let current = '';
-    sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
-      if (section && section.offsetTop <= scrollY) current = id;
-    });
-    if (current) navbar.setAttribute('data-section', current);
-  }
-  window.addEventListener('scroll', updateNavSection, { passive: true });
 
   // ── Gallery Lightbox ──
   const lightbox = document.getElementById('lightbox');
@@ -285,7 +320,7 @@
   lightbox?.querySelector('.lightbox-next')?.addEventListener('click', () => navigateLightbox(1));
   lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 
-  // ── Keyboard navigation enhancement ──
+  // ── Keyboard navigation ──
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (lightbox?.classList.contains('active')) {

@@ -27,9 +27,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+  <a href="#about" class="skip-link">Skip to content</a>
   <div id="scroll-progress" aria-hidden="true"></div>
   <div id="cursor-glow" aria-hidden="true"></div>
   <div class="ambient-orbs" aria-hidden="true">
@@ -58,6 +58,7 @@
     </div>
   </nav>
 
+  <main>
   <!-- Hero Section -->
   <section id="hero" class="hero">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
@@ -377,7 +378,7 @@
         <article class="project-card reveal-scale" data-tilt>
           <span class="project-badge">Featured</span>
           <div class="project-image">
-            <img src="assets/portfolio/IMG_0167.jpg" alt="Telegram Semantic Search RAG system" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            <img src="assets/portfolio/IMG_0167.jpg" alt="Telegram Semantic Search RAG system" loading="lazy">
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -396,7 +397,7 @@
 
         <article class="project-card reveal-scale" data-tilt>
           <div class="project-image">
-            <img src="assets/portfolio/imagine-79.jpg" alt="AI-Powered Development Workflow" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            <img src="assets/portfolio/imagine-79.jpg" alt="AI-Powered Development Workflow" loading="lazy">
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -415,7 +416,7 @@
 
         <article class="project-card reveal-scale" data-tilt>
           <div class="project-image">
-            <img src="assets/portfolio/imagine-99.jpg" alt="Generative Image Platform" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            <img src="assets/portfolio/imagine-99.jpg" alt="Generative Image Platform" loading="lazy">
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -435,7 +436,7 @@
         <article class="project-card reveal-scale" data-tilt>
           <span class="project-badge">Hackathon Winner</span>
           <div class="project-image">
-            <img src="assets/portfolio/IMG_1919.JPG" alt="Ioka Fintech Event Platform" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            <img src="assets/portfolio/IMG_1919.JPG" alt="Ioka Fintech Event Platform" loading="lazy">
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -565,6 +566,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -584,8 +587,8 @@
     <div class="lightbox-counter"></div>
   </div>
 
-  <script src="js/particles.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/particles.js" defer></script>
+  <script src="js/animations.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

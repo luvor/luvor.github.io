@@ -104,6 +104,25 @@ button {
   color: inherit;
 }
 
+/* Skip link (accessibility) */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: var(--color-accent-1);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  z-index: 9999;
+  font-size: var(--font-size-sm);
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: var(--spacing-sm);
+}
+
 /* Container */
 .container {
   width: 100%;
@@ -325,22 +344,23 @@ body:hover #cursor-glow {
   width: 100%;
 }
 
-.nav-cta {
-  padding: 6px 16px !important;
+.nav-links a.nav-cta {
+  padding: 6px 16px;
   border-radius: var(--radius-full);
-  background: var(--color-accent-1) !important;
-  color: #fff !important;
-  font-weight: 500 !important;
+  background: var(--color-accent-1);
+  color: #fff;
+  font-weight: 500;
   transition: var(--transition-fast);
 }
 
-.nav-cta:hover {
-  background: #1a8aff !important;
+.nav-links a.nav-cta:hover {
+  background: #1a8aff;
+  color: #fff;
   transform: scale(1.02);
 }
 
-.nav-cta::after {
-  display: none !important;
+.nav-links a.nav-cta::after {
+  display: none;
 }
 
 /* Mobile nav toggle */
@@ -692,15 +712,7 @@ body:hover #cursor-glow {
   transform: translateY(-2px);
 }
 
-.stat-number {
-  font-size: var(--font-size-xl);
-  font-weight: 800;
-  background: var(--color-gradient-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
+.stat-number,
 .stat-suffix {
   font-size: var(--font-size-xl);
   font-weight: 800;
@@ -1056,6 +1068,7 @@ body:hover #cursor-glow {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
   transition: var(--transition-slow);
 }
 
@@ -1322,7 +1335,7 @@ body:hover #cursor-glow {
    ============================================ */
 .footer {
   padding: var(--spacing-xl) 0;
-  border-top: 1px solid var(--color-border);
+  position: relative;
 }
 
 .footer-inner {
@@ -1594,14 +1607,6 @@ body:hover #cursor-glow {
   filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.4));
 }
 
-/* ============================================
-   Footer Polish
-   ============================================ */
-.footer {
-  border-top: none;
-  position: relative;
-}
-
 .footer::before {
   content: '';
   position: absolute;
@@ -1611,6 +1616,187 @@ body:hover #cursor-glow {
   height: 1px;
   background: var(--color-gradient);
   opacity: 0.3;
+}
+
+/* ============================================
+   Animations — Scroll reveals, micro-interactions
+   ============================================ */
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.reveal-slide {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-slide.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero line reveal */
+.hero-title .reveal-line span {
+  transform: translateY(110%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero.loaded .hero-title .reveal-line span {
+  transform: translateY(0);
+}
+
+.hero.loaded .hero-title .reveal-line:nth-child(2) span {
+  transition-delay: 0.15s;
+}
+
+/* Word-by-word blur reveal */
+.word-reveal {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(8px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero.loaded .word-reveal.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* Section title scale reveal */
+.reveal-title {
+  opacity: 0;
+  transform: scale(0.85);
+  filter: blur(4px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-title.visible {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+/* Tilt card effect */
+[data-tilt] {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+[data-tilt] .project-content {
+  transform: translateZ(20px);
+}
+
+/* Parallax layers */
+[data-parallax] {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Timeline dot pulse */
+.timeline-item.active .timeline-dot {
+  animation: timeline-pulse 2s ease-in-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(41, 151, 255, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(41, 151, 255, 0); }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal, .reveal-scale, .reveal-slide {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-title .reveal-line span {
+    transform: none;
+  }
+
+  .word-reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .reveal-title {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .orb {
+    animation: none !important;
+  }
+
+  .gradient-text {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* ============================================
