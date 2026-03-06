@@ -16,12 +16,40 @@
   const parallaxElements = document.querySelectorAll('[data-parallax]');
   const orbs = document.querySelectorAll('.orb');
 
-  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
+  const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
   const navAnchors = {};
   sectionIds.forEach((id) => {
     const anchor = navLinks?.querySelector(`a[href="#${id}"]`);
     if (anchor) navAnchors[id] = anchor;
   });
+
+  // ── Mobile Tab Bar ──
+  const tabBar = document.getElementById('mobile-tab-bar');
+  const tabItems = tabBar ? tabBar.querySelectorAll('.tab-item') : [];
+  const tabSectionMap = {};
+  tabItems.forEach((tab) => {
+    const section = tab.dataset.section;
+    if (section) tabSectionMap[section] = tab;
+  });
+
+  function updateActiveTab(current) {
+    tabItems.forEach((tab) => tab.classList.remove('active'));
+    // Map sections to nearest tab
+    const tabMapping = {
+      'hero': 'hero',
+      'about': 'about',
+      'skills': 'about',
+      'experience': 'projects',
+      'projects': 'projects',
+      'education': 'projects',
+      'gallery': 'gallery',
+      'contact': 'contact',
+    };
+    const mapped = tabMapping[current] || current;
+    if (tabSectionMap[mapped]) {
+      tabSectionMap[mapped].classList.add('active');
+    }
+  }
 
   // ── Orchestrated page load sequence ──
   function triggerHeroReveal() {
@@ -104,6 +132,7 @@
     }
     if (current) {
       navbar.setAttribute('data-section', current);
+      updateActiveTab(current);
     }
 
     // 3. Scroll progress bar
@@ -167,6 +196,24 @@
         navToggle.classList.remove('active');
         navLinks.classList.remove('open');
         document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // ── Tab bar click handling ──
+  if (tabBar) {
+    tabBar.querySelectorAll('.tab-item').forEach((tab) => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = tab.getAttribute('href');
+        const target = document.querySelector(href);
+        if (target) {
+          const navHeight = navbar.offsetHeight;
+          window.scrollTo({
+            top: target.getBoundingClientRect().top + window.scrollY - navHeight,
+            behavior: 'smooth',
+          });
+        }
       });
     });
   }

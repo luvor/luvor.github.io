@@ -35,12 +35,18 @@
     particleOpacity: { min: 0.4, max: 1.0 },
   };
 
-  // Adjust particle count for mobile
+  // Adjust particle count for mobile (reduced for PWA performance)
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  const isMobileDevice = window.matchMedia('(pointer: coarse)').matches;
+
   function getParticleCount() {
-    if (width < 480) return 30;
-    if (width < 768) return 50;
+    if (width < 480) return isStandalone ? 12 : 20;
+    if (width < 768) return isStandalone ? 20 : 35;
     return CONFIG.particleCount;
   }
+
+  // Skip connections on mobile for performance
+  const skipConnections = isMobileDevice;
 
   class Particle {
     constructor() {
@@ -239,7 +245,7 @@
     }
     ctx.shadowBlur = 0;
 
-    drawConnections();
+    if (!skipConnections) drawConnections();
 
     // Mouse glow
     if (mouse.x > 0 && mouse.y > 0) {
