@@ -75,7 +75,7 @@
   });
 
   // ── Active nav link on scroll ──
-  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'contact'];
+  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
   const navAnchors = {};
 
   sectionIds.forEach((id) => {
