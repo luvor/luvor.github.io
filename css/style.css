@@ -367,27 +367,30 @@ body:hover #cursor-glow {
 .nav-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  width: 24px;
-  padding: 4px 0;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 12px;
   z-index: 1001;
+  cursor: pointer;
 }
 
 .nav-toggle span {
   display: block;
   width: 100%;
-  height: 1.5px;
+  height: 2px;
   background: var(--color-text);
   transition: var(--transition-base);
   transform-origin: center;
 }
 
 .nav-toggle.active span:first-child {
-  transform: translateY(3.25px) rotate(45deg);
+  transform: translateY(4px) rotate(45deg);
 }
 
 .nav-toggle.active span:last-child {
-  transform: translateY(-3.25px) rotate(-45deg);
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 /* ============================================
@@ -1800,6 +1803,192 @@ body:hover #cursor-glow {
 }
 
 /* ============================================
+   Grain/Noise Overlay
+   ============================================ */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  animation: noise-shift 0.5s steps(8) infinite;
+  mix-blend-mode: overlay;
+}
+
+@keyframes noise-shift {
+  0% { transform: translate(0, 0); }
+  12.5% { transform: translate(-10px, 5px); }
+  25% { transform: translate(5px, -10px); }
+  37.5% { transform: translate(-5px, -5px); }
+  50% { transform: translate(10px, 10px); }
+  62.5% { transform: translate(-10px, -10px); }
+  75% { transform: translate(5px, 5px); }
+  87.5% { transform: translate(-5px, 10px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-accent-1), var(--color-accent-2));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #1a8aff, #a040d0);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-1) transparent;
+}
+
+/* ============================================
+   Clip-Path Section Reveals
+   ============================================ */
+.section {
+  clip-path: inset(8% 0 8% 0);
+  transition: clip-path 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section.visible {
+  clip-path: inset(0);
+}
+
+/* Hero doesn't need clip-path reveal */
+.hero {
+  clip-path: none;
+}
+
+/* ============================================
+   Bento Grid for Projects
+   ============================================ */
+.projects-grid.bento {
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  gap: var(--spacing-lg);
+}
+
+.project-card.featured {
+  grid-row: span 2;
+}
+
+.project-card.featured .project-image {
+  aspect-ratio: 4/3;
+}
+
+.project-card.featured .project-content h3 {
+  font-size: var(--font-size-xl);
+}
+
+.project-card.featured .project-content p {
+  font-size: var(--font-size-base);
+}
+
+/* ============================================
+   Orchestrated Page Load
+   ============================================ */
+.hero-load .navbar {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.hero-load .hero-badge {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-load .hero-title {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-load .hero-subtitle {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-load .hero-actions {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-load .hero-visual {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.hero-load #hero-canvas {
+  opacity: 0;
+}
+
+.hero-load .hero-scroll-indicator {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hero-revealed .navbar,
+.hero-revealed .hero-badge,
+.hero-revealed .hero-title,
+.hero-revealed .hero-subtitle,
+.hero-revealed .hero-actions,
+.hero-revealed .hero-visual,
+.hero-revealed #hero-canvas,
+.hero-revealed .hero-scroll-indicator {
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   Enhanced Micro-Interactions
+   ============================================ */
+
+/* Button press effect */
+.btn:active {
+  transform: scale(0.97) !important;
+  transition-duration: 0.1s;
+}
+
+/* Nav link underline animation */
+.nav-links a::after {
+  transform-origin: left center;
+}
+
+/* Scroll progress gradient */
+#scroll-progress {
+  background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2));
+}
+
+/* Card hover lift enhancement */
+.project-card,
+.education-card,
+.contact-card,
+.skill-category {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-base);
+}
+
+.education-card:hover,
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
    Responsive Design
    ============================================ */
 @media (max-width: 1024px) {
@@ -1824,9 +2013,37 @@ body:hover #cursor-glow {
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .hero-split {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+
+  .hero-image-wrapper {
+    max-width: 300px;
+  }
+
+  .education-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
+  #cursor-glow {
+    display: none;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
   .hero-split {
     grid-template-columns: 1fr;
     text-align: center;
@@ -1896,8 +2113,22 @@ body:hover #cursor-glow {
     grid-template-columns: 1fr;
   }
 
-  .projects-grid {
+  .projects-grid,
+  .projects-grid.bento {
     grid-template-columns: 1fr;
+  }
+
+  .project-card.featured {
+    grid-row: span 1;
+  }
+
+  .project-card.featured .project-image {
+    aspect-ratio: 16/10;
+  }
+
+  /* Disable clip-path on mobile for performance */
+  .section {
+    clip-path: none;
   }
 
   .education-grid {
@@ -1938,9 +2169,9 @@ body:hover #cursor-glow {
     opacity: 0.6;
   }
 
-  .orb--blue { width: 300px; height: 300px; }
-  .orb--purple { width: 250px; height: 250px; }
-  .orb--green { width: 200px; height: 200px; }
+  .orb--blue { width: 200px; height: 200px; }
+  .orb--purple { width: 150px; height: 150px; }
+  .orb--green { width: 120px; height: 120px; }
 
   .lightbox-prev,
   .lightbox-next {
@@ -1980,6 +2211,10 @@ body:hover #cursor-glow {
     --spacing-xl: 2rem;
   }
 
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
   .about-stats {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
@@ -1987,6 +2222,20 @@ body:hover #cursor-glow {
 
   .stat {
     padding: var(--spacing-sm);
+  }
+
+  .timeline {
+    padding-left: 24px;
+  }
+
+  .timeline-marker {
+    left: -24px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-line {
+    left: 4px;
   }
 }
 
