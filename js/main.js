@@ -1,41 +1,62 @@
-/**
- * Main — Navigation, tilt effects, cursor glow, smooth scroll
- */
 (function () {
   'use strict';
 
-  // ── Hero loaded state ──
-  window.addEventListener('load', () => {
-    document.querySelector('.hero')?.classList.add('loaded');
-  });
+  const hero = document.querySelector('.hero');
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'contact'];
+  const navAnchors = {};
 
-  // Fallback if load already fired
-  if (document.readyState === 'complete') {
-    document.querySelector('.hero')?.classList.add('loaded');
+  function markHeroLoaded() {
+    hero?.classList.add('loaded');
   }
 
-  // ── Navbar scroll state ──
-  const navbar = document.getElementById('navbar');
-  let lastScroll = 0;
+  window.addEventListener('load', markHeroLoaded, { once: true });
+  if (document.readyState === 'complete') {
+    markHeroLoaded();
+  }
+
+  function updateActiveNav() {
+    const scrollY = window.scrollY + window.innerHeight / 3;
+    let current = '';
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section && section.offsetTop <= scrollY) {
+        current = id;
+      }
+    });
+
+    Object.values(navAnchors).forEach((anchor) => anchor.classList.remove('active'));
+    if (current) {
+      navAnchors[current]?.classList.add('active');
+    }
+  }
+
+  let scrollScheduled = false;
+  function syncScrollState() {
+    const scrollY = window.scrollY;
+    navbar?.classList.toggle('scrolled', scrollY > 50);
+    updateActiveNav();
+    scrollScheduled = false;
+  }
 
   function onScroll() {
-    const scrollY = window.scrollY;
-
-    if (scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+    if (!scrollScheduled) {
+      scrollScheduled = true;
+      requestAnimationFrame(syncScrollState);
     }
-
-    lastScroll = scrollY;
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // ── Mobile nav toggle ──
-  const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
+  sectionIds.forEach((id) => {
+    const anchor = navLinks?.querySelector(`a[href="#${id}"]`);
+    if (anchor) {
+      navAnchors[id] = anchor;
+    }
+  });
+  syncScrollState();
 
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
@@ -44,7 +65,6 @@
       document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
 
-    // Close on link click
     navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         navToggle.classList.remove('active');
@@ -54,81 +74,41 @@
     });
   }
 
-  // ── Smooth scroll for anchor links ──
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href');
-      if (targetId === '#') return;
-
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        const navHeight = navbar.offsetHeight;
-        const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight;
-
-        window.scrollTo({
-          top: targetPos,
-          behavior: 'smooth',
-        });
-      }
-    });
-  });
-
-  // ── Active nav link on scroll ──
-  const sectionIds = ['about', 'skills', 'experience', 'projects', 'education', 'contact'];
-  const navAnchors = {};
-
-  sectionIds.forEach((id) => {
-    const anchor = navLinks?.querySelector(`a[href="#${id}"]`);
-    if (anchor) navAnchors[id] = anchor;
-  });
-
-  function updateActiveNav() {
-    const scrollY = window.scrollY + window.innerHeight / 3;
-
-    let current = '';
-    sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
-      if (section && section.offsetTop <= scrollY) {
-        current = id;
-      }
-    });
-
-    Object.values(navAnchors).forEach((a) => a.classList.remove('active'));
-    if (current && navAnchors[current]) {
-      navAnchors[current].classList.add('active');
-    }
-  }
-
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-
-  // ── Cursor glow follow ──
   const cursorGlow = document.getElementById('cursor-glow');
 
   if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
-    let glowX = 0, glowY = 0;
-    let targetX = 0, targetY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
-    }, { passive: true });
+    let glowX = 0;
+    let glowY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let glowFrame = 0;
 
     function updateGlow() {
       glowX += (targetX - glowX) * 0.08;
       glowY += (targetY - glowY) * 0.08;
-      cursorGlow.style.left = glowX + 'px';
-      cursorGlow.style.top = glowY + 'px';
-      requestAnimationFrame(updateGlow);
+      cursorGlow.style.left = `${glowX}px`;
+      cursorGlow.style.top = `${glowY}px`;
+
+      if (Math.abs(targetX - glowX) > 0.1 || Math.abs(targetY - glowY) > 0.1) {
+        glowFrame = requestAnimationFrame(updateGlow);
+      } else {
+        glowFrame = 0;
+      }
     }
 
-    updateGlow();
+    document.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!glowFrame) {
+        glowFrame = requestAnimationFrame(updateGlow);
+      }
+    }, { passive: true });
   }
 
-  // ── 3D Tilt effect on project cards ──
   const tiltCards = document.querySelectorAll('[data-tilt]');
-
-  if (window.matchMedia('(pointer: fine)').matches) {
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  if (finePointer) {
     tiltCards.forEach((card) => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -154,10 +134,8 @@
     });
   }
 
-  // ── Magnetic effect on buttons ──
   const magneticElements = document.querySelectorAll('.btn-primary, .btn-ghost');
-
-  if (window.matchMedia('(pointer: fine)').matches) {
+  if (finePointer) {
     magneticElements.forEach((el) => {
       el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -172,7 +150,6 @@
     });
   }
 
-  // ── Skill items hover ripple ──
   document.querySelectorAll('.skill-item').forEach((item) => {
     item.addEventListener('mouseenter', () => {
       const dot = item.querySelector('.skill-dot');
@@ -183,7 +160,6 @@
     });
   });
 
-  // ── Keyboard navigation enhancement ──
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navLinks?.classList.contains('open')) {
       navToggle.classList.remove('active');
