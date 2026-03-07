@@ -2882,6 +2882,27 @@ html {
     0 0 0 0 var(--fab-glow, rgba(41, 151, 255, 0));
 }
 
+/* Section-aware glow colors */
+.context-fab[data-section="hero"],
+.context-fab[data-section="about"],
+.context-fab[data-section="skills"] {
+  --fab-glow: rgba(41, 151, 255, 0.35);
+}
+
+.context-fab[data-section="experience"],
+.context-fab[data-section="projects"] {
+  --fab-glow: rgba(191, 90, 242, 0.35);
+}
+
+.context-fab[data-section="education"],
+.context-fab[data-section="gallery"] {
+  --fab-glow: rgba(48, 209, 88, 0.35);
+}
+
+.context-fab[data-section="contact"] {
+  --fab-glow: rgba(191, 90, 242, 0.35);
+}
+
 .context-fab:hover {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),

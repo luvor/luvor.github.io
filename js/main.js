@@ -97,6 +97,7 @@
     if (!config) return;
 
     currentFabSection = sectionId;
+    fab.setAttribute('data-section', sectionId);
     fab.setAttribute('aria-label', config.label);
 
     // Crossfade icon transition
