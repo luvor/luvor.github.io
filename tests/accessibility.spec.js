@@ -12,17 +12,15 @@ test.describe('Accessibility', () => {
   test('skip-to-content link exists and works', async ({ page }) => {
     const skipLink = page.locator('.skip-link');
     await expect(skipLink).toBeAttached();
-
-    // Focus the skip link (it's visually hidden but focusable)
     await skipLink.focus();
     await expect(skipLink).toBeFocused();
   });
 
   test('all images have alt text', async ({ page }) => {
-    const images = page.locator('img');
+    // Exclude the lightbox placeholder img which intentionally has alt=""
+    const images = page.locator('img:not(.lightbox-img)');
     const count = await images.count();
     expect(count).toBeGreaterThan(0);
-
     for (let i = 0; i < count; i++) {
       const img = images.nth(i);
       const alt = await img.getAttribute('alt');
@@ -42,13 +40,8 @@ test.describe('Accessibility', () => {
       });
       return results;
     });
-
     expect(headings.length).toBeGreaterThan(0);
-
-    // First heading should be h1
     expect(headings[0].level).toBe(1);
-
-    // No heading should skip more than 1 level
     for (let i = 1; i < headings.length; i++) {
       const jump = headings[i].level - headings[i - 1].level;
       expect(jump, `Heading "${headings[i].text}" skips levels`).toBeLessThanOrEqual(1);
@@ -61,10 +54,8 @@ test.describe('Accessibility', () => {
   });
 
   test('interactive elements have focus styles', async ({ page }) => {
-    // Tab to first link and check focus is visible
     await page.keyboard.press('Tab');
-    await page.keyboard.press('Tab'); // Skip the skip-link
-
+    await page.keyboard.press('Tab');
     const focusedElement = await page.evaluate(() => {
       const el = document.activeElement;
       if (!el) return null;
@@ -75,18 +66,11 @@ test.describe('Accessibility', () => {
         outlineStyle: styles.outlineStyle,
       };
     });
-
     expect(focusedElement).not.toBeNull();
   });
 
   test('aria-hidden is set on decorative elements', async ({ page }) => {
-    const decorative = [
-      '#scroll-progress',
-      '#cursor-glow',
-      '.ambient-orbs',
-      '.noise-overlay',
-    ];
-
+    const decorative = ['#scroll-progress', '#hero-canvas', '#custom-cursor'];
     for (const selector of decorative) {
       const el = page.locator(selector).first();
       if (await el.count() > 0) {
@@ -96,11 +80,39 @@ test.describe('Accessibility', () => {
     }
   });
 
+  test('experience watermarks have aria-hidden', async ({ page }) => {
+    const watermarks = page.locator('.experience-watermark');
+    const count = await watermarks.count();
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      const ariaHidden = await watermarks.nth(i).getAttribute('aria-hidden');
+      expect(ariaHidden).toBe('true');
+    }
+  });
+
+  test('gallery items have role="button"', async ({ page }) => {
+    const items = page.locator('.gallery-item');
+    const count = await items.count();
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      const role = await items.nth(i).getAttribute('role');
+      expect(role).toBe('button');
+    }
+  });
+
+  test('JSON-LD structured data exists', async ({ page }) => {
+    const jsonLd = page.locator('script[type="application/ld+json"]');
+    await expect(jsonLd).toBeAttached();
+    const content = await jsonLd.textContent();
+    const parsed = JSON.parse(content);
+    expect(parsed['@type']).toBe('Person');
+    expect(parsed.name).toBe('Islambek Chynybekov');
+  });
+
   test('nav links have meaningful text', async ({ page }) => {
     const navLinks = page.locator('.nav-links a');
     const count = await navLinks.count();
     expect(count).toBeGreaterThan(0);
-
     for (let i = 0; i < count; i++) {
       const text = await navLinks.nth(i).textContent();
       expect(text.trim().length, `Nav link ${i} has no text`).toBeGreaterThan(0);
@@ -110,7 +122,6 @@ test.describe('Accessibility', () => {
   test('external links have rel="noopener"', async ({ page }) => {
     const externalLinks = page.locator('a[target="_blank"]');
     const count = await externalLinks.count();
-
     for (let i = 0; i < count; i++) {
       const rel = await externalLinks.nth(i).getAttribute('rel');
       expect(rel, `External link ${i} missing rel="noopener"`).toContain('noopener');

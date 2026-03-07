@@ -16,77 +16,56 @@ test.describe('Desktop Layout', () => {
     }
   });
 
-  test('hero section has two-column layout', async ({ page }) => {
-    const heroSplit = page.locator('.hero-split');
-    const gridCols = await heroSplit.evaluate(el => {
-      return window.getComputedStyle(el).gridTemplateColumns;
-    });
-    // Should have two column values (not "1fr" alone)
-    const colValues = gridCols.split(' ').filter(v => v.trim());
-    expect(colValues.length).toBeGreaterThanOrEqual(2);
+  test('hero section is full viewport with centered name', async ({ page }) => {
+    const heroName = page.locator('.hero-name');
+    await expect(heroName).toBeVisible();
+    const box = await heroName.boundingBox();
+    const viewport = page.viewportSize();
+    // Name should be roughly centered horizontally
+    expect(Math.abs(box.x + box.width / 2 - viewport.width / 2)).toBeLessThan(100);
   });
 
-  test('bento grid has correct layout', async ({ page }) => {
-    const grid = page.locator('.projects-grid.bento');
-    await expect(grid).toBeVisible();
-
-    const gridCols = await grid.evaluate(el => {
-      return window.getComputedStyle(el).gridTemplateColumns;
-    });
-    const colValues = gridCols.split(' ').filter(v => v.trim());
-    expect(colValues.length).toBe(2);
+  test('skills grid has 2x2 layout on desktop', async ({ page }) => {
+    const grid = page.locator('.skills-grid');
+    const cols = await grid.evaluate(el => getComputedStyle(el).gridTemplateColumns);
+    expect(cols.split(' ').length).toBe(2);
   });
 
-  test('featured project card spans two rows', async ({ page }) => {
-    const featured = page.locator('.project-card.featured').first();
-    await expect(featured).toBeVisible();
-
-    const gridRowEnd = await featured.evaluate(el => {
-      return window.getComputedStyle(el).gridRowEnd;
-    });
-    expect(gridRowEnd).toContain('span 2');
+  test('projects stack has at least 4 cards', async ({ page }) => {
+    const cards = page.locator('.project-card');
+    expect(await cards.count()).toBeGreaterThanOrEqual(4);
   });
 
   test('navigation links work (scroll to section)', async ({ page }) => {
-    const aboutLink = page.locator('a[href="#about"]').first();
+    const aboutLink = page.locator('#nav-links a[href="#about"]');
     await aboutLink.click();
-
-    // Wait for smooth scroll
     await page.waitForTimeout(1000);
-
     const aboutSection = page.locator('#about');
     const box = await aboutSection.boundingBox();
-    // Section should be near top of viewport
     expect(box.y).toBeLessThan(200);
   });
 
   test('education grid has 3 columns on desktop', async ({ page }) => {
     const grid = page.locator('.education-grid');
-    const gridCols = await grid.evaluate(el => {
-      return window.getComputedStyle(el).gridTemplateColumns;
-    });
+    const gridCols = await grid.evaluate(el => getComputedStyle(el).gridTemplateColumns);
     const colValues = gridCols.split(' ').filter(v => v.trim());
     expect(colValues.length).toBe(3);
   });
 
-  test('gallery grid has 4 columns on desktop', async ({ page }) => {
-    const grid = page.locator('.gallery-grid');
-    const gridCols = await grid.evaluate(el => {
-      return window.getComputedStyle(el).gridTemplateColumns;
-    });
-    const colValues = gridCols.split(' ').filter(v => v.trim());
-    expect(colValues.length).toBe(4);
+  test('gallery is horizontal scroll', async ({ page }) => {
+    const gallery = page.locator('.gallery-scroll');
+    const overflow = await gallery.evaluate(el => getComputedStyle(el).overflowX);
+    expect(overflow).toBe('auto');
   });
 
-  test('noise overlay is present', async ({ page }) => {
-    const noise = page.locator('.noise-overlay');
-    await expect(noise).toBeAttached();
-    const opacity = await noise.evaluate(el => window.getComputedStyle(el).opacity);
-    expect(parseFloat(opacity)).toBeGreaterThan(0);
+  test('experience cards have watermark text', async ({ page }) => {
+    const watermark = page.locator('.experience-watermark').first();
+    await expect(watermark).toBeAttached();
+    const opacity = await watermark.evaluate(el => getComputedStyle(el).opacity);
+    expect(parseFloat(opacity)).toBeLessThan(0.1);
   });
 
   test('custom scrollbar is styled', async ({ page }) => {
-    // Check that scrollbar-width is set in CSS
     const scrollbarWidth = await page.evaluate(() => {
       return window.getComputedStyle(document.documentElement).scrollbarWidth;
     });
