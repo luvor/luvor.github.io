@@ -272,14 +272,6 @@
   }
 
   window.addEventListener('scroll', () => {
-    if (scrollProgress) {
-      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-      const windowH = window.innerHeight;
-      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      const scrollable = docHeight - windowH;
-      const progress = scrollable > 0 ? (scrollY / scrollable) * 100 : 0;
-      scrollProgress.style.width = progress + '%';
-    }
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(onScrollFrame);
@@ -345,6 +337,8 @@
   if (cursorGlow && hasFineCursor) {
     let glowX = 0, glowY = 0;
     let targetX = 0, targetY = 0;
+    const glowHalfWidth = cursorGlow.offsetWidth / 2;
+    const glowHalfHeight = cursorGlow.offsetHeight / 2;
 
     document.addEventListener('mousemove', (e) => {
       targetX = e.clientX;
@@ -354,7 +348,7 @@
     function updateGlow() {
       glowX += (targetX - glowX) * 0.08;
       glowY += (targetY - glowY) * 0.08;
-      cursorGlow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0) translate(-50%, -50%)`;
+      cursorGlow.style.transform = `translate3d(${glowX - glowHalfWidth}px, ${glowY - glowHalfHeight}px, 0)`;
       requestAnimationFrame(updateGlow);
     }
 
