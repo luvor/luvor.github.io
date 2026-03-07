@@ -188,3 +188,59 @@ test.describe('Mobile Carousels', () => {
     expect(display).toBe('flex');
   });
 });
+
+test.describe('Context-Aware FAB', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('FAB is visible on page', async ({ page }) => {
+    const fab = page.locator('#context-fab');
+    await expect(fab).toBeVisible();
+  });
+
+  test('FAB has an icon', async ({ page }) => {
+    const fabIcon = page.locator('#context-fab .fab-icon svg');
+    await expect(fabIcon).toBeAttached();
+  });
+
+  test('FAB has a label', async ({ page }) => {
+    const fabLabel = page.locator('#context-fab .fab-label');
+    await expect(fabLabel).toBeAttached();
+    const text = await fabLabel.textContent();
+    expect(text.length).toBeGreaterThan(0);
+  });
+
+  test('FAB changes icon on scroll', async ({ page }) => {
+    const fabIcon = page.locator('#context-fab .fab-icon');
+    const initialIcon = await fabIcon.innerHTML();
+
+    // Scroll to contact section
+    await page.locator('#contact').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+
+    const newIcon = await fabIcon.innerHTML();
+    expect(newIcon).not.toBe(initialIcon);
+  });
+});
+
+test.describe('Skeleton Loading', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('skeleton-wrap elements exist around images', async ({ page }) => {
+    const skeletons = page.locator('.skeleton-wrap');
+    const count = await skeletons.count();
+    expect(count).toBeGreaterThanOrEqual(10);
+  });
+
+  test('skeleton-wrap elements get loaded class', async ({ page }) => {
+    await page.waitForTimeout(2000);
+    const loadedSkeletons = page.locator('.skeleton-wrap.loaded');
+    const count = await loadedSkeletons.count();
+    expect(count).toBeGreaterThan(0);
+  });
+});
