@@ -16,6 +16,16 @@
   const parallaxElements = document.querySelectorAll('[data-parallax]');
   const orbs = document.querySelectorAll('.orb');
 
+  // ── Skeleton loading ──
+  document.querySelectorAll('.skeleton-wrap').forEach(function (wrap) {
+    var img = wrap.querySelector('img');
+    if (!img) return;
+    function onLoaded() { wrap.classList.add('loaded'); }
+    if (img.complete && img.naturalWidth > 0) { onLoaded(); return; }
+    img.addEventListener('load', onLoaded, { once: true });
+    img.addEventListener('error', onLoaded, { once: true });
+  });
+
   const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
   const navAnchors = {};
   sectionIds.forEach((id) => {
@@ -49,6 +59,81 @@
     if (tabSectionMap[mapped]) {
       tabSectionMap[mapped].classList.add('active');
     }
+  }
+
+  // ── Context-Aware FAB ──
+  var fab = document.getElementById('context-fab');
+  var fabIcon = fab ? fab.querySelector('.fab-icon') : null;
+  var fabLabel = fab ? fab.querySelector('.fab-label') : null;
+  var currentFabSection = '';
+  var fabTransitionTimer = null;
+  var fabLabelTimer = null;
+
+  var fabIcons = {
+    briefcase: '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+    code: '<svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+    timeline: '<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="18" r="2"/></svg>',
+    grid: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    mail: '<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+    image: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+    'arrow-up': '<svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>',
+  };
+
+  var fabConfig = {
+    hero:       { icon: 'briefcase', label: 'View Work',    target: 'projects',   glow: 'rgba(41,151,255,0.35)' },
+    about:      { icon: 'code',      label: 'My Skills',    target: 'skills',     glow: 'rgba(41,151,255,0.35)' },
+    skills:     { icon: 'timeline',   label: 'Experience',   target: 'experience', glow: 'rgba(41,151,255,0.35)' },
+    experience: { icon: 'grid',       label: 'Projects',     target: 'projects',   glow: 'rgba(191,90,242,0.35)' },
+    projects:   { icon: 'mail',       label: 'Get in Touch', target: 'contact',    glow: 'rgba(191,90,242,0.35)' },
+    education:  { icon: 'image',      label: 'Gallery',      target: 'gallery',    glow: 'rgba(48,209,88,0.35)' },
+    gallery:    { icon: 'mail',       label: 'Contact Me',   target: 'contact',    glow: 'rgba(48,209,88,0.35)' },
+    contact:    { icon: 'arrow-up',   label: 'Back to Top',  target: 'hero',       glow: 'rgba(191,90,242,0.35)' },
+  };
+
+  function updateFab(sectionId) {
+    if (!fab || !fabIcon || !fabLabel) return;
+    if (sectionId === currentFabSection) return;
+    var config = fabConfig[sectionId];
+    if (!config) return;
+
+    currentFabSection = sectionId;
+    fab.setAttribute('data-section', sectionId);
+    fab.setAttribute('aria-label', config.label);
+
+    // Crossfade icon transition
+    fab.classList.add('fab-transitioning');
+    clearTimeout(fabTransitionTimer);
+    fabTransitionTimer = setTimeout(function () {
+      fabIcon.innerHTML = fabIcons[config.icon] || '';
+      fabLabel.textContent = config.label;
+      fab.style.setProperty('--fab-glow', config.glow);
+      fab.classList.remove('fab-transitioning');
+    }, 200);
+
+    // Mobile: flash label briefly
+    if (window.innerWidth <= 768) {
+      clearTimeout(fabLabelTimer);
+      fabLabel.classList.add('fab-label-visible');
+      fabLabelTimer = setTimeout(function () {
+        fabLabel.classList.remove('fab-label-visible');
+      }, 2000);
+    }
+  }
+
+  if (fab) {
+    fab.addEventListener('click', function () {
+      var config = fabConfig[currentFabSection];
+      if (!config) return;
+      var target = document.getElementById(config.target);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Haptic feedback if available
+      if (typeof haptic === 'function') haptic('light');
+      else if (navigator.vibrate) navigator.vibrate(10);
+    });
+    // Init with hero
+    updateFab('hero');
   }
 
   // ── Orchestrated page load sequence ──
@@ -133,6 +218,7 @@
     if (current) {
       navbar.setAttribute('data-section', current);
       updateActiveTab(current);
+      updateFab(current);
     }
 
     // 3. Scroll progress bar

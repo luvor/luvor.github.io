@@ -1,7 +1,7 @@
 /**
  * Service Worker — Offline-first caching for PWA
  */
-const CACHE_NAME = 'ic-portfolio-v1';
+const CACHE_NAME = 'ic-portfolio-v2';
 
 const PRECACHE_ASSETS = [
   '/',

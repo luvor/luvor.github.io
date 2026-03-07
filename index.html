@@ -31,6 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <noscript><style>.skeleton-wrap img{opacity:1!important}.skeleton-wrap::after{display:none}</style></noscript>
 </head>
 <body class="hero-load">
   <div class="noise-overlay" aria-hidden="true"></div>
@@ -95,7 +96,9 @@
       </div>
       <div class="hero-visual reveal-scale">
         <div class="hero-image-wrapper">
-          <img src="assets/portfolio/imagine-99.jpg" alt="Islambek Chynybekov" loading="eager">
+          <div class="skeleton-wrap">
+            <img src="assets/portfolio/imagine-99.jpg" alt="Islambek Chynybekov" loading="eager">
+          </div>
           <div class="hero-image-glow"></div>
         </div>
       </div>
@@ -109,7 +112,9 @@
         <div class="about-visual">
           <div class="about-image-wrapper reveal-scale" data-parallax="0.05">
             <div class="about-image">
-              <img src="assets/portfolio/imagine-99.jpg" alt="Islambek Chynybekov" loading="lazy">
+              <div class="skeleton-wrap">
+                <img src="assets/portfolio/imagine-99.jpg" alt="Islambek Chynybekov" loading="lazy">
+              </div>
             </div>
             <div class="about-image-glow"></div>
           </div>
@@ -383,7 +388,9 @@
         <article class="project-card featured reveal-scale" data-tilt>
           <span class="project-badge">Featured</span>
           <div class="project-image">
-            <img src="assets/portfolio/IMG_0167.jpg" alt="Telegram Semantic Search RAG system" loading="lazy">
+            <div class="skeleton-wrap">
+              <img src="assets/portfolio/IMG_0167.jpg" alt="Telegram Semantic Search RAG system" loading="lazy">
+            </div>
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -402,7 +409,9 @@
 
         <article class="project-card reveal-scale" data-tilt>
           <div class="project-image">
-            <img src="assets/portfolio/imagine-79.jpg" alt="AI-Powered Development Workflow" loading="lazy">
+            <div class="skeleton-wrap">
+              <img src="assets/portfolio/imagine-79.jpg" alt="AI-Powered Development Workflow" loading="lazy">
+            </div>
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -421,7 +430,9 @@
 
         <article class="project-card reveal-scale" data-tilt>
           <div class="project-image">
-            <img src="assets/portfolio/imagine-99.jpg" alt="Generative Image Platform" loading="lazy">
+            <div class="skeleton-wrap">
+              <img src="assets/portfolio/imagine-99.jpg" alt="Generative Image Platform" loading="lazy">
+            </div>
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -441,7 +452,9 @@
         <article class="project-card reveal-scale" data-tilt>
           <span class="project-badge">Hackathon Winner</span>
           <div class="project-image">
-            <img src="assets/portfolio/IMG_1919.JPG" alt="Ioka Fintech Event Platform" loading="lazy">
+            <div class="skeleton-wrap">
+              <img src="assets/portfolio/IMG_1919.JPG" alt="Ioka Fintech Event Platform" loading="lazy">
+            </div>
           </div>
           <div class="project-content">
             <div class="project-tags">
@@ -514,23 +527,33 @@
       </div>
       <div class="gallery-grid">
         <div class="gallery-item gallery-item--wide reveal-scale">
-          <img src="assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.JPG" alt="Swimming adventure" loading="lazy">
+          <div class="skeleton-wrap">
+            <img src="assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.JPG" alt="Swimming adventure" loading="lazy">
+          </div>
           <div class="gallery-overlay"><span>Adventure mode</span></div>
         </div>
         <div class="gallery-item reveal-scale">
-          <img src="assets/portfolio/IMG_1825.JPG" alt="Forest bridge exploration" loading="lazy">
+          <div class="skeleton-wrap">
+            <img src="assets/portfolio/IMG_1825.JPG" alt="Forest bridge exploration" loading="lazy">
+          </div>
           <div class="gallery-overlay"><span>Exploring nature</span></div>
         </div>
         <div class="gallery-item reveal-scale">
-          <img src="assets/portfolio/IMG_0167.jpg" alt="Cafe vibes with matcha" loading="lazy">
+          <div class="skeleton-wrap">
+            <img src="assets/portfolio/IMG_0167.jpg" alt="Cafe vibes with matcha" loading="lazy">
+          </div>
           <div class="gallery-overlay"><span>Cafe vibes</span></div>
         </div>
         <div class="gallery-item reveal-scale">
-          <img src="assets/portfolio/IMG_1527.JPG" alt="Casual style" loading="lazy">
+          <div class="skeleton-wrap">
+            <img src="assets/portfolio/IMG_1527.JPG" alt="Casual style" loading="lazy">
+          </div>
           <div class="gallery-overlay"><span>Off duty</span></div>
         </div>
         <div class="gallery-item gallery-item--wide reveal-scale">
-          <img src="assets/portfolio/IMG_1919.JPG" alt="Working remotely by the water" loading="lazy">
+          <div class="skeleton-wrap">
+            <img src="assets/portfolio/IMG_1919.JPG" alt="Working remotely by the water" loading="lazy">
+          </div>
           <div class="gallery-overlay"><span>Remote office</span></div>
         </div>
       </div>
@@ -591,6 +614,12 @@
     <img class="lightbox-img" src="" alt="">
     <div class="lightbox-counter"></div>
   </div>
+
+  <!-- Context-Aware FAB -->
+  <button id="context-fab" class="context-fab" aria-label="Quick action" type="button" data-section="hero">
+    <span class="fab-icon"></span>
+    <span class="fab-label"></span>
+  </button>
 
   <!-- Mobile Tab Bar -->
   <nav id="mobile-tab-bar" class="mobile-tab-bar" aria-label="Mobile navigation">
