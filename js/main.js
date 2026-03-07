@@ -1,11 +1,6 @@
-/**
- * Main — Navigation, tilt effects, cursor glow, smooth scroll,
- *        unified scroll handler, parallax, timeline progress
- */
 (function () {
   'use strict';
 
-  // ── Cached queries ──
   const hasFineCursor = window.matchMedia('(pointer: fine)').matches;
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('nav-toggle');
@@ -16,7 +11,6 @@
   const parallaxElements = document.querySelectorAll('[data-parallax]');
   const orbs = document.querySelectorAll('.orb');
 
-  // ── Skeleton loading ──
   document.querySelectorAll('.skeleton-wrap').forEach(function (wrap) {
     var img = wrap.querySelector('img');
     if (!img) return;
@@ -33,7 +27,6 @@
     if (anchor) navAnchors[id] = anchor;
   });
 
-  // ── Mobile Tab Bar ──
   const tabBar = document.getElementById('mobile-tab-bar');
   const tabItems = tabBar ? tabBar.querySelectorAll('.tab-item') : [];
   const tabSectionMap = {};
@@ -43,8 +36,6 @@
   });
 
   function updateActiveTab(current) {
-    tabItems.forEach((tab) => tab.classList.remove('active'));
-    // Map sections to nearest tab
     const tabMapping = {
       'hero': 'hero',
       'about': 'about',
@@ -56,12 +47,17 @@
       'contact': 'contact',
     };
     const mapped = tabMapping[current] || current;
+    if (updateActiveTab.current === mapped) return;
+    if (updateActiveTab.current && tabSectionMap[updateActiveTab.current]) {
+      tabSectionMap[updateActiveTab.current].classList.remove('active');
+    }
     if (tabSectionMap[mapped]) {
       tabSectionMap[mapped].classList.add('active');
+      updateActiveTab.current = mapped;
     }
   }
+  updateActiveTab.current = '';
 
-  // ── Context-Aware FAB ──
   var fab = document.getElementById('context-fab');
   var fabIcon = fab ? fab.querySelector('.fab-icon') : null;
   var fabLabel = fab ? fab.querySelector('.fab-label') : null;
@@ -100,7 +96,6 @@
     fab.setAttribute('data-section', sectionId);
     fab.setAttribute('aria-label', config.label);
 
-    // Crossfade icon transition
     fab.classList.add('fab-transitioning');
     clearTimeout(fabTransitionTimer);
     fabTransitionTimer = setTimeout(function () {
@@ -110,7 +105,6 @@
       fab.classList.remove('fab-transitioning');
     }, 200);
 
-    // Mobile: flash label briefly
     if (window.innerWidth <= 768) {
       clearTimeout(fabLabelTimer);
       fabLabel.classList.add('fab-label-visible');
@@ -128,15 +122,12 @@
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
       }
-      // Haptic feedback if available
       if (typeof haptic === 'function') haptic('light');
       else if (navigator.vibrate) navigator.vibrate(10);
     });
-    // Init with hero
     updateFab('hero');
   }
 
-  // ── Orchestrated page load sequence ──
   function triggerHeroReveal() {
     const hero = document.querySelector('.hero');
     if (!hero || hero.classList.contains('loaded')) return;
@@ -144,10 +135,8 @@
 
     const body = document.body;
 
-    // Step 1: Switch from hero-load to hero-revealed (enables transitions)
     body.classList.add('hero-revealed');
 
-    // Step 2: Staggered reveals
     const delays = {
       '.navbar': 0,
       '.hero-badge': 300,
@@ -169,13 +158,11 @@
       }
     });
 
-    // Step 3: Word reveals (existing behavior)
     const words = hero.querySelectorAll('.word-reveal');
     words.forEach((word, i) => {
       setTimeout(() => word.classList.add('visible'), 600 + i * 80);
     });
 
-    // Step 4: Remove hero-load class after all animations complete
     setTimeout(() => {
       body.classList.remove('hero-load');
     }, 1500);
@@ -184,36 +171,65 @@
   window.addEventListener('load', triggerHeroReveal);
   if (document.readyState === 'complete') triggerHeroReveal();
 
-  // ══════════════════════════════════════════════
-  //  UNIFIED SCROLL HANDLER (RAF-throttled)
-  // ══════════════════════════════════════════════
   let ticking = false;
+  const sectionRefs = {};
+  sectionIds.forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) sectionRefs[id] = section;
+  });
+
+  let activeNavAnchor = null;
+  let timelineTop = 0;
+  let timelineHeight = 0;
+  let hasTimelineMetrics = false;
+  const parallaxCache = Array.from(parallaxElements).map((el) => ({
+    el,
+    speed: parseFloat(el.dataset.parallax) || 0.1,
+    baseTop: 0,
+  }));
+
+  function refreshScrollMetrics() {
+    if (timeline) {
+      const timelineRect = timeline.getBoundingClientRect();
+      timelineTop = timelineRect.top + window.scrollY;
+      timelineHeight = timeline.offsetHeight || 1;
+      hasTimelineMetrics = timelineHeight > 0;
+    }
+
+    parallaxCache.forEach((item) => {
+      item.baseTop = item.el.getBoundingClientRect().top + window.scrollY;
+    });
+  }
+
+  window.addEventListener('resize', refreshScrollMetrics, { passive: true });
+  window.addEventListener('load', refreshScrollMetrics);
+  refreshScrollMetrics();
 
   function onScrollFrame() {
-    const scrollY = window.scrollY;
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
     const windowH = window.innerHeight;
-    const docHeight = document.body.scrollHeight;
+    const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 
-    // 1. Navbar scroll state
     if (scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
 
-    // 2. Active nav link + section-aware tinting (merged)
     const threshold = scrollY + windowH / 3;
     let current = '';
     sectionIds.forEach((id) => {
-      const section = document.getElementById(id);
+      const section = sectionRefs[id];
       if (section && section.offsetTop <= threshold) {
         current = id;
       }
     });
 
-    Object.values(navAnchors).forEach((a) => a.classList.remove('active'));
-    if (current && navAnchors[current]) {
-      navAnchors[current].classList.add('active');
+    const currentAnchor = current ? navAnchors[current] : null;
+    if (activeNavAnchor !== currentAnchor) {
+      if (activeNavAnchor) activeNavAnchor.classList.remove('active');
+      if (currentAnchor) currentAnchor.classList.add('active');
+      activeNavAnchor = currentAnchor;
     }
     if (current) {
       navbar.setAttribute('data-section', current);
@@ -221,34 +237,30 @@
       updateFab(current);
     }
 
-    // 3. Scroll progress bar
     if (scrollProgress) {
       const scrollable = docHeight - windowH;
       const progress = scrollable > 0 ? (scrollY / scrollable) * 100 : 0;
       scrollProgress.style.width = progress + '%';
     }
 
-    // 4. Timeline progress
-    if (timeline && timelineProgress) {
-      const rect = timeline.getBoundingClientRect();
-      if (rect.top < windowH && rect.bottom > 0) {
-        const scrolled = windowH - rect.top;
-        const progress = Math.max(0, Math.min(1, scrolled / rect.height));
+    if (timeline && timelineProgress && hasTimelineMetrics) {
+      const timelineViewportTop = timelineTop - scrollY;
+      const timelineViewportBottom = timelineViewportTop + timelineHeight;
+      if (timelineViewportTop < windowH && timelineViewportBottom > 0) {
+        const scrolled = windowH - timelineViewportTop;
+        const progress = Math.max(0, Math.min(1, scrolled / timelineHeight));
         timelineProgress.style.height = (progress * 100) + '%';
       }
     }
 
-    // 5. Parallax
-    if (parallaxElements.length > 0) {
-      parallaxElements.forEach((el) => {
-        const speed = parseFloat(el.dataset.parallax) || 0.1;
-        const rect = el.getBoundingClientRect();
-        const offset = (rect.top + scrollY - windowH / 2) * speed;
+    if (parallaxCache.length > 0) {
+      const center = windowH / 2;
+      parallaxCache.forEach(({ el, speed, baseTop }) => {
+        const offset = (baseTop - scrollY - center) * speed;
         el.style.transform = `translateY(${offset}px)`;
       });
     }
 
-    // 6. Ambient orbs scroll-linked shift
     if (orbs.length > 0) {
       orbs.forEach((orb, i) => {
         const speed = 0.03 + i * 0.01;
@@ -260,16 +272,22 @@
   }
 
   window.addEventListener('scroll', () => {
+    if (scrollProgress) {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const windowH = window.innerHeight;
+      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      const scrollable = docHeight - windowH;
+      const progress = scrollable > 0 ? (scrollY / scrollable) * 100 : 0;
+      scrollProgress.style.width = progress + '%';
+    }
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(onScrollFrame);
     }
   }, { passive: true });
 
-  // Initial call
   onScrollFrame();
 
-  // ── Mobile nav toggle ──
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('active');
@@ -286,7 +304,6 @@
     });
   }
 
-  // ── Tab bar click handling ──
   if (tabBar) {
     tabBar.querySelectorAll('.tab-item').forEach((tab) => {
       tab.addEventListener('click', (e) => {
@@ -304,7 +321,6 @@
     });
   }
 
-  // ── Smooth scroll for anchor links ──
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
@@ -324,7 +340,6 @@
     });
   });
 
-  // ── Cursor glow follow ──
   const cursorGlow = document.getElementById('cursor-glow');
 
   if (cursorGlow && hasFineCursor) {
@@ -339,30 +354,40 @@
     function updateGlow() {
       glowX += (targetX - glowX) * 0.08;
       glowY += (targetY - glowY) * 0.08;
-      cursorGlow.style.left = glowX + 'px';
-      cursorGlow.style.top = glowY + 'px';
+      cursorGlow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0) translate(-50%, -50%)`;
       requestAnimationFrame(updateGlow);
     }
 
     updateGlow();
   }
 
-  // ── 3D Tilt effect on project cards ──
   const tiltCards = document.querySelectorAll('[data-tilt]');
 
   if (hasFineCursor) {
     tiltCards.forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
+      let tiltRaf = 0;
+      let lastMouseEvent = null;
+
+      function applyTilt() {
+        if (!lastMouseEvent) {
+          tiltRaf = 0;
+          return;
+        }
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const x = lastMouseEvent.clientX - rect.left;
+        const y = lastMouseEvent.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
         const rotateX = ((y - centerY) / centerY) * -5;
         const rotateY = ((x - centerX) / centerX) * 5;
-
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+        tiltRaf = 0;
+      }
+
+      card.addEventListener('mousemove', (e) => {
+        lastMouseEvent = e;
+        if (!tiltRaf) tiltRaf = requestAnimationFrame(applyTilt);
       }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
@@ -376,7 +401,6 @@
     });
   }
 
-  // ── Magnetic effect on buttons ──
   if (hasFineCursor) {
     document.querySelectorAll('.btn-primary, .btn-ghost').forEach((el) => {
       el.addEventListener('mousemove', (e) => {
@@ -392,7 +416,6 @@
     });
   }
 
-  // ── Skill items hover ripple ──
   document.querySelectorAll('.skill-item').forEach((item) => {
     item.addEventListener('mouseenter', () => {
       const dot = item.querySelector('.skill-dot');
@@ -403,7 +426,6 @@
     });
   });
 
-  // ── Hero photo spotlight + 3D tilt ──
   const heroImageWrapper = document.querySelector('.hero-image-wrapper');
   const heroSection = document.querySelector('.hero');
 
@@ -429,7 +451,6 @@
     });
   }
 
-  // ── Card spotlight effect (Apple-style) ──
   if (hasFineCursor) {
     document
       .querySelectorAll('.skill-category, .timeline-card, .education-card, .contact-card, .stat')
@@ -445,7 +466,6 @@
       });
   }
 
-  // ── Gallery Lightbox ──
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox?.querySelector('.lightbox-img');
   const lightboxCounter = lightbox?.querySelector('.lightbox-counter');
@@ -486,7 +506,6 @@
   lightbox?.querySelector('.lightbox-next')?.addEventListener('click', () => navigateLightbox(1));
   lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 
-  // ── Keyboard navigation ──
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (lightbox?.classList.contains('active')) {
