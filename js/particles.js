@@ -1,8 +1,3 @@
-/**
- * Hero Canvas — Particle network animation
- * Creates an interactive particle system with connections
- * Optimized with spatial hashing and squared-distance checks
- */
 (function () {
   'use strict';
 
@@ -16,26 +11,24 @@
   let animationId;
   let isVisible = true;
 
-  // Config
   const CONFIG = {
     particleCount: 120,
     maxDistance: 180,
-    maxDistanceSq: 180 * 180, // pre-computed squared
+    maxDistanceSq: 180 * 180,
     particleSize: { min: 1.5, max: 4 },
     speed: { min: 0.1, max: 0.4 },
     mouseRadius: 200,
     mouseRadiusSq: 200 * 200,
     mouseForce: 0.02,
     colors: [
-      'rgba(41, 151, 255, ',   // blue
-      'rgba(191, 90, 242, ',   // purple
-      'rgba(48, 209, 88, ',    // green
+      'rgba(41, 151, 255, ',
+      'rgba(191, 90, 242, ',
+      'rgba(48, 209, 88, ',
     ],
     lineOpacity: 0.25,
     particleOpacity: { min: 0.4, max: 1.0 },
   };
 
-  // Adjust particle count for mobile (reduced for PWA performance)
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
   const isMobileDevice = window.matchMedia('(pointer: coarse)').matches;
 
@@ -45,7 +38,6 @@
     return CONFIG.particleCount;
   }
 
-  // Skip connections on mobile for performance
   const skipConnections = isMobileDevice;
 
   class Particle {
@@ -67,7 +59,6 @@
     }
 
     update(time) {
-      // Mouse interaction — use squared distance
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
       const distSq = dx * dx + dy * dy;
@@ -79,11 +70,9 @@
         this.vy += dy * force;
       }
 
-      // Damping
       this.vx *= 0.99;
       this.vy *= 0.99;
 
-      // Speed limit
       const speedSq = this.vx * this.vx + this.vy * this.vy;
       const maxSpeedSq = CONFIG.speed.max * CONFIG.speed.max;
       if (speedSq > maxSpeedSq) {
@@ -92,22 +81,18 @@
         this.vy = (this.vy / speed) * CONFIG.speed.max;
       }
 
-      // Move
       this.x += this.vx;
       this.y += this.vy;
 
-      // Wrap around
       if (this.x < -10) this.x = width + 10;
       if (this.x > width + 10) this.x = -10;
       if (this.y < -10) this.y = height + 10;
       if (this.y > height + 10) this.y = -10;
 
-      // Pulse opacity
       this.currentOpacity = this.opacity + Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.2;
     }
   }
 
-  // ── Spatial Grid for O(n) connection checks ──
   const cellSize = CONFIG.maxDistance;
   let gridCols, gridRows;
   let grid;
@@ -131,6 +116,14 @@
     }
   }
 
+  const neighborOffsets = [
+    [0, 0],
+    [1, 0],
+    [0, 1],
+    [1, 1],
+    [-1, 1],
+  ];
+
   function drawConnections() {
     buildGrid();
 
@@ -142,25 +135,18 @@
         const cell = grid[cellIdx];
         if (cell.length === 0) continue;
 
-        // Check same cell + right + bottom + bottom-right + bottom-left (avoid double-checking)
-        const neighbors = [
-          cellIdx,                                      // same cell
-          col + 1 < gridCols ? cellIdx + 1 : -1,       // right
-          row + 1 < gridRows ? cellIdx + gridCols : -1, // bottom
-          col + 1 < gridCols && row + 1 < gridRows ? cellIdx + gridCols + 1 : -1, // bottom-right
-          col - 1 >= 0 && row + 1 < gridRows ? cellIdx + gridCols - 1 : -1,       // bottom-left
-        ];
-
         for (let ci = 0; ci < cell.length; ci++) {
           const pi = cell[ci];
           const a = particles[pi];
 
-          for (let ni = 0; ni < neighbors.length; ni++) {
-            const neighborIdx = neighbors[ni];
-            if (neighborIdx === -1) continue;
+          for (let ni = 0; ni < neighborOffsets.length; ni++) {
+            const offset = neighborOffsets[ni];
+            const neighborCol = col + offset[0];
+            const neighborRow = row + offset[1];
+            if (neighborCol < 0 || neighborCol >= gridCols || neighborRow < 0 || neighborRow >= gridRows) continue;
 
+            const neighborIdx = neighborRow * gridCols + neighborCol;
             const neighborCell = grid[neighborIdx];
-            // For same cell, start from ci+1 to avoid duplicate pairs
             const startJ = neighborIdx === cellIdx ? ci + 1 : 0;
 
             for (let j = startJ; j < neighborCell.length; j++) {
@@ -194,6 +180,7 @@
     height = canvas.offsetHeight;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
 
     const count = getParticleCount();
@@ -218,12 +205,10 @@
 
     ctx.clearRect(0, 0, width, height);
 
-    // Update all particles
     for (const p of particles) {
       p.update(time);
     }
 
-    // Draw non-glow particles first (no shadowBlur state change)
     ctx.shadowBlur = 0;
     for (const p of particles) {
       if (p.isGlow) continue;
@@ -233,7 +218,6 @@
       ctx.fill();
     }
 
-    // Draw glow particles with single shadowBlur set
     ctx.shadowBlur = 12;
     for (const p of particles) {
       if (!p.isGlow) continue;
@@ -247,7 +231,6 @@
 
     if (!skipConnections) drawConnections();
 
-    // Mouse glow
     if (mouse.x > 0 && mouse.y > 0) {
       const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
       gradient.addColorStop(0, 'rgba(41, 151, 255, 0.06)');
@@ -259,7 +242,6 @@
     animationId = requestAnimationFrame(animate);
   }
 
-  // Events
   function onMouseMove(e) {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
@@ -283,7 +265,6 @@
     isVisible = !document.hidden;
   }
 
-  // Init
   function init() {
     resize();
     initParticles();
