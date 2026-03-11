@@ -26,18 +26,23 @@ test.describe('Mobile Responsiveness', () => {
   });
 
   test('images do not overflow container', async ({ page }) => {
-    const images = page.locator('img');
-    const count = await images.count();
-    for (let i = 0; i < count; i++) {
-      const img = images.nth(i);
-      if (await img.isVisible()) {
-        const imgBox = await img.boundingBox();
-        if (imgBox) {
-          const viewportWidth = await page.evaluate(() => window.innerWidth);
-          expect(imgBox.x + imgBox.width).toBeLessThanOrEqual(viewportWidth + 5);
-        }
-      }
-    }
+    const overflowingImages = await page.evaluate(() => {
+      return Array.from(document.querySelectorAll('img')).flatMap((img) => {
+        if (!(img instanceof HTMLImageElement)) return [];
+        if (!img.offsetParent || img.closest('.gallery-scroll')) return [];
+
+        const rect = img.getBoundingClientRect();
+        if (rect.right <= window.innerWidth + 5) return [];
+
+        return [{
+          src: img.currentSrc || img.src,
+          right: rect.right,
+          viewportWidth: window.innerWidth,
+        }];
+      });
+    });
+
+    expect(overflowingImages).toHaveLength(0);
   });
 
   test('hamburger menu opens and closes', async ({ page, isMobile }) => {

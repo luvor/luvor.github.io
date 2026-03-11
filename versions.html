@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Version History — Islambek Chynybekov</title>
+  <meta
+    name="description"
+    content="Version history for Islambek Chynybekov's portfolio, generated from the latest GitHub commits."
+  >
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700;900&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="css/versions.css">
+</head>
+<body>
+  <nav class="versions-nav">
+    <div class="versions-nav-inner">
+      <a href="/" class="versions-logo">IC</a>
+      <a href="/" class="versions-back">Back to Portfolio</a>
+    </div>
+  </nav>
+
+  <main class="versions-main">
+    <section class="versions-hero">
+      <p class="versions-kicker">Portfolio changelog</p>
+      <h1>Version <span class="gradient-text">History</span></h1>
+      <p class="versions-intro">
+        The latest portfolio revisions, pulled directly from GitHub commit history and cached for fast repeat visits.
+      </p>
+    </section>
+
+    <section class="versions-shell" aria-labelledby="timeline-title">
+      <div class="versions-shell-header">
+        <h2 id="timeline-title">Timeline</h2>
+        <p>Newest updates appear first.</p>
+      </div>
+
+      <div id="versions-loading" class="versions-status versions-status-loading" role="status" aria-live="polite">
+        <span class="versions-spinner" aria-hidden="true"></span>
+        <span>Loading version history...</span>
+      </div>
+
+      <div id="versions-error" class="versions-status versions-status-error" hidden>
+        <h3>Version history is temporarily unavailable</h3>
+        <p>GitHub didn’t return commit data. You can still browse the raw commit history directly.</p>
+        <a
+          class="versions-fallback-link"
+          href="https://github.com/luvor/luvor.github.io/commits/main"
+          target="_blank"
+          rel="noopener"
+        >
+          Open GitHub commits
+        </a>
+      </div>
+
+      <ol id="versions-timeline" class="versions-timeline" hidden></ol>
+    </section>
+  </main>
+
+  <footer class="versions-footer">&copy; 2026 Islambek Chynybekov</footer>
+
+  <script src="js/versions.js" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+</body>
+</html>

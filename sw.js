@@ -1,76 +1,110 @@
-/**
- * Service Worker — Offline-first caching for PWA
- */
-const CACHE_NAME = 'ic-portfolio-v3';
+const CACHE_NAME = 'ic-portfolio-v4';
+const RUNTIME_CACHE = 'ic-portfolio-runtime-v4';
 
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
+  '/versions.html',
   '/css/style.css',
+  '/css/versions.css',
   '/js/main.js',
   '/js/animations.js',
   '/js/particles.js',
   '/js/gestures.js',
+  '/js/versions.js',
   '/favicon.svg',
   '/manifest.webmanifest',
-  '/assets/portfolio/imagine-99.jpg',
-  '/assets/portfolio/imagine-79.jpg',
-  '/assets/portfolio/IMG_0167.jpg',
-  '/assets/portfolio/IMG_1527.JPG',
-  '/assets/portfolio/IMG_1825.JPG',
-  '/assets/portfolio/IMG_1919.JPG',
-  '/assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.JPG',
+  '/assets/icons/apple-touch-icon.png',
+  '/assets/icons/icon-192.png',
+  '/assets/icons/icon-512.png',
+  '/assets/icons/icon-maskable-512.png',
+  '/assets/portfolio/CV_Chynybekov_2026.pdf',
 ];
 
-// Install — precache shell
-self.addEventListener('install', (event) => {
+self.addEventListener('install', function (event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.addAll(PRECACHE_ASSETS);
+    })
   );
+
   self.skipWaiting();
 });
 
-// Activate — clean old caches
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', function (event) {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+    caches.keys().then(function (keys) {
+      return Promise.all(
+        keys
+          .filter(function (key) {
+            return key !== CACHE_NAME && key !== RUNTIME_CACHE;
+          })
+          .map(function (key) {
+            return caches.delete(key);
+          })
+      );
+    })
   );
+
   self.clients.claim();
 });
 
-// Fetch strategy
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
+self.addEventListener('fetch', function (event) {
+  const request = event.request;
   const url = new URL(request.url);
 
-  // Navigation — network first, fallback to cache
+  if (request.method !== 'GET') {
+    return;
+  }
+
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request).catch(() => caches.match('/index.html'))
+      fetch(request).catch(function () {
+        return caches.match(request).then(function (cachedPage) {
+          return cachedPage || caches.match('/index.html');
+        });
+      })
     );
     return;
   }
 
-  // Google Fonts — stale-while-revalidate
   if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
     event.respondWith(
-      caches.open(CACHE_NAME).then((cache) =>
-        cache.match(request).then((cached) => {
-          const fetched = fetch(request).then((response) => {
+      caches.open(RUNTIME_CACHE).then(function (cache) {
+        return cache.match(request).then(function (cachedResponse) {
+          const fetchedResponse = fetch(request).then(function (response) {
             cache.put(request, response.clone());
             return response;
           });
-          return cached || fetched;
-        })
-      )
+
+          return cachedResponse || fetchedResponse;
+        });
+      })
     );
     return;
   }
 
-  // Static assets — cache first
+  if (request.destination === 'image' || request.destination === 'document' && url.pathname.endsWith('.pdf')) {
+    event.respondWith(
+      caches.open(RUNTIME_CACHE).then(function (cache) {
+        return cache.match(request).then(function (cachedResponse) {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+
+          return fetch(request).then(function (response) {
+            cache.put(request, response.clone());
+            return response;
+          });
+        });
+      })
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.match(request).then((cached) => cached || fetch(request))
+    caches.match(request).then(function (cachedResponse) {
+      return cachedResponse || fetch(request);
+    })
   );
 });

@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main", "claude/redesign-profile-cv-CGCG1"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -27,10 +27,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build production artifact
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp index.html versions.html sw.js favicon.svg manifest.webmanifest _site/
+          cp -R css js assets _site/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

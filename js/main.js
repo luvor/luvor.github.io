@@ -1,14 +1,9 @@
-/**
- * Main — Navigation, scroll handling, cursor, lightbox, tilt, interactions
- * Unified scroll handler with RAF throttling
- */
 (function () {
   'use strict';
 
   const hasFineCursor = window.matchMedia('(pointer: fine)').matches;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── Cached DOM queries ──
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
@@ -20,34 +15,37 @@
 
   const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
   const navAnchors = {};
+  const sectionOffsets = {};
+
   sectionIds.forEach(function (id) {
     const anchor = navLinks ? navLinks.querySelector('a[href="#' + id + '"]') : null;
-    if (anchor) navAnchors[id] = anchor;
+    if (anchor) {
+      navAnchors[id] = anchor;
+    }
   });
 
   const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
   let lightboxIndex = 0;
 
-  // ══════════════════════════════════════════════
-  //  1. SKELETON LOADING
-  // ══════════════════════════════════════════════
+  // --- Skeleton loading ---
   document.querySelectorAll('.skeleton-wrap').forEach(function (wrap) {
     const img = wrap.querySelector('img');
     if (!img) return;
 
-    function onLoaded() { wrap.classList.add('loaded'); }
+    function onLoaded() {
+      wrap.classList.add('loaded');
+    }
 
     if (img.complete && img.naturalWidth > 0) {
       onLoaded();
       return;
     }
+
     img.addEventListener('load', onLoaded, { once: true });
     img.addEventListener('error', onLoaded, { once: true });
   });
 
-  // ══════════════════════════════════════════════
-  //  2. PAGE LOAD SEQUENCE
-  // ══════════════════════════════════════════════
+  // --- Hero reveal ---
   function triggerHeroReveal() {
     const body = document.body;
     if (body.classList.contains('hero-revealed')) return;
@@ -65,169 +63,207 @@
     };
 
     Object.keys(delays).forEach(function (selector) {
-      const el = document.querySelector(selector);
-      if (el) {
-        setTimeout(function () {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-        }, delays[selector]);
-      }
+      const element = document.querySelector(selector);
+      if (!element) return;
+
+      setTimeout(function () {
+        element.style.opacity = '1';
+        element.style.transform = 'none';
+      }, delays[selector]);
     });
 
-    // Trigger char-stagger reveals after 500ms
     setTimeout(function () {
-      document.querySelectorAll('.char-stagger').forEach(function (el) {
-        el.classList.add('revealed');
+      document.querySelectorAll('.char-stagger').forEach(function (element) {
+        element.classList.add('revealed');
       });
     }, 500);
 
-    // Remove hero-load class after all animations complete
     setTimeout(function () {
       body.classList.remove('hero-load');
     }, 1500);
   }
 
   window.addEventListener('load', triggerHeroReveal);
-  if (document.readyState === 'complete') triggerHeroReveal();
+  if (document.readyState === 'complete') {
+    triggerHeroReveal();
+  }
 
-  // ══════════════════════════════════════════════
-  //  3. UNIFIED SCROLL HANDLER (RAF-throttled)
-  // ══════════════════════════════════════════════
-  let ticking = false;
+  // --- Cached section offsets ---
+  function recalculateSectionOffsets() {
+    sectionIds.forEach(function (id) {
+      const section = document.getElementById(id);
+      if (section) {
+        sectionOffsets[id] = section.offsetTop;
+      }
+    });
+  }
+
+  recalculateSectionOffsets();
+  window.addEventListener('resize', function () {
+    recalculateSectionOffsets();
+    onScrollFrame();
+  }, { passive: true });
+  window.addEventListener('load', recalculateSectionOffsets);
+
+  // --- Scroll state ---
+  let scrollTicking = false;
 
   function onScrollFrame() {
     const scrollY = window.scrollY;
-    const windowH = window.innerHeight;
-    const docHeight = document.body.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const scrollable = document.body.scrollHeight - windowHeight;
 
-    // Navbar scroll state
     if (navbar) {
-      if (scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', scrollY > 50);
     }
 
-    // Active nav link highlight
-    const threshold = scrollY + windowH / 3;
-    let current = '';
+    const threshold = scrollY + windowHeight / 3;
+    let currentSection = '';
+
     sectionIds.forEach(function (id) {
-      const section = document.getElementById(id);
-      if (section && section.offsetTop <= threshold) {
-        current = id;
+      if (sectionOffsets[id] <= threshold) {
+        currentSection = id;
       }
     });
 
-    Object.values(navAnchors).forEach(function (a) { a.classList.remove('active'); });
-    if (current && navAnchors[current]) {
-      navAnchors[current].classList.add('active');
-    }
-    if (current && navbar) {
-      navbar.setAttribute('data-section', current);
+    Object.values(navAnchors).forEach(function (anchor) {
+      anchor.classList.remove('active');
+    });
+
+    if (currentSection && navAnchors[currentSection]) {
+      navAnchors[currentSection].classList.add('active');
     }
 
-    // Scroll progress bar
+    if (currentSection && navbar) {
+      navbar.setAttribute('data-section', currentSection);
+    }
+
     if (scrollProgress) {
-      const scrollable = docHeight - windowH;
       const progress = scrollable > 0 ? (scrollY / scrollable) * 100 : 0;
       scrollProgress.style.width = progress + '%';
     }
 
-    ticking = false;
+    scrollTicking = false;
   }
 
   window.addEventListener('scroll', function () {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(onScrollFrame);
-    }
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(onScrollFrame);
   }, { passive: true });
 
-  // Initial call
   onScrollFrame();
 
-  // ══════════════════════════════════════════════
-  //  4. MOBILE NAV TOGGLE
-  // ══════════════════════════════════════════════
+  // --- Mobile navigation ---
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', function () {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('open');
-      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
     navLinks.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        navToggle.classList.remove('active');
+        navToggle.classList.remove('open');
         navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       });
     });
   }
 
-  // ══════════════════════════════════════════════
-  //  5. SMOOTH SCROLL
-  // ══════════════════════════════════════════════
+  // --- Smooth scroll ---
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function (event) {
       const targetId = anchor.getAttribute('href');
-      if (targetId === '#') return;
+      if (!targetId || targetId === '#') return;
 
       const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        const navHeight = navbar ? navbar.offsetHeight : 0;
-        const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight;
+      if (!target) return;
 
-        window.scrollTo({
-          top: targetPos,
-          behavior: prefersReduced ? 'auto' : 'smooth',
-        });
-      }
+      event.preventDefault();
+
+      const navHeight = navbar ? navbar.offsetHeight : 0;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: prefersReduced ? 'auto' : 'smooth',
+      });
     });
   });
 
-  // ══════════════════════════════════════════════
-  //  6. CUSTOM CURSOR (desktop only)
-  // ══════════════════════════════════════════════
+  // --- Custom cursor ---
   if (hasFineCursor && customCursor && !prefersReduced) {
-    let cursorX = 0, cursorY = 0;
-    let targetX = 0, targetY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let cursorFrame = null;
+    let cursorReady = false;
     const lerpFactor = 0.1;
+    const idleThreshold = 0.5;
 
     const hoverTargets = 'a, button, .btn, .gallery-item, .project-card, [data-tilt], .tag, .skill-list li';
 
-    document.addEventListener('mousemove', function (e) {
-      targetX = e.clientX;
-      targetY = e.clientY;
+    function renderCursor() {
+      customCursor.style.transform =
+        'translate3d(' + cursorX + 'px, ' + cursorY + 'px, 0) translate(-50%, -50%)';
+    }
+
+    function updateCursor() {
+      cursorFrame = null;
+
+      cursorX += (targetX - cursorX) * lerpFactor;
+      cursorY += (targetY - cursorY) * lerpFactor;
+      renderCursor();
+
+      const deltaX = Math.abs(targetX - cursorX);
+      const deltaY = Math.abs(targetY - cursorY);
+
+      if (deltaX < idleThreshold && deltaY < idleThreshold) {
+        cursorX = targetX;
+        cursorY = targetY;
+        renderCursor();
+        return;
+      }
+
+      cursorFrame = requestAnimationFrame(updateCursor);
+    }
+
+    document.addEventListener('mousemove', function (event) {
+      targetX = event.clientX;
+      targetY = event.clientY;
+
+      if (!cursorReady) {
+        cursorReady = true;
+        cursorX = targetX;
+        cursorY = targetY;
+        renderCursor();
+        return;
+      }
+
+      if (cursorFrame === null) {
+        cursorFrame = requestAnimationFrame(updateCursor);
+      }
     }, { passive: true });
 
-    // Hover detection
-    document.querySelectorAll(hoverTargets).forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
+    document.querySelectorAll(hoverTargets).forEach(function (element) {
+      element.addEventListener('mouseenter', function () {
         document.body.classList.add('cursor-hover');
       });
-      el.addEventListener('mouseleave', function () {
+
+      element.addEventListener('mouseleave', function () {
         document.body.classList.remove('cursor-hover');
       });
     });
-
-    function updateCursor() {
-      cursorX += (targetX - cursorX) * lerpFactor;
-      cursorY += (targetY - cursorY) * lerpFactor;
-      customCursor.style.transform = 'translate(' + cursorX + 'px, ' + cursorY + 'px)';
-      requestAnimationFrame(updateCursor);
-    }
-
-    updateCursor();
   }
 
-  // ══════════════════════════════════════════════
-  //  7. GALLERY LIGHTBOX
-  // ══════════════════════════════════════════════
+  // --- Gallery lightbox ---
   function openLightbox(index) {
-    if (!lightbox || !galleryImages[index]) return;
+    if (!lightbox || !lightboxImg || !lightboxCounter || !galleryImages[index]) return;
+
     lightboxIndex = index;
     lightboxImg.src = galleryImages[index].src;
     lightboxImg.alt = galleryImages[index].alt;
@@ -239,63 +275,83 @@
 
   function closeLightbox() {
     if (!lightbox) return;
+
     lightbox.classList.remove('active');
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
-  function navigateLightbox(dir) {
-    lightboxIndex = (lightboxIndex + dir + galleryImages.length) % galleryImages.length;
+  function navigateLightbox(direction) {
+    if (!lightboxImg || !lightboxCounter || !galleryImages.length) return;
+
+    lightboxIndex = (lightboxIndex + direction + galleryImages.length) % galleryImages.length;
     lightboxImg.src = galleryImages[lightboxIndex].src;
     lightboxImg.alt = galleryImages[lightboxIndex].alt;
     lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
   }
 
-  // Click/keyboard on gallery items
-  galleryImages.forEach(function (img, i) {
+  galleryImages.forEach(function (img, index) {
     const item = img.closest('.gallery-item');
     if (!item) return;
 
-    item.addEventListener('click', function () { openLightbox(i); });
-    item.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(i);
-      }
+    item.addEventListener('click', function () {
+      openLightbox(index);
+    });
+
+    item.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      openLightbox(index);
     });
   });
 
-  // Lightbox controls
   if (lightbox) {
-    const closeBtn = lightbox.querySelector('.lightbox-close');
-    const prevBtn = lightbox.querySelector('.lightbox-prev');
-    const nextBtn = lightbox.querySelector('.lightbox-next');
+    const closeButton = lightbox.querySelector('.lightbox-close');
+    const prevButton = lightbox.querySelector('.lightbox-prev');
+    const nextButton = lightbox.querySelector('.lightbox-next');
 
-    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-    if (prevBtn) prevBtn.addEventListener('click', function () { navigateLightbox(-1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { navigateLightbox(1); });
+    if (closeButton) {
+      closeButton.addEventListener('click', closeLightbox);
+    }
 
-    lightbox.addEventListener('click', function (e) {
-      if (e.target === lightbox) closeLightbox();
+    if (prevButton) {
+      prevButton.addEventListener('click', function () {
+        navigateLightbox(-1);
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', function () {
+        navigateLightbox(1);
+      });
+    }
+
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
     });
   }
 
-  // ══════════════════════════════════════════════
-  //  8. 3D TILT ON PROJECT CARDS (desktop only)
-  // ══════════════════════════════════════════════
+  // --- Tilted project cards ---
   if (hasFineCursor && !prefersReduced) {
     document.querySelectorAll('[data-tilt]').forEach(function (card) {
-      card.addEventListener('mousemove', function (e) {
+      card.addEventListener('mouseenter', function () {
+        card.style.willChange = 'transform';
+      });
+
+      card.addEventListener('mousemove', function (event) {
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
         const rotateX = ((y - centerY) / centerY) * -5;
         const rotateY = ((x - centerX) / centerX) * 5;
 
-        card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+        card.style.transform =
+          'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
       }, { passive: true });
 
       card.addEventListener('mouseleave', function () {
@@ -304,49 +360,44 @@
 
         setTimeout(function () {
           card.style.transition = '';
+          card.style.willChange = '';
         }, 500);
       });
     });
   }
 
-  // ══════════════════════════════════════════════
-  //  9. MAGNETIC BUTTONS (desktop only)
-  // ══════════════════════════════════════════════
+  // --- Magnetic buttons ---
   if (hasFineCursor && !prefersReduced) {
-    document.querySelectorAll('.btn-primary, .btn-ghost').forEach(function (el) {
-      el.addEventListener('mousemove', function (e) {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        el.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px)';
+    document.querySelectorAll('.btn-primary, .btn-ghost').forEach(function (element) {
+      element.addEventListener('mousemove', function (event) {
+        const rect = element.getBoundingClientRect();
+        const x = event.clientX - rect.left - rect.width / 2;
+        const y = event.clientY - rect.top - rect.height / 2;
+        element.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px)';
       }, { passive: true });
 
-      el.addEventListener('mouseleave', function () {
-        el.style.transform = '';
+      element.addEventListener('mouseleave', function () {
+        element.style.transform = '';
       });
     });
   }
 
-  // ══════════════════════════════════════════════
-  //  10. KEYBOARD NAVIGATION
-  // ══════════════════════════════════════════════
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      // Close lightbox first, then mobile nav
+  // --- Keyboard support ---
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
       if (lightbox && lightbox.classList.contains('active')) {
         closeLightbox();
-      } else if (navLinks && navLinks.classList.contains('open')) {
-        navToggle.classList.remove('active');
+      } else if (navToggle && navLinks && navLinks.classList.contains('open')) {
+        navToggle.classList.remove('open');
         navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       }
     }
 
-    // Lightbox arrow navigation
     if (lightbox && lightbox.classList.contains('active')) {
-      if (e.key === 'ArrowLeft') navigateLightbox(-1);
-      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (event.key === 'ArrowLeft') navigateLightbox(-1);
+      if (event.key === 'ArrowRight') navigateLightbox(1);
     }
   });
-
 })();

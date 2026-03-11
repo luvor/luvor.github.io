@@ -1,178 +1,151 @@
-/**
- * Animations — IntersectionObserver-based reveals, counters, char staggers
- * All scroll-triggered animations with prefers-reduced-motion respect
- */
 (function () {
   'use strict';
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hasFineCursor = window.matchMedia('(pointer: fine)').matches;
+  const revealSelector = '.reveal, .reveal-title, .reveal-slide';
 
-  // ── 1. Character stagger setup ──
-  document.addEventListener('DOMContentLoaded', function () {
-    const staggerEls = document.querySelectorAll('.char-stagger');
+  function splitCharStaggers() {
+    document.querySelectorAll('.char-stagger').forEach(function (element) {
+      if (element.dataset.split === 'true') return;
 
-    staggerEls.forEach(function (el) {
-      const text = el.textContent;
+      const text = element.dataset.text || element.textContent || '';
       const delay = prefersReduced ? 0 : 30;
 
-      // Set aria-label for accessibility
-      el.setAttribute('aria-label', text);
-      el.innerHTML = '';
+      element.dataset.split = 'true';
+      element.setAttribute('aria-label', text);
+      element.textContent = '';
 
-      for (let i = 0; i < text.length; i++) {
+      for (let index = 0; index < text.length; index += 1) {
         const span = document.createElement('span');
-        span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
-        span.style.transitionDelay = (i * delay) + 'ms';
-        el.appendChild(span);
+        span.textContent = text[index] === ' ' ? '\u00A0' : text[index];
+        span.style.transitionDelay = index * delay + 'ms';
+        element.appendChild(span);
       }
     });
-  });
+  }
 
-  // ── 2. Reveal observer (threshold 0.15) ──
-  const revealObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-
-        const el = entry.target;
-        el.classList.add('visible');
-
-        // One-shot: unobserve after revealing
-        if (el.classList.contains('reveal') ||
-            el.classList.contains('reveal-title') ||
-            el.classList.contains('reveal-slide') ||
-            el.classList.contains('section')) {
-          revealObserver.unobserve(el);
-        }
-      });
-    },
-    {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px',
+  function animateCounter(element) {
+    const target = parseInt(element.dataset.count || '0', 10);
+    if (prefersReduced) {
+      element.textContent = String(target);
+      return;
     }
-  );
 
-  // Observe all reveal elements
-  document
-    .querySelectorAll('.reveal, .reveal-title, .reveal-slide')
-    .forEach(function (el) { revealObserver.observe(el); });
-
-  // Observe sections
-  document.querySelectorAll('.section').forEach(function (section) {
-    revealObserver.observe(section);
-  });
-
-  // ── 3. Character stagger reveal observer ──
-  const charStaggerObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('revealed');
-        charStaggerObserver.unobserve(entry.target);
-      });
-    },
-    {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px',
-    }
-  );
-
-  document.querySelectorAll('.char-stagger').forEach(function (el) {
-    charStaggerObserver.observe(el);
-  });
-
-  // ── 4. Photo reveal observer ──
-  const photoRevealObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('revealed');
-        photoRevealObserver.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.3 }
-  );
-
-  document.querySelectorAll('.photo-reveal').forEach(function (el) {
-    photoRevealObserver.observe(el);
-  });
-
-  // ── 5. Flip counter observer ──
-  const counterObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        if (entry.target.dataset.animated) return;
-
-        entry.target.dataset.animated = 'true';
-        animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  document.querySelectorAll('.stat-number[data-count]').forEach(function (counter) {
-    counterObserver.observe(counter);
-  });
-
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.count, 10);
     const duration = 1200;
     const start = performance.now();
 
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out-quart
       const eased = 1 - Math.pow(1 - progress, 4);
-      el.textContent = Math.round(target * eased);
+      element.textContent = String(Math.round(target * eased));
 
       if (progress < 1) {
         requestAnimationFrame(update);
       } else {
-        el.textContent = target;
+        element.textContent = String(target);
       }
     }
 
-    if (prefersReduced) {
-      el.textContent = target;
-    } else {
-      requestAnimationFrame(update);
-    }
+    requestAnimationFrame(update);
   }
 
-  // ── 6. Stagger delays for grids ──
-  const gridSelectors = ['.skills-grid', '.education-grid', '.projects-stack', '.contact-links'];
+  function applyGridDelays() {
+    ['.skills-grid', '.education-grid', '.projects-stack', '.contact-links'].forEach(function (selector) {
+      const grid = document.querySelector(selector);
+      if (!grid) return;
 
-  gridSelectors.forEach(function (selector) {
-    const grid = document.querySelector(selector);
-    if (!grid) return;
-
-    Array.from(grid.children).forEach(function (child, i) {
-      child.style.transitionDelay = (i * 0.08) + 's';
+      Array.from(grid.children).forEach(function (child, index) {
+        child.style.transitionDelay = index * 0.08 + 's';
+      });
     });
-  });
+  }
 
-  // ── 7. Skills dim effect (desktop only) ──
-  if (hasFineCursor) {
-    const skillGroups = document.querySelectorAll('.skill-group');
+  function setupObserver() {
+    const observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
 
-    skillGroups.forEach(function (group) {
-      group.addEventListener('mouseenter', function () {
-        skillGroups.forEach(function (other) {
-          if (other !== group) {
-            other.classList.add('skill-dimmed');
+          const element = entry.target;
+          const ratio = entry.intersectionRatio;
+
+          if (element.matches(revealSelector) && ratio >= 0.15) {
+            element.classList.add('visible');
+            observer.unobserve(element);
+            return;
+          }
+
+          if (element.classList.contains('char-stagger') && ratio >= 0.15) {
+            element.classList.add('revealed');
+            observer.unobserve(element);
+            return;
+          }
+
+          if (element.classList.contains('photo-reveal') && ratio >= 0.3) {
+            element.classList.add('revealed');
+            observer.unobserve(element);
+            return;
+          }
+
+          if (element.matches('.stat-number[data-count]') && ratio >= 0.5) {
+            if (!element.dataset.animated) {
+              element.dataset.animated = 'true';
+              animateCounter(element);
+            }
+            observer.unobserve(element);
           }
         });
-      });
+      },
+      {
+        threshold: [0.15, 0.3, 0.5],
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
 
-      group.addEventListener('mouseleave', function () {
-        skillGroups.forEach(function (other) {
-          other.classList.remove('skill-dimmed');
-        });
-      });
+    document.querySelectorAll(revealSelector).forEach(function (element) {
+      observer.observe(element);
     });
+
+    document.querySelectorAll('.char-stagger, .photo-reveal, .stat-number[data-count]').forEach(function (element) {
+      observer.observe(element);
+    });
+  }
+
+  function applyReducedMotionState() {
+    document.querySelectorAll(revealSelector).forEach(function (element) {
+      element.classList.add('visible');
+    });
+
+    document.querySelectorAll('.char-stagger').forEach(function (element) {
+      element.classList.add('revealed');
+    });
+
+    document.querySelectorAll('.photo-reveal').forEach(function (element) {
+      element.classList.add('revealed');
+    });
+
+    document.querySelectorAll('.stat-number[data-count]').forEach(function (element) {
+      element.dataset.animated = 'true';
+      element.textContent = element.dataset.count || element.textContent;
+    });
+  }
+
+  function init() {
+    splitCharStaggers();
+    applyGridDelays();
+
+    if (prefersReduced) {
+      applyReducedMotionState();
+      return;
+    }
+
+    setupObserver();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

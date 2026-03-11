@@ -4,30 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Islambek Chynybekov — Senior Frontend Engineer & AI Engineer</title>
-  <meta name="description" content="Portfolio of Islambek Chynybekov — Senior Frontend Engineer with 5+ years experience, specializing in FinTech, AI integration, and LLM-powered workflows.">
+  <meta
+    name="description"
+    content="Portfolio of Islambek Chynybekov — Senior Frontend Engineer with 5+ years experience, specializing in FinTech, AI integration, and LLM-powered workflows."
+  >
   <meta name="theme-color" content="#000000">
 
-  <!-- Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Islambek Chynybekov — Senior Frontend Engineer & AI Engineer">
-  <meta property="og:description" content="Senior Frontend Engineer with 5+ years in FinTech, transitioning to AI Engineering. Building intelligent products with LLMs and autonomous agents.">
+  <meta
+    property="og:description"
+    content="Senior Frontend Engineer with 5+ years in FinTech, transitioning to AI Engineering. Building intelligent products with LLMs and autonomous agents."
+  >
   <meta property="og:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
   <meta property="og:url" content="https://luvor.github.io/">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Islambek Chynybekov — Senior Frontend Engineer & AI Engineer">
-  <meta name="twitter:description" content="Senior Frontend Engineer with 5+ years in FinTech, transitioning to AI Engineering. Building intelligent products with LLMs and autonomous agents.">
+  <meta
+    name="twitter:description"
+    content="Senior Frontend Engineer with 5+ years in FinTech, transitioning to AI Engineering. Building intelligent products with LLMs and autonomous agents."
+  >
   <meta name="twitter:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
 
-  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -50,7 +55,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700;900&display=swap"
+    rel="stylesheet"
+  >
   <link rel="stylesheet" href="css/style.css">
   <noscript><style>.skeleton-wrap img{opacity:1!important}.skeleton-wrap::after{display:none}</style></noscript>
 </head>
@@ -59,11 +67,16 @@
   <a href="#about" class="skip-link">Skip to content</a>
   <div id="scroll-progress" aria-hidden="true"></div>
 
-  <!-- Navigation -->
   <nav id="navbar" class="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">IC</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        aria-label="Toggle menu"
+        aria-controls="nav-links"
+        aria-expanded="false"
+      >
         <span></span>
         <span></span>
       </button>
@@ -80,490 +93,537 @@
   </nav>
 
   <main>
+    <section id="hero" class="hero">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <div class="hero-badge reveal">
+          <span class="badge-dot"></span>
+          Available for work
+        </div>
+        <h1 class="hero-name">
+          <span class="char-stagger" data-text="ISLAMBEK">ISLAMBEK</span>
+          <span class="char-stagger" data-text="CHYNYBEKOV">CHYNYBEKOV</span>
+        </h1>
+        <p class="hero-subtitle">
+          Senior Frontend Engineer &amp; AI Integrator<br>
+          building <em>intelligent products</em> that matter.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="#projects" class="btn btn-primary">View Work</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        </div>
+        <div class="scroll-indicator">
+          <div class="scroll-line"></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Hero — "The Statement" -->
-  <section id="hero" class="hero">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-content">
-      <div class="hero-badge reveal">
-        <span class="badge-dot"></span>
-        Available for work
+    <section id="about" class="section about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-content">
+            <span class="section-label reveal">About Me</span>
+            <h2 class="section-title reveal-title">
+              Building the bridge between<br>
+              <span class="gradient-text">AI &amp; great UX</span>
+            </h2>
+            <p class="about-text reveal">
+              Hi, I'm Islambek — a Senior Frontend Engineer based in Astana, Kazakhstan with 5+ years
+              in FinTech. I'm now transitioning into AI Engineering, integrating LLMs and autonomous
+              agents directly into production development workflows.
+            </p>
+            <p class="about-text reveal">
+              At Halyk Finservice I lead a stream of frontend developers and have pioneered the use of
+              AI agents for automated code reviews, documentation generation, and test-case writing —
+              cutting manual overhead significantly and boosting team velocity.
+            </p>
+            <p class="about-text reveal">
+              Outside of work you'll find me coding by a rooftop pool somewhere in Southeast Asia,
+              winning hackathons, or deep-diving into cutting-edge agent frameworks and RAG architectures.
+            </p>
+            <div class="about-tags reveal">
+              <span class="tag">Frontend Engineering</span>
+              <span class="tag">AI / LLM Integration</span>
+              <span class="tag">RAG Architecture</span>
+              <span class="tag">FinTech</span>
+              <span class="tag">Team Leadership</span>
+              <span class="tag">Vue / React</span>
+            </div>
+          </div>
+          <div class="about-visual">
+            <div class="photo-reveal">
+              <div class="skeleton-wrap">
+                <img
+                  src="assets/portfolio/imagine-99.jpg"
+                  alt="Islambek Chynybekov"
+                  loading="lazy"
+                  width="800"
+                  height="1200"
+                >
+              </div>
+            </div>
+            <div class="about-stats">
+              <div class="stat reveal">
+                <span class="stat-number" data-count="5">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+              <div class="stat reveal">
+                <span class="stat-number" data-count="30">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Projects Shipped</span>
+              </div>
+              <div class="stat reveal">
+                <span class="stat-number" data-count="2">0</span><span class="stat-suffix">×</span>
+                <span class="stat-label">Hackathon Winner</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1 class="hero-name">
-        <span class="char-stagger" data-text="ISLAMBEK">ISLAMBEK</span>
-        <span class="char-stagger" data-text="CHYNYBEKOV">CHYNYBEKOV</span>
-      </h1>
-      <p class="hero-subtitle">
-        Senior Frontend Engineer &amp; AI Integrator<br>
-        building <em>intelligent products</em> that matter.
-      </p>
-      <div class="hero-actions reveal">
-        <a href="#projects" class="btn btn-primary">View Work</a>
-        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      </div>
-      <div class="scroll-indicator">
-        <div class="scroll-line"></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About — "The Reveal" -->
-  <section id="about" class="section about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-content">
-          <span class="section-label reveal">About Me</span>
+    <section id="skills" class="section skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal">Skills &amp; Tools</span>
+          <h2 class="section-title reveal-title">Technologies I work with</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3 class="skill-group-name">Frontend</h3>
+            <hr class="skill-rule">
+            <ul class="skill-list">
+              <li>Vue 3 / Nuxt 3</li>
+              <li>React / Next.js</li>
+              <li>TypeScript</li>
+              <li>Tailwind CSS / SASS</li>
+              <li>Capacitor / Ionic</li>
+              <li>Tauri Framework</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3 class="skill-group-name">AI &amp; ML</h3>
+            <hr class="skill-rule">
+            <ul class="skill-list">
+              <li>LLM Integration (GPT, Claude)</li>
+              <li>RAG Architectures</li>
+              <li>AI Agents &amp; Automation</li>
+              <li>Vector Embeddings</li>
+              <li>Pandas / Scikit-learn</li>
+              <li>Generative Image Models</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3 class="skill-group-name">Backend &amp; Data</h3>
+            <hr class="skill-rule">
+            <ul class="skill-list">
+              <li>Python / FastAPI</li>
+              <li>Node.js / Nest.js</li>
+              <li>PL/SQL / PostgreSQL</li>
+              <li>REST API / GraphQL</li>
+              <li>Blockchain (Web3)</li>
+              <li>Quasar Framework</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3 class="skill-group-name">Tools &amp; DevOps</h3>
+            <hr class="skill-rule">
+            <ul class="skill-list">
+              <li>Git / GitHub / CI-CD</li>
+              <li>Docker</li>
+              <li>Webpack / Vite</li>
+              <li>AppStore &amp; Play Store</li>
+              <li>Figma / UI Design</li>
+              <li>Unit / E2E Testing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal">Experience</span>
           <h2 class="section-title reveal-title">
-            Building the bridge between<br>
-            <span class="gradient-text">AI &amp; great UX</span>
+            My professional <span class="gradient-text">journey</span>
           </h2>
-          <p class="about-text reveal">
-            Hi, I'm Islambek — a Senior Frontend Engineer based in Astana, Kazakhstan with 5+ years
-            in FinTech. I'm now transitioning into AI Engineering, integrating LLMs and autonomous
-            agents directly into production development workflows.
-          </p>
-          <p class="about-text reveal">
-            At Halyk Finservice I lead a stream of frontend developers and have pioneered the use of
-            AI agents for automated code reviews, documentation generation, and test-case writing —
-            cutting manual overhead significantly and boosting team velocity.
-          </p>
-          <p class="about-text reveal">
-            Outside of work you'll find me coding by a rooftop pool somewhere in Southeast Asia,
-            winning hackathons, or deep-diving into cutting-edge agent frameworks and RAG architectures.
-          </p>
-          <div class="about-tags reveal">
-            <span class="tag">Frontend Engineering</span>
-            <span class="tag">AI / LLM Integration</span>
-            <span class="tag">RAG Architecture</span>
-            <span class="tag">FinTech</span>
-            <span class="tag">Team Leadership</span>
-            <span class="tag">Vue / React</span>
+        </div>
+        <div class="experience-stack">
+          <div class="timeline-progress-line" aria-hidden="true"></div>
+
+          <div class="experience-card">
+            <span class="experience-watermark" aria-hidden="true">HALYK</span>
+            <div class="experience-content">
+              <span class="experience-date">Jan 2024 — Present</span>
+              <h3 class="experience-role">Team Lead Frontend</h3>
+              <p class="experience-company">Halyk Finservice · Almaty, Kazakhstan</p>
+              <p class="experience-desc">
+                Leading a stream of developers in Kazakhstan's largest bank subsidiary. Pioneered AI agent
+                integration into the dev pipeline — LLMs now perform automated code reviews, generate
+                documentation, and write unit &amp; E2E tests, cutting manual overhead significantly.
+                Responsible for architectural reviews, task decomposition, and production deployments.
+              </p>
+              <div class="experience-tags">
+                <span>Vue 3</span><span>TypeScript</span><span>LLM Agents</span><span>CI/CD</span><span>Team Lead</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-card">
+            <span class="experience-watermark" aria-hidden="true">HALYK</span>
+            <div class="experience-content">
+              <span class="experience-date">Jul 2023 — Dec 2023</span>
+              <h3 class="experience-role">Frontend Developer</h3>
+              <p class="experience-company">Halyk Finservice · Almaty, Kazakhstan</p>
+              <p class="experience-desc">
+                Refactored legacy codebases and built a unified UI component library that standardized
+                development across all projects. Mentored junior developers and optimized
+                frontend-backend communication protocols.
+              </p>
+              <div class="experience-tags">
+                <span>Vue 3</span><span>UI Library</span><span>Mentoring</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-card">
+            <span class="experience-watermark" aria-hidden="true">KASPI</span>
+            <div class="experience-content">
+              <span class="experience-date">Aug 2022 — Jul 2023</span>
+              <h3 class="experience-role">Software Developer</h3>
+              <p class="experience-company">Kaspi.kz</p>
+              <p class="experience-desc">
+                Optimized high-load internal CRM systems for Kazakhstan's leading super-app.
+                Collaborated with data teams to improve CRM dashboard visualizations.
+                Migrated legacy PL/SQL logic to modern web architectures, enhancing performance at scale.
+              </p>
+              <div class="experience-tags">
+                <span>Vue 3</span><span>TypeScript</span><span>PL/SQL</span><span>Data Viz</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-card">
+            <span class="experience-watermark" aria-hidden="true">AIR ASTANA</span>
+            <div class="experience-content">
+              <span class="experience-date">Feb 2022 — Jun 2022</span>
+              <h3 class="experience-role">Full-stack Developer</h3>
+              <p class="experience-company">Air Astana · Almaty, Kazakhstan</p>
+              <p class="experience-desc">
+                Designed and built a system for optimizing aircraft de-icing processes.
+                Analyzed operational workflows, designed the project architecture,
+                and managed team members through delivery.
+              </p>
+              <div class="experience-tags">
+                <span>Vue.js</span><span>Quasar</span><span>FastAPI</span><span>Python</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-card">
+            <span class="experience-watermark" aria-hidden="true">ADAMAR</span>
+            <div class="experience-content">
+              <span class="experience-date">Aug 2020 — Aug 2022</span>
+              <h3 class="experience-role">Frontend Developer</h3>
+              <p class="experience-company">Adamar Solutions · Almaty, Kazakhstan</p>
+              <p class="experience-desc">
+                Built and shipped multiple cross-platform apps to the AppStore and Play Store.
+                Wrote unit, integration, and e2e tests. Worked across a broad stack of modern
+                frontend and hybrid mobile technologies.
+              </p>
+              <div class="experience-tags">
+                <span>Vue 3</span><span>Nuxt 3</span><span>Capacitor</span><span>Ionic</span><span>Tauri</span><span>Tailwind</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-card">
+            <span class="experience-watermark" aria-hidden="true">MORRISON</span>
+            <div class="experience-content">
+              <span class="experience-date">Jan 2019 — Feb 2020</span>
+              <h3 class="experience-role">Support &amp; Video Creator</h3>
+              <p class="experience-company">Morrison · Almaty, Kazakhstan</p>
+              <p class="experience-desc">
+                Recorded 60+ tutorial videos on JavaScript, Web Development, and React.js.
+                Delivered 50+ lessons with structured presentations and supervised
+                groups of up to 20 students.
+              </p>
+              <div class="experience-tags">
+                <span>JavaScript</span><span>React</span><span>Teaching</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="about-visual">
-          <div class="photo-reveal">
+
+        <div class="cv-download reveal">
+          <div class="cv-download-inner">
+            <div class="cv-download-text">
+              <h3>Want the full story?</h3>
+              <p>Download my complete CV for a detailed overview of my experience and skills.</p>
+            </div>
+            <a href="assets/portfolio/CV_Chynybekov_2026.pdf" download class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal">Projects</span>
+          <h2 class="section-title reveal-title">
+            Selected <span class="gradient-text">work</span>
+          </h2>
+        </div>
+        <div class="projects-stack">
+          <article class="project-card featured" data-tilt>
+            <span class="project-badge">Featured</span>
+            <div class="project-image">
+              <div class="skeleton-wrap">
+                <img
+                  src="assets/portfolio/IMG_0167.jpg"
+                  alt="Telegram Semantic Search RAG system"
+                  loading="lazy"
+                  width="800"
+                  height="1200"
+                >
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span>Python</span><span>RAG</span><span>Embeddings</span>
+              </div>
+              <h3>Telegram Semantic Search</h3>
+              <p>RAG system that indexes entire Telegram channel histories and enables semantic search — find contextually relevant info, not just keyword matches. Built with vector embeddings for deep semantic understanding.</p>
+              <div class="project-links">
+                <a href="https://github.com/luvor" target="_blank" rel="noopener" class="project-link">
+                  GitHub
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-tilt>
+            <div class="project-image">
+              <div class="skeleton-wrap">
+                <img
+                  src="assets/portfolio/imagine-79.jpg"
+                  alt="AI-Powered Development Workflow"
+                  loading="lazy"
+                  width="800"
+                  height="1200"
+                >
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span>LLM Agents</span><span>Automation</span><span>DX</span>
+              </div>
+              <h3>AI-Powered Dev Workflow</h3>
+              <p>Custom AI agents integrated into the daily engineering cycle at Halyk Finservice. Agents automate code reviews, generate documentation, write unit tests, and handle type definitions — measurably increasing team velocity.</p>
+              <div class="project-links">
+                <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
+                  LinkedIn
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-tilt>
+            <div class="project-image">
+              <div class="skeleton-wrap">
+                <img
+                  src="assets/portfolio/imagine-99.jpg"
+                  alt="Generative Image Platform"
+                  loading="lazy"
+                  width="800"
+                  height="1200"
+                >
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span>Generative AI</span><span>Python</span><span>Image</span>
+              </div>
+              <h3>Generative Image Platform</h3>
+              <p>Application leveraging Civitai models for AI image generation. Features automated asset creation including a badge generation tool using NanoBanana processing pipelines.</p>
+              <div class="project-links">
+                <a href="https://github.com/luvor" target="_blank" rel="noopener" class="project-link">
+                  GitHub
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-tilt>
+            <span class="project-badge">Hackathon Winner</span>
+            <div class="project-image">
+              <div class="skeleton-wrap">
+                <img
+                  src="assets/portfolio/IMG_1919.JPG"
+                  alt="Ioka Fintech Event Platform"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
+                >
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span>FinTech</span><span>Mastercard</span><span>Hackathon</span>
+              </div>
+              <h3>Ioka Fintech Event Platform</h3>
+              <p>Winner — Ioka.kz Fintech Hackathon. MVP event management platform integrating Mastercard payment systems. Also won the Savabit Mining Hackathon with an ASIC management MVP built on Blockchain.</p>
+              <div class="project-links">
+                <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
+                  View on LinkedIn
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section education">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal">Education</span>
+          <h2 class="section-title reveal-title">
+            Learning never <span class="gradient-text">stops</span>
+          </h2>
+        </div>
+        <div class="education-grid">
+          <div class="education-card reveal-slide">
+            <div class="education-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
+            </div>
+            <div class="education-date">2019 — 2023</div>
+            <h3>Bachelor's in IT</h3>
+            <p class="education-school">Almaty Management University (AMU)</p>
+            <p class="education-desc">Degree in Information Technologies. Built a foundation in software engineering, algorithms, and data structures. Actively participated in hackathons and student tech competitions.</p>
+          </div>
+          <div class="education-card reveal-slide">
+            <div class="education-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            </div>
+            <div class="education-date">Cisco · 2022–2023</div>
+            <h3>Networking &amp; Security</h3>
+            <p class="education-school">Cisco Networking Academy</p>
+            <p class="education-desc">Earned Cybersecurity Essentials (x2) and CCNA: Introduction to Networks certifications — strengthening understanding of secure, scalable system architecture.</p>
+          </div>
+          <div class="education-card reveal-slide">
+            <div class="education-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="education-date">Ongoing</div>
+            <h3>AI Engineering</h3>
+            <p class="education-school">Self-directed Research</p>
+            <p class="education-desc">Actively researching LLM agent frameworks, RAG architectures, and cutting-edge model implementations. Building hands-on AI projects and studying emerging tools in the AI engineering space.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section gallery">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal">Beyond Code</span>
+          <h2 class="section-title reveal-title">
+            Life outside the <span class="gradient-text">terminal</span>
+          </h2>
+        </div>
+        <div class="gallery-scroll">
+          <div class="gallery-item" role="button" tabindex="0" aria-label="Adventure mode">
             <div class="skeleton-wrap">
-              <img src="assets/portfolio/imagine-99.jpg" alt="Islambek Chynybekov" loading="lazy">
+              <img
+                src="assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.JPG"
+                alt="Swimming adventure"
+                loading="lazy"
+                width="1200"
+                height="900"
+              >
             </div>
+            <span class="gallery-caption">Adventure mode</span>
           </div>
-          <div class="about-stats">
-            <div class="stat reveal">
-              <span class="stat-number" data-count="5">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Years Experience</span>
+          <div class="gallery-item" role="button" tabindex="0" aria-label="Exploring nature">
+            <div class="skeleton-wrap">
+              <img
+                src="assets/portfolio/IMG_1825.JPG"
+                alt="Forest bridge exploration"
+                loading="lazy"
+                width="900"
+                height="1200"
+              >
             </div>
-            <div class="stat reveal">
-              <span class="stat-number" data-count="30">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Projects Shipped</span>
+            <span class="gallery-caption">Exploring nature</span>
+          </div>
+          <div class="gallery-item" role="button" tabindex="0" aria-label="Cafe vibes">
+            <div class="skeleton-wrap">
+              <img
+                src="assets/portfolio/IMG_0167.jpg"
+                alt="Cafe vibes with matcha"
+                loading="lazy"
+                width="800"
+                height="1200"
+              >
             </div>
-            <div class="stat reveal">
-              <span class="stat-number" data-count="2">0</span><span class="stat-suffix">×</span>
-              <span class="stat-label">Hackathon Winner</span>
+            <span class="gallery-caption">Cafe vibes</span>
+          </div>
+          <div class="gallery-item" role="button" tabindex="0" aria-label="Off duty">
+            <div class="skeleton-wrap">
+              <img
+                src="assets/portfolio/IMG_1527.JPG"
+                alt="Casual style"
+                loading="lazy"
+                width="1200"
+                height="900"
+              >
             </div>
+            <span class="gallery-caption">Off duty</span>
+          </div>
+          <div class="gallery-item" role="button" tabindex="0" aria-label="Remote office">
+            <div class="skeleton-wrap">
+              <img
+                src="assets/portfolio/IMG_1919.JPG"
+                alt="Working remotely by the water"
+                loading="lazy"
+                width="1200"
+                height="900"
+              >
+            </div>
+            <span class="gallery-caption">Remote office</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Skills — "The Density" -->
-  <section id="skills" class="section skills">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label reveal">Skills & Tools</span>
-        <h2 class="section-title reveal-title">Technologies I work with</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-group">
-          <h3 class="skill-group-name">Frontend</h3>
-          <hr class="skill-rule">
-          <ul class="skill-list">
-            <li>Vue 3 / Nuxt 3</li>
-            <li>React / Next.js</li>
-            <li>TypeScript</li>
-            <li>Tailwind CSS / SASS</li>
-            <li>Capacitor / Ionic</li>
-            <li>Tauri Framework</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h3 class="skill-group-name">AI & ML</h3>
-          <hr class="skill-rule">
-          <ul class="skill-list">
-            <li>LLM Integration (GPT, Claude)</li>
-            <li>RAG Architectures</li>
-            <li>AI Agents & Automation</li>
-            <li>Vector Embeddings</li>
-            <li>Pandas / Scikit-learn</li>
-            <li>Generative Image Models</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h3 class="skill-group-name">Backend & Data</h3>
-          <hr class="skill-rule">
-          <ul class="skill-list">
-            <li>Python / FastAPI</li>
-            <li>Node.js / Nest.js</li>
-            <li>PL/SQL / PostgreSQL</li>
-            <li>REST API / GraphQL</li>
-            <li>Blockchain (Web3)</li>
-            <li>Quasar Framework</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h3 class="skill-group-name">Tools & DevOps</h3>
-          <hr class="skill-rule">
-          <ul class="skill-list">
-            <li>Git / GitHub / CI-CD</li>
-            <li>Docker</li>
-            <li>Webpack / Vite</li>
-            <li>AppStore & Play Store</li>
-            <li>Figma / UI Design</li>
-            <li>Unit / E2E Testing</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience — "The Stack" -->
-  <section id="experience" class="section experience">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label reveal">Experience</span>
+    <section id="contact" class="section contact">
+      <div class="container">
+        <span class="section-label reveal">Contact</span>
         <h2 class="section-title reveal-title">
-          My professional <span class="gradient-text">journey</span>
+          Let's build something<br>
+          <span class="gradient-text">amazing together</span>
         </h2>
+        <a href="mailto:formalibus@gmail.com" class="contact-email">formalibus@gmail.com</a>
+        <div class="contact-links">
+          <a href="mailto:formalibus@gmail.com">Email &rarr;</a>
+          <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener">LinkedIn &rarr;</a>
+          <a href="https://github.com/luvor" target="_blank" rel="noopener">GitHub &rarr;</a>
+          <a href="/versions.html">Versions &rarr;</a>
+        </div>
+        <p class="copyright">&copy; 2026 Islambek Chynybekov</p>
       </div>
-      <div class="experience-stack">
-        <div class="timeline-progress-line" aria-hidden="true"></div>
-
-        <div class="experience-card">
-          <span class="experience-watermark" aria-hidden="true">HALYK</span>
-          <div class="experience-content">
-            <span class="experience-date">Jan 2024 — Present</span>
-            <h3 class="experience-role">Team Lead Frontend</h3>
-            <p class="experience-company">Halyk Finservice · Almaty, Kazakhstan</p>
-            <p class="experience-desc">
-              Leading a stream of developers in Kazakhstan's largest bank subsidiary. Pioneered AI agent
-              integration into the dev pipeline — LLMs now perform automated code reviews, generate
-              documentation, and write unit & E2E tests, cutting manual overhead significantly.
-              Responsible for architectural reviews, task decomposition, and production deployments.
-            </p>
-            <div class="experience-tags">
-              <span>Vue 3</span><span>TypeScript</span><span>LLM Agents</span><span>CI/CD</span><span>Team Lead</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="experience-card">
-          <span class="experience-watermark" aria-hidden="true">HALYK</span>
-          <div class="experience-content">
-            <span class="experience-date">Jul 2023 — Dec 2023</span>
-            <h3 class="experience-role">Frontend Developer</h3>
-            <p class="experience-company">Halyk Finservice · Almaty, Kazakhstan</p>
-            <p class="experience-desc">
-              Refactored legacy codebases and built a unified UI component library that standardized
-              development across all projects. Mentored junior developers and optimized
-              frontend-backend communication protocols.
-            </p>
-            <div class="experience-tags">
-              <span>Vue 3</span><span>UI Library</span><span>Mentoring</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="experience-card">
-          <span class="experience-watermark" aria-hidden="true">KASPI</span>
-          <div class="experience-content">
-            <span class="experience-date">Aug 2022 — Jul 2023</span>
-            <h3 class="experience-role">Software Developer</h3>
-            <p class="experience-company">Kaspi.kz</p>
-            <p class="experience-desc">
-              Optimized high-load internal CRM systems for Kazakhstan's leading super-app.
-              Collaborated with data teams to improve CRM dashboard visualizations.
-              Migrated legacy PL/SQL logic to modern web architectures, enhancing performance at scale.
-            </p>
-            <div class="experience-tags">
-              <span>Vue 3</span><span>TypeScript</span><span>PL/SQL</span><span>Data Viz</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="experience-card">
-          <span class="experience-watermark" aria-hidden="true">AIR ASTANA</span>
-          <div class="experience-content">
-            <span class="experience-date">Feb 2022 — Jun 2022</span>
-            <h3 class="experience-role">Full-stack Developer</h3>
-            <p class="experience-company">Air Astana · Almaty, Kazakhstan</p>
-            <p class="experience-desc">
-              Designed and built a system for optimizing aircraft de-icing processes.
-              Analyzed operational workflows, designed the project architecture,
-              and managed team members through delivery.
-            </p>
-            <div class="experience-tags">
-              <span>Vue.js</span><span>Quasar</span><span>FastAPI</span><span>Python</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="experience-card">
-          <span class="experience-watermark" aria-hidden="true">ADAMAR</span>
-          <div class="experience-content">
-            <span class="experience-date">Aug 2020 — Aug 2022</span>
-            <h3 class="experience-role">Frontend Developer</h3>
-            <p class="experience-company">Adamar Solutions · Almaty, Kazakhstan</p>
-            <p class="experience-desc">
-              Built and shipped multiple cross-platform apps to the AppStore and Play Store.
-              Wrote unit, integration, and e2e tests. Worked across a broad stack of modern
-              frontend and hybrid mobile technologies.
-            </p>
-            <div class="experience-tags">
-              <span>Vue 3</span><span>Nuxt 3</span><span>Capacitor</span><span>Ionic</span><span>Tauri</span><span>Tailwind</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="experience-card">
-          <span class="experience-watermark" aria-hidden="true">MORRISON</span>
-          <div class="experience-content">
-            <span class="experience-date">Jan 2019 — Feb 2020</span>
-            <h3 class="experience-role">Support & Video Creator</h3>
-            <p class="experience-company">Morrison · Almaty, Kazakhstan</p>
-            <p class="experience-desc">
-              Recorded 60+ tutorial videos on JavaScript, Web Development, and React.js.
-              Delivered 50+ lessons with structured presentations and supervised
-              groups of up to 20 students.
-            </p>
-            <div class="experience-tags">
-              <span>JavaScript</span><span>React</span><span>Teaching</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CV Download -->
-      <div class="cv-download reveal">
-        <div class="cv-download-inner">
-          <div class="cv-download-text">
-            <h3>Want the full story?</h3>
-            <p>Download my complete CV for a detailed overview of my experience and skills.</p>
-          </div>
-          <a href="assets/portfolio/CV_Chynybekov_2026.pdf" download class="btn btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download CV
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects — "The Cinema" -->
-  <section id="projects" class="section projects">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label reveal">Projects</span>
-        <h2 class="section-title reveal-title">
-          Selected <span class="gradient-text">work</span>
-        </h2>
-      </div>
-      <div class="projects-stack">
-
-        <article class="project-card featured" data-tilt>
-          <span class="project-badge">Featured</span>
-          <div class="project-image">
-            <div class="skeleton-wrap">
-              <img src="assets/portfolio/IMG_0167.jpg" alt="Telegram Semantic Search RAG system" loading="lazy">
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags">
-              <span>Python</span><span>RAG</span><span>Embeddings</span>
-            </div>
-            <h3>Telegram Semantic Search</h3>
-            <p>RAG system that indexes entire Telegram channel histories and enables semantic search — find contextually relevant info, not just keyword matches. Built with vector embeddings for deep semantic understanding.</p>
-            <div class="project-links">
-              <a href="https://github.com/luvor" target="_blank" rel="noopener" class="project-link">
-                GitHub
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card" data-tilt>
-          <div class="project-image">
-            <div class="skeleton-wrap">
-              <img src="assets/portfolio/imagine-79.jpg" alt="AI-Powered Development Workflow" loading="lazy">
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags">
-              <span>LLM Agents</span><span>Automation</span><span>DX</span>
-            </div>
-            <h3>AI-Powered Dev Workflow</h3>
-            <p>Custom AI agents integrated into the daily engineering cycle at Halyk Finservice. Agents automate code reviews, generate documentation, write unit tests, and handle type definitions — measurably increasing team velocity.</p>
-            <div class="project-links">
-              <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
-                LinkedIn
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card" data-tilt>
-          <div class="project-image">
-            <div class="skeleton-wrap">
-              <img src="assets/portfolio/imagine-99.jpg" alt="Generative Image Platform" loading="lazy">
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags">
-              <span>Generative AI</span><span>Python</span><span>Image</span>
-            </div>
-            <h3>Generative Image Platform</h3>
-            <p>Application leveraging Civitai models for AI image generation. Features automated asset creation including a badge generation tool using NanoBanana processing pipelines.</p>
-            <div class="project-links">
-              <a href="https://github.com/luvor" target="_blank" rel="noopener" class="project-link">
-                GitHub
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card" data-tilt>
-          <span class="project-badge">Hackathon Winner</span>
-          <div class="project-image">
-            <div class="skeleton-wrap">
-              <img src="assets/portfolio/IMG_1919.JPG" alt="Ioka Fintech Event Platform" loading="lazy">
-            </div>
-          </div>
-          <div class="project-content">
-            <div class="project-tags">
-              <span>FinTech</span><span>Mastercard</span><span>Hackathon</span>
-            </div>
-            <h3>Ioka Fintech Event Platform</h3>
-            <p>Winner — Ioka.kz Fintech Hackathon. MVP event management platform integrating Mastercard payment systems. Also won the Savabit Mining Hackathon with an ASIC management MVP built on Blockchain.</p>
-            <div class="project-links">
-              <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
-                View on LinkedIn
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education" class="section education">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label reveal">Education</span>
-        <h2 class="section-title reveal-title">
-          Learning never <span class="gradient-text">stops</span>
-        </h2>
-      </div>
-      <div class="education-grid">
-        <div class="education-card reveal-slide">
-          <div class="education-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
-          </div>
-          <div class="education-date">2019 — 2023</div>
-          <h3>Bachelor's in IT</h3>
-          <p class="education-school">Almaty Management University (AMU)</p>
-          <p class="education-desc">Degree in Information Technologies. Built a foundation in software engineering, algorithms, and data structures. Actively participated in hackathons and student tech competitions.</p>
-        </div>
-        <div class="education-card reveal-slide">
-          <div class="education-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-          </div>
-          <div class="education-date">Cisco · 2022–2023</div>
-          <h3>Networking & Security</h3>
-          <p class="education-school">Cisco Networking Academy</p>
-          <p class="education-desc">Earned Cybersecurity Essentials (x2) and CCNA: Introduction to Networks certifications — strengthening understanding of secure, scalable system architecture.</p>
-        </div>
-        <div class="education-card reveal-slide">
-          <div class="education-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <div class="education-date">Ongoing</div>
-          <h3>AI Engineering</h3>
-          <p class="education-school">Self-directed Research</p>
-          <p class="education-desc">Actively researching LLM agent frameworks, RAG architectures, and cutting-edge model implementations. Building hands-on AI projects and studying emerging tools in the AI engineering space.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery — "The Drift" -->
-  <section id="gallery" class="section gallery">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label reveal">Beyond Code</span>
-        <h2 class="section-title reveal-title">
-          Life outside the <span class="gradient-text">terminal</span>
-        </h2>
-      </div>
-      <div class="gallery-scroll">
-        <div class="gallery-item" role="button" tabindex="0" aria-label="Adventure mode">
-          <div class="skeleton-wrap">
-            <img src="assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.JPG" alt="Swimming adventure" loading="lazy">
-          </div>
-          <span class="gallery-caption">Adventure mode</span>
-        </div>
-        <div class="gallery-item" role="button" tabindex="0" aria-label="Exploring nature">
-          <div class="skeleton-wrap">
-            <img src="assets/portfolio/IMG_1825.JPG" alt="Forest bridge exploration" loading="lazy">
-          </div>
-          <span class="gallery-caption">Exploring nature</span>
-        </div>
-        <div class="gallery-item" role="button" tabindex="0" aria-label="Cafe vibes">
-          <div class="skeleton-wrap">
-            <img src="assets/portfolio/IMG_0167.jpg" alt="Cafe vibes with matcha" loading="lazy">
-          </div>
-          <span class="gallery-caption">Cafe vibes</span>
-        </div>
-        <div class="gallery-item" role="button" tabindex="0" aria-label="Off duty">
-          <div class="skeleton-wrap">
-            <img src="assets/portfolio/IMG_1527.JPG" alt="Casual style" loading="lazy">
-          </div>
-          <span class="gallery-caption">Off duty</span>
-        </div>
-        <div class="gallery-item" role="button" tabindex="0" aria-label="Remote office">
-          <div class="skeleton-wrap">
-            <img src="assets/portfolio/IMG_1919.JPG" alt="Working remotely by the water" loading="lazy">
-          </div>
-          <span class="gallery-caption">Remote office</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact — "The Close" -->
-  <section id="contact" class="section contact">
-    <div class="container">
-      <span class="section-label reveal">Contact</span>
-      <h2 class="section-title reveal-title">
-        Let's build something<br>
-        <span class="gradient-text">amazing together</span>
-      </h2>
-      <a href="mailto:formalibus@gmail.com" class="contact-email">formalibus@gmail.com</a>
-      <div class="contact-links">
-        <a href="mailto:formalibus@gmail.com">Email &rarr;</a>
-        <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener">LinkedIn &rarr;</a>
-        <a href="https://github.com/luvor" target="_blank" rel="noopener">GitHub &rarr;</a>
-      </div>
-      <p class="copyright">&copy; 2026 Islambek Chynybekov</p>
-    </div>
-  </section>
-
+    </section>
   </main>
 
-  <!-- Lightbox -->
   <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
     <button class="lightbox-close" aria-label="Close">&times;</button>
     <button class="lightbox-prev" aria-label="Previous">&#8592;</button>
@@ -578,7 +638,7 @@
   <script src="js/main.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
       });
     }
