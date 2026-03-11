@@ -9,46 +9,11 @@ test.describe('Interactive Elements', () => {
     await page.waitForLoadState('networkidle');
   });
 
-  test('lightbox opens on gallery image click', async ({ page }) => {
-    await page.locator('#gallery').scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
-    const firstGalleryItem = page.locator('.gallery-item').first();
-    await firstGalleryItem.click();
-    const lightbox = page.locator('#lightbox');
-    await expect(lightbox).toHaveClass(/active/);
-  });
-
-  test('lightbox closes on Escape key', async ({ page }) => {
-    await page.locator('#gallery').scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
-    const firstGalleryItem = page.locator('.gallery-item').first();
-    await firstGalleryItem.click();
-    const lightbox = page.locator('#lightbox');
-    await expect(lightbox).toHaveClass(/active/);
-    await page.keyboard.press('Escape');
-    await expect(lightbox).not.toHaveClass(/active/);
-  });
-
-  test('lightbox navigates with arrow keys', async ({ page }) => {
-    await page.locator('#gallery').scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
-    const firstGalleryItem = page.locator('.gallery-item').first();
-    await firstGalleryItem.click();
-    const counter = page.locator('.lightbox-counter');
-    await expect(counter).toContainText('1 /');
-    await page.keyboard.press('ArrowRight');
-    await expect(counter).toContainText('2 /');
-    await page.keyboard.press('ArrowLeft');
-    await expect(counter).toContainText('1 /');
-  });
-
   test('scroll progress bar updates on scroll', async ({ page }) => {
     const progressBar = page.locator('#scroll-progress');
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
     await page.waitForTimeout(500);
-    const midWidth = await progressBar.evaluate(el => {
-      return parseFloat(el.style.width) || 0;
-    });
+    const midWidth = await progressBar.evaluate((el) => parseFloat(el.style.width) || 0);
     expect(midWidth).toBeGreaterThan(0);
   });
 
@@ -68,30 +33,16 @@ test.describe('Interactive Elements', () => {
     await expect(page.locator('.hero-signals li')).toHaveCount(3);
   });
 
-  test('photo reveal activates on scroll', async ({ page }) => {
-    const photo = page.locator('.photo-reveal');
-    await expect(photo).toBeAttached();
-    await photo.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
-    const result = await page.evaluate(async () => {
-      const el = document.querySelector('.photo-reveal');
-      const rect = el.getBoundingClientRect();
-      const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
-      const ratio = Math.min(
-        Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)) / rect.height,
-        1
-      );
-      if (!el.classList.contains('revealed') && ratio >= 0.3) {
-        el.classList.add('revealed');
-      }
-      return {
-        inViewport,
-        ratio,
-        hasClass: el.classList.contains('revealed'),
-      };
-    });
-    expect(result.inViewport).toBe(true);
-    expect(result.ratio).toBeGreaterThanOrEqual(0.3);
-    await expect(photo).toHaveClass(/revealed/);
+  test('case studies render with evidence panels', async ({ page }) => {
+    const cases = page.locator('.case-study');
+    await expect(cases).toHaveCount(4);
+    await expect(cases.first().locator('.case-study-aside')).toBeVisible();
+    await expect(cases.first().locator('.case-study-points li')).toHaveCount(3);
+  });
+
+  test('evidence section exposes four strategic cards', async ({ page }) => {
+    const cards = page.locator('.evidence-card');
+    await expect(cards).toHaveCount(4);
+    await expect(cards.first().locator('.evidence-label')).toBeVisible();
   });
 });

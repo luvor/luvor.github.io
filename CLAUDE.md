@@ -18,7 +18,7 @@ This repository is a static portfolio and changelog site for Islambek Chynybekov
 - `/css/style.css`: portfolio styling, layout, motion, and responsive rules.
 - `/css/versions.css`: isolated styling for the Versions page.
 - `/js/main.js`: navigation state, smooth scrolling, cursor behavior, lightbox, tilt, magnetic buttons, and mobile navbar behavior.
-- `/js/animations.js`: reveal orchestration for titles, blocks, cards, and photo entry.
+- `/js/animations.js`: reveal orchestration for titles, blocks, cards, and section surfaces.
 - `/js/particles.js`: hero canvas particle rendering with visibility-aware RAF management.
 - `/js/versions.js`: GitHub commit fetching, sessionStorage caching, and timeline rendering.
 - `/scripts/build-site.mjs`: production build script that minifies and copies only shipped assets.
@@ -38,7 +38,7 @@ This repository is a static portfolio and changelog site for Islambek Chynybekov
 - Treat `_site` as the only deployable artifact; docs, tests, plans, and config must stay out of the shipped bundle.
 - Keep implementation notes in Markdown files, not in production HTML/CSS/JS.
 - Preserve `prefers-reduced-motion` behavior in both CSS and JavaScript.
-- Prefer optimized `webp` assets for on-page imagery; keep raster fallbacks only when they serve a real external need such as social previews.
+- Keep on-page visuals evidence-driven. Prefer structured case-study surfaces over decorative lifestyle imagery.
 - Preserve the current visual direction: dark atmosphere, strong typography, cyan-to-amber accents, and a split hero layout.
 
 # Design Tokens

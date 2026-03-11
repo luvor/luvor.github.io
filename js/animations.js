@@ -19,10 +19,6 @@
     document.querySelectorAll(revealSelector).forEach(function (element) {
       element.classList.add('visible');
     });
-
-    document.querySelectorAll('.photo-reveal').forEach(function (element) {
-      element.classList.add('revealed');
-    });
   }
 
   function setupObserver() {
@@ -40,23 +36,15 @@
             return;
           }
 
-          if (element.classList.contains('photo-reveal') && ratio >= 0.25) {
-            element.classList.add('revealed');
-            observer.unobserve(element);
-          }
         });
       },
       {
-        threshold: [0.15, 0.25],
+        threshold: [0.15],
         rootMargin: '0px 0px -50px 0px',
       }
     );
 
     document.querySelectorAll(revealSelector).forEach(function (element) {
-      observer.observe(element);
-    });
-
-    document.querySelectorAll('.photo-reveal').forEach(function (element) {
       observer.observe(element);
     });
   }

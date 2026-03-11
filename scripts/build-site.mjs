@@ -30,13 +30,6 @@ const staticAssets = [
   'assets/icons/icon-maskable-512.png',
   'assets/portfolio/CV_Chynybekov_2026.pdf',
   'assets/portfolio/imagine-99.jpg',
-  'assets/portfolio/imagine-99.webp',
-  'assets/portfolio/imagine-79.webp',
-  'assets/portfolio/IMG_0167.webp',
-  'assets/portfolio/IMG_1919.webp',
-  'assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.webp',
-  'assets/portfolio/IMG_1825.webp',
-  'assets/portfolio/IMG_1527.webp',
 ];
 
 function resolveFromRoot(relativePath) {

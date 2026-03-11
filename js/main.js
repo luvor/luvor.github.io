@@ -9,38 +9,16 @@
   const navLinks = document.getElementById('nav-links');
   const scrollProgress = document.getElementById('scroll-progress');
   const customCursor = document.getElementById('custom-cursor');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox ? lightbox.querySelector('.lightbox-img') : null;
-  const lightboxCounter = lightbox ? lightbox.querySelector('.lightbox-counter') : null;
 
-  const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
+  const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'evidence', 'contact'];
   const navAnchors = {};
   const sectionOffsets = {};
-  const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
-  let lightboxIndex = 0;
 
   sectionIds.forEach(function (id) {
     const anchor = navLinks ? navLinks.querySelector('a[href="#' + id + '"]') : null;
     if (anchor) {
       navAnchors[id] = anchor;
     }
-  });
-
-  document.querySelectorAll('.skeleton-wrap').forEach(function (wrap) {
-    const img = wrap.querySelector('img');
-    if (!img) return;
-
-    function markLoaded() {
-      wrap.classList.add('loaded');
-    }
-
-    if (img.complete && img.naturalWidth > 0) {
-      markLoaded();
-      return;
-    }
-
-    img.addEventListener('load', markLoaded, { once: true });
-    img.addEventListener('error', markLoaded, { once: true });
   });
 
   function recalculateSectionOffsets() {
@@ -154,7 +132,7 @@
     let cursorReady = false;
     const idleThreshold = 0.5;
     const lerpFactor = 0.1;
-    const hoverTargets = 'a, button, .btn, .gallery-item, .project-card, [data-tilt], .tag, .skill-list li';
+    const hoverTargets = 'a, button, .btn, .case-study, [data-tilt], .tag, .skill-list li, .evidence-card';
 
     function renderCursor() {
       customCursor.style.transform =
@@ -203,102 +181,6 @@
         document.body.classList.remove('cursor-hover');
       });
     });
-  }
-
-  function openLightbox(index) {
-    if (!lightbox || !lightboxImg || !lightboxCounter || !galleryImages[index]) return;
-
-    lightboxIndex = index;
-    lightboxImg.src = galleryImages[index].src;
-    lightboxImg.alt = galleryImages[index].alt;
-    lightboxCounter.textContent = index + 1 + ' / ' + galleryImages.length;
-    lightbox.classList.add('active');
-    lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    if (!lightbox) return;
-
-    lightbox.classList.remove('active');
-    lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  function navigateLightbox(direction) {
-    if (!lightboxImg || !lightboxCounter || !galleryImages.length) return;
-
-    lightboxIndex = (lightboxIndex + direction + galleryImages.length) % galleryImages.length;
-    lightboxImg.src = galleryImages[lightboxIndex].src;
-    lightboxImg.alt = galleryImages[lightboxIndex].alt;
-    lightboxCounter.textContent = lightboxIndex + 1 + ' / ' + galleryImages.length;
-  }
-
-  galleryImages.forEach(function (img, index) {
-    const item = img.closest('.gallery-item');
-    if (!item) return;
-
-    item.addEventListener('click', function () {
-      openLightbox(index);
-    });
-
-    item.addEventListener('keydown', function (event) {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
-      openLightbox(index);
-    });
-  });
-
-  if (lightbox) {
-    const closeButton = lightbox.querySelector('.lightbox-close');
-    const prevButton = lightbox.querySelector('.lightbox-prev');
-    const nextButton = lightbox.querySelector('.lightbox-next');
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    if (closeButton) {
-      closeButton.addEventListener('click', closeLightbox);
-    }
-
-    if (prevButton) {
-      prevButton.addEventListener('click', function () {
-        navigateLightbox(-1);
-      });
-    }
-
-    if (nextButton) {
-      nextButton.addEventListener('click', function () {
-        navigateLightbox(1);
-      });
-    }
-
-    lightbox.addEventListener('click', function (event) {
-      if (event.target === lightbox) {
-        closeLightbox();
-      }
-    });
-
-    lightbox.addEventListener('touchstart', function (event) {
-      if (event.touches.length !== 1) return;
-      touchStartX = event.touches[0].clientX;
-      touchStartY = event.touches[0].clientY;
-    }, { passive: true });
-
-    lightbox.addEventListener('touchend', function (event) {
-      if (event.changedTouches.length !== 1) return;
-
-      const dx = event.changedTouches[0].clientX - touchStartX;
-      const dy = event.changedTouches[0].clientY - touchStartY;
-
-      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 2) {
-        navigateLightbox(dx > 0 ? -1 : 1);
-        return;
-      }
-
-      if (Math.abs(dy) > 100 && Math.abs(dy) > Math.abs(dx) * 2) {
-        closeLightbox();
-      }
-    }, { passive: true });
   }
 
   if (hasFineCursor && !prefersReduced) {
@@ -375,20 +257,11 @@
   }
 
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-      if (lightbox && lightbox.classList.contains('active')) {
-        closeLightbox();
-      } else if (navToggle && navLinks && navLinks.classList.contains('open')) {
-        navToggle.classList.remove('open');
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-    }
-
-    if (lightbox && lightbox.classList.contains('active')) {
-      if (event.key === 'ArrowLeft') navigateLightbox(-1);
-      if (event.key === 'ArrowRight') navigateLightbox(1);
+    if (event.key === 'Escape' && navToggle && navLinks && navLinks.classList.contains('open')) {
+      navToggle.classList.remove('open');
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   });
 })();

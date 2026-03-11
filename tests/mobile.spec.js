@@ -14,7 +14,7 @@ test.describe('Mobile Responsiveness', () => {
   });
 
   test('all sections are visible and not clipped', async ({ page }) => {
-    const sections = ['#about', '#skills', '#experience', '#projects', '#education', '#gallery', '#contact'];
+    const sections = ['#about', '#skills', '#experience', '#projects', '#education', '#evidence', '#contact'];
     for (const selector of sections) {
       const section = page.locator(selector);
       await expect(section).toBeVisible({ timeout: 10000 });
@@ -29,7 +29,7 @@ test.describe('Mobile Responsiveness', () => {
     const overflowingImages = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('img')).flatMap((img) => {
         if (!(img instanceof HTMLImageElement)) return [];
-        if (!img.offsetParent || img.closest('.gallery-scroll')) return [];
+        if (!img.offsetParent) return [];
 
         const rect = img.getBoundingClientRect();
         if (rect.right <= window.innerWidth + 5) return [];
@@ -48,7 +48,6 @@ test.describe('Mobile Responsiveness', () => {
   test('hamburger menu opens and closes', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'Mobile only test');
     const toggle = page.locator('#nav-toggle');
-    // Hamburger may be hidden on wider mobile viewports (e.g. iPad at 810px)
     if (!(await toggle.isVisible())) {
       test.skip(true, 'Hamburger not visible at this viewport width');
       return;
@@ -65,7 +64,6 @@ test.describe('Mobile Responsiveness', () => {
     const toggle = page.locator('#nav-toggle');
     if (await toggle.isVisible()) {
       const box = await toggle.boundingBox();
-      // Allow sub-pixel rounding tolerance
       expect(Math.round(box.width)).toBeGreaterThanOrEqual(44);
       expect(Math.round(box.height)).toBeGreaterThanOrEqual(44);
     }
@@ -128,31 +126,22 @@ test.describe('PWA Features', () => {
   });
 });
 
-test.describe('Skeleton Loading', () => {
+test.describe('Case Study Layout', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
   });
 
-  test('skeleton-wrap elements exist around images', async ({ page }) => {
-    const skeletons = page.locator('.skeleton-wrap');
-    const count = await skeletons.count();
-    expect(count).toBeGreaterThanOrEqual(5);
+  test('case studies collapse into a single column', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'Mobile only test');
+    const firstCase = page.locator('.case-study').first();
+    const columns = await firstCase.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
+    expect(columns.split(' ').filter(Boolean).length).toBe(1);
   });
 
-  test('skeleton-wrap elements get loaded class', async ({ page }) => {
-    // Scroll through the page to trigger lazy-loaded images
-    await page.evaluate(async () => {
-      const delay = ms => new Promise(r => setTimeout(r, ms));
-      for (let y = 0; y < document.body.scrollHeight; y += 400) {
-        window.scrollTo(0, y);
-        await delay(100);
-      }
-      window.scrollTo(0, 0);
-    });
-    await page.waitForTimeout(3000);
-    const loadedSkeletons = page.locator('.skeleton-wrap.loaded');
-    const count = await loadedSkeletons.count();
-    expect(count).toBeGreaterThan(0);
+  test('evidence cards stay readable on mobile', async ({ page }) => {
+    const cards = page.locator('.evidence-card');
+    await expect(cards).toHaveCount(4);
+    await expect(cards.first()).toBeVisible();
   });
 });

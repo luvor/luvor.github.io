@@ -17,10 +17,8 @@ test.describe('Accessibility', () => {
   });
 
   test('all images have alt text', async ({ page }) => {
-    // Exclude the lightbox placeholder img which intentionally has alt=""
-    const images = page.locator('img:not(.lightbox-img)');
+    const images = page.locator('img');
     const count = await images.count();
-    expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
       const img = images.nth(i);
       const alt = await img.getAttribute('alt');
@@ -90,13 +88,14 @@ test.describe('Accessibility', () => {
     }
   });
 
-  test('gallery items have role="button"', async ({ page }) => {
-    const items = page.locator('.gallery-item');
-    const count = await items.count();
-    expect(count).toBeGreaterThan(0);
+  test('evidence cards expose meaningful headings', async ({ page }) => {
+    const cards = page.locator('.evidence-card');
+    await expect(cards).toHaveCount(4);
+    const headings = cards.locator('h3');
+    const count = await headings.count();
     for (let i = 0; i < count; i++) {
-      const role = await items.nth(i).getAttribute('role');
-      expect(role).toBe('button');
+      const text = await headings.nth(i).textContent();
+      expect(text.trim().length).toBeGreaterThan(0);
     }
   });
 

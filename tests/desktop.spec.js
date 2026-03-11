@@ -11,7 +11,7 @@ test.describe('Desktop Layout', () => {
   });
 
   test('all sections render correctly', async ({ page }) => {
-    const sections = ['#about', '#skills', '#experience', '#projects', '#education', '#gallery', '#contact'];
+    const sections = ['#about', '#skills', '#experience', '#projects', '#education', '#evidence', '#contact'];
     for (const selector of sections) {
       await expect(page.locator(selector)).toBeAttached();
     }
@@ -30,8 +30,8 @@ test.describe('Desktop Layout', () => {
     expect(cols.split(' ').length).toBe(2);
   });
 
-  test('projects stack has at least 4 cards', async ({ page }) => {
-    const cards = page.locator('.project-card');
+  test('projects stack has curated case studies', async ({ page }) => {
+    const cards = page.locator('.case-study');
     expect(await cards.count()).toBeGreaterThanOrEqual(4);
   });
 
@@ -51,10 +51,10 @@ test.describe('Desktop Layout', () => {
     expect(colValues.length).toBe(3);
   });
 
-  test('gallery is horizontal scroll', async ({ page }) => {
-    const gallery = page.locator('.gallery-scroll');
-    const overflow = await gallery.evaluate(el => getComputedStyle(el).overflowX);
-    expect(overflow).toBe('auto');
+  test('evidence grid uses two columns on desktop', async ({ page }) => {
+    const grid = page.locator('.evidence-grid');
+    const columns = await grid.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
+    expect(columns.split(' ').filter(Boolean).length).toBe(2);
   });
 
   test('experience cards have watermark text', async ({ page }) => {
