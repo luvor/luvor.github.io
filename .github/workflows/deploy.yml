@@ -24,15 +24,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Build production artifact
-        run: |
-          rm -rf _site
-          mkdir -p _site
-          cp index.html versions.html sw.js favicon.svg manifest.webmanifest _site/
-          cp -R css js assets _site/
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

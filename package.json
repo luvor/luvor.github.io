@@ -4,6 +4,7 @@
   "private": true,
   "description": "Personal portfolio — Islambek Chynybekov",
   "scripts": {
+    "build": "node scripts/build-site.mjs",
     "test": "npx playwright test",
     "test:ui": "npx playwright test --ui",
     "serve": "npx serve . -p 3000"
@@ -17,6 +18,9 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.56.0",
-    "serve": "^14.2.6"
+    "clean-css": "^5.3.3",
+    "html-minifier-terser": "^7.2.0",
+    "serve": "^14.2.6",
+    "terser": "^5.46.0"
   }
 }

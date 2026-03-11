@@ -4,7 +4,8 @@ const { test, expect } = require('@playwright/test');
 test.describe('Desktop Layout', () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'Desktop Chrome', 'Desktop-only regression suite');
     await page.goto('/');
     await page.waitForLoadState('networkidle');
   });
@@ -16,13 +17,11 @@ test.describe('Desktop Layout', () => {
     }
   });
 
-  test('hero section is full viewport with centered name', async ({ page }) => {
-    const heroName = page.locator('.hero-name');
-    await expect(heroName).toBeVisible();
-    const box = await heroName.boundingBox();
-    const viewport = page.viewportSize();
-    // Name should be roughly centered horizontally
-    expect(Math.abs(box.x + box.width / 2 - viewport.width / 2)).toBeLessThan(100);
+  test('hero uses the split manifesto layout', async ({ page }) => {
+    await expect(page.locator('.hero-name')).toBeVisible();
+    await expect(page.locator('.hero-panel')).toBeVisible();
+    const columns = await page.locator('.hero-shell').evaluate((el) => getComputedStyle(el).gridTemplateColumns);
+    expect(columns.split(' ').filter(Boolean).length).toBe(2);
   });
 
   test('skills grid has 2x2 layout on desktop', async ({ page }) => {
@@ -61,8 +60,10 @@ test.describe('Desktop Layout', () => {
   test('experience cards have watermark text', async ({ page }) => {
     const watermark = page.locator('.experience-watermark').first();
     await expect(watermark).toBeAttached();
-    const opacity = await watermark.evaluate(el => getComputedStyle(el).opacity);
-    expect(parseFloat(opacity)).toBeLessThan(0.1);
+    const color = await watermark.evaluate((el) => getComputedStyle(el).color);
+    const alphaMatch = color.match(/rgba?\((?:\d+,\s*){2}\d+(?:,\s*([0-9.]+))?\)/);
+    const alpha = alphaMatch && alphaMatch[1] ? parseFloat(alphaMatch[1]) : 1;
+    expect(alpha).toBeLessThanOrEqual(0.1);
   });
 
   test('custom scrollbar is styled', async ({ page }) => {

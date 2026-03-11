@@ -1,5 +1,5 @@
-const CACHE_NAME = 'ic-portfolio-v4';
-const RUNTIME_CACHE = 'ic-portfolio-runtime-v4';
+const CACHE_NAME = 'ic-portfolio-v5';
+const RUNTIME_CACHE = 'ic-portfolio-runtime-v5';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -10,7 +10,6 @@ const PRECACHE_ASSETS = [
   '/js/main.js',
   '/js/animations.js',
   '/js/particles.js',
-  '/js/gestures.js',
   '/js/versions.js',
   '/favicon.svg',
   '/manifest.webmanifest',

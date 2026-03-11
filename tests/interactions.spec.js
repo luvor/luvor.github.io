@@ -62,30 +62,17 @@ test.describe('Interactive Elements', () => {
     expect(classes).toContain('active');
   });
 
-  test('orchestrated page load animation', async ({ page }) => {
-    await page.goto('/');
-    const body = page.locator('body');
-    await page.waitForTimeout(2000);
-    await expect(body).not.toHaveClass(/hero-load/);
-  });
-
-  test('char-stagger elements are split into spans', async ({ page }) => {
-    const stagger = page.locator('.char-stagger').first();
-    const spans = stagger.locator('span');
-    const count = await spans.count();
-    // "ISLAMBEK" = 8 characters
-    expect(count).toBeGreaterThanOrEqual(8);
+  test('hero renders immediately with the new composition', async ({ page }) => {
+    await expect(page.locator('.hero-name-line').first()).toHaveText('Islambek');
+    await expect(page.locator('.hero-panel')).toBeVisible();
+    await expect(page.locator('.hero-signals li')).toHaveCount(3);
   });
 
   test('photo reveal activates on scroll', async ({ page }) => {
     const photo = page.locator('.photo-reveal');
     await expect(photo).toBeAttached();
-    // Scroll the about section fully into view
     await photo.scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
-    // IntersectionObserver may not fire reliably in all headless browsers.
-    // Verify the mechanism works: element exists, has clip-path style,
-    // and the revealed class can be applied (simulating what the observer does).
     const result = await page.evaluate(async () => {
       const el = document.querySelector('.photo-reveal');
       const rect = el.getBoundingClientRect();
@@ -94,8 +81,6 @@ test.describe('Interactive Elements', () => {
         Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)) / rect.height,
         1
       );
-      // If observer hasn't fired yet but element is sufficiently visible, add class manually
-      // This handles headless browser IntersectionObserver timing issues
       if (!el.classList.contains('revealed') && ratio >= 0.3) {
         el.classList.add('revealed');
       }

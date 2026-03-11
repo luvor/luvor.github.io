@@ -16,6 +16,8 @@
   const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'gallery', 'contact'];
   const navAnchors = {};
   const sectionOffsets = {};
+  const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
+  let lightboxIndex = 0;
 
   sectionIds.forEach(function (id) {
     const anchor = navLinks ? navLinks.querySelector('a[href="#' + id + '"]') : null;
@@ -24,71 +26,23 @@
     }
   });
 
-  const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
-  let lightboxIndex = 0;
-
-  // --- Skeleton loading ---
   document.querySelectorAll('.skeleton-wrap').forEach(function (wrap) {
     const img = wrap.querySelector('img');
     if (!img) return;
 
-    function onLoaded() {
+    function markLoaded() {
       wrap.classList.add('loaded');
     }
 
     if (img.complete && img.naturalWidth > 0) {
-      onLoaded();
+      markLoaded();
       return;
     }
 
-    img.addEventListener('load', onLoaded, { once: true });
-    img.addEventListener('error', onLoaded, { once: true });
+    img.addEventListener('load', markLoaded, { once: true });
+    img.addEventListener('error', markLoaded, { once: true });
   });
 
-  // --- Hero reveal ---
-  function triggerHeroReveal() {
-    const body = document.body;
-    if (body.classList.contains('hero-revealed')) return;
-
-    body.classList.add('hero-revealed');
-
-    const delays = {
-      '.navbar': 0,
-      '.hero-badge': 300,
-      '.hero-name': 400,
-      '.hero-subtitle': 600,
-      '.hero-actions': 800,
-      '#hero-canvas': 500,
-      '.scroll-indicator': 1200,
-    };
-
-    Object.keys(delays).forEach(function (selector) {
-      const element = document.querySelector(selector);
-      if (!element) return;
-
-      setTimeout(function () {
-        element.style.opacity = '1';
-        element.style.transform = 'none';
-      }, delays[selector]);
-    });
-
-    setTimeout(function () {
-      document.querySelectorAll('.char-stagger').forEach(function (element) {
-        element.classList.add('revealed');
-      });
-    }, 500);
-
-    setTimeout(function () {
-      body.classList.remove('hero-load');
-    }, 1500);
-  }
-
-  window.addEventListener('load', triggerHeroReveal);
-  if (document.readyState === 'complete') {
-    triggerHeroReveal();
-  }
-
-  // --- Cached section offsets ---
   function recalculateSectionOffsets() {
     sectionIds.forEach(function (id) {
       const section = document.getElementById(id);
@@ -98,14 +52,6 @@
     });
   }
 
-  recalculateSectionOffsets();
-  window.addEventListener('resize', function () {
-    recalculateSectionOffsets();
-    onScrollFrame();
-  }, { passive: true });
-  window.addEventListener('load', recalculateSectionOffsets);
-
-  // --- Scroll state ---
   let scrollTicking = false;
 
   function onScrollFrame() {
@@ -114,10 +60,10 @@
     const scrollable = document.body.scrollHeight - windowHeight;
 
     if (navbar) {
-      navbar.classList.toggle('scrolled', scrollY > 50);
+      navbar.classList.toggle('scrolled', scrollY > 24);
     }
 
-    const threshold = scrollY + windowHeight / 3;
+    const threshold = scrollY + windowHeight * 0.35;
     let currentSection = '';
 
     sectionIds.forEach(function (id) {
@@ -146,6 +92,13 @@
     scrollTicking = false;
   }
 
+  recalculateSectionOffsets();
+  window.addEventListener('load', recalculateSectionOffsets);
+  window.addEventListener('resize', function () {
+    recalculateSectionOffsets();
+    onScrollFrame();
+  }, { passive: true });
+
   window.addEventListener('scroll', function () {
     if (scrollTicking) return;
     scrollTicking = true;
@@ -154,7 +107,6 @@
 
   onScrollFrame();
 
-  // --- Mobile navigation ---
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', function () {
       const isOpen = navLinks.classList.toggle('open');
@@ -173,7 +125,6 @@
     });
   }
 
-  // --- Smooth scroll ---
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (event) {
       const targetId = anchor.getAttribute('href');
@@ -194,7 +145,6 @@
     });
   });
 
-  // --- Custom cursor ---
   if (hasFineCursor && customCursor && !prefersReduced) {
     let cursorX = 0;
     let cursorY = 0;
@@ -202,9 +152,8 @@
     let targetY = 0;
     let cursorFrame = null;
     let cursorReady = false;
-    const lerpFactor = 0.1;
     const idleThreshold = 0.5;
-
+    const lerpFactor = 0.1;
     const hoverTargets = 'a, button, .btn, .gallery-item, .project-card, [data-tilt], .tag, .skill-list li';
 
     function renderCursor() {
@@ -214,15 +163,11 @@
 
     function updateCursor() {
       cursorFrame = null;
-
       cursorX += (targetX - cursorX) * lerpFactor;
       cursorY += (targetY - cursorY) * lerpFactor;
       renderCursor();
 
-      const deltaX = Math.abs(targetX - cursorX);
-      const deltaY = Math.abs(targetY - cursorY);
-
-      if (deltaX < idleThreshold && deltaY < idleThreshold) {
+      if (Math.abs(targetX - cursorX) < idleThreshold && Math.abs(targetY - cursorY) < idleThreshold) {
         cursorX = targetX;
         cursorY = targetY;
         renderCursor();
@@ -260,14 +205,13 @@
     });
   }
 
-  // --- Gallery lightbox ---
   function openLightbox(index) {
     if (!lightbox || !lightboxImg || !lightboxCounter || !galleryImages[index]) return;
 
     lightboxIndex = index;
     lightboxImg.src = galleryImages[index].src;
     lightboxImg.alt = galleryImages[index].alt;
-    lightboxCounter.textContent = (index + 1) + ' / ' + galleryImages.length;
+    lightboxCounter.textContent = index + 1 + ' / ' + galleryImages.length;
     lightbox.classList.add('active');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -287,7 +231,7 @@
     lightboxIndex = (lightboxIndex + direction + galleryImages.length) % galleryImages.length;
     lightboxImg.src = galleryImages[lightboxIndex].src;
     lightboxImg.alt = galleryImages[lightboxIndex].alt;
-    lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
+    lightboxCounter.textContent = lightboxIndex + 1 + ' / ' + galleryImages.length;
   }
 
   galleryImages.forEach(function (img, index) {
@@ -309,6 +253,8 @@
     const closeButton = lightbox.querySelector('.lightbox-close');
     const prevButton = lightbox.querySelector('.lightbox-prev');
     const nextButton = lightbox.querySelector('.lightbox-next');
+    let touchStartX = 0;
+    let touchStartY = 0;
 
     if (closeButton) {
       closeButton.addEventListener('click', closeLightbox);
@@ -331,9 +277,30 @@
         closeLightbox();
       }
     });
+
+    lightbox.addEventListener('touchstart', function (event) {
+      if (event.touches.length !== 1) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', function (event) {
+      if (event.changedTouches.length !== 1) return;
+
+      const dx = event.changedTouches[0].clientX - touchStartX;
+      const dy = event.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 2) {
+        navigateLightbox(dx > 0 ? -1 : 1);
+        return;
+      }
+
+      if (Math.abs(dy) > 100 && Math.abs(dy) > Math.abs(dx) * 2) {
+        closeLightbox();
+      }
+    }, { passive: true });
   }
 
-  // --- Tilted project cards ---
   if (hasFineCursor && !prefersReduced) {
     document.querySelectorAll('[data-tilt]').forEach(function (card) {
       card.addEventListener('mouseenter', function () {
@@ -346,9 +313,8 @@
         const y = event.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -5;
-        const rotateY = ((x - centerX) / centerX) * 5;
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
 
         card.style.transform =
           'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
@@ -356,24 +322,23 @@
 
       card.addEventListener('mouseleave', function () {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        card.style.transition = 'transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
 
         setTimeout(function () {
           card.style.transition = '';
           card.style.willChange = '';
-        }, 500);
+        }, 450);
       });
     });
   }
 
-  // --- Magnetic buttons ---
   if (hasFineCursor && !prefersReduced) {
     document.querySelectorAll('.btn-primary, .btn-ghost').forEach(function (element) {
       element.addEventListener('mousemove', function (event) {
         const rect = element.getBoundingClientRect();
         const x = event.clientX - rect.left - rect.width / 2;
         const y = event.clientY - rect.top - rect.height / 2;
-        element.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px)';
+        element.style.transform = 'translate(' + x * 0.12 + 'px, ' + y * 0.12 + 'px)';
       }, { passive: true });
 
       element.addEventListener('mouseleave', function () {
@@ -382,7 +347,33 @@
     });
   }
 
-  // --- Keyboard support ---
+  if (window.innerWidth <= 768 && navbar) {
+    let lastScrollY = window.scrollY;
+    let navHidden = false;
+    let navFramePending = false;
+
+    window.addEventListener('scroll', function () {
+      if (navFramePending) return;
+      navFramePending = true;
+
+      requestAnimationFrame(function () {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
+
+        if (delta > 10 && currentY > 120 && !navHidden) {
+          navbar.classList.add('nav-hidden');
+          navHidden = true;
+        } else if (delta < -6 && navHidden) {
+          navbar.classList.remove('nav-hidden');
+          navHidden = false;
+        }
+
+        lastScrollY = currentY;
+        navFramePending = false;
+      });
+    }, { passive: true });
+  }
+
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
       if (lightbox && lightbox.classList.contains('active')) {

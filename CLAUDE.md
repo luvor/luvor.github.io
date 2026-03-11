@@ -1,52 +1,55 @@
 # Project Overview
 
-This repository is a static personal portfolio for Islambek Chynybekov. It is intentionally simple: plain HTML, CSS, and vanilla JavaScript served directly from GitHub Pages with a service worker for PWA support.
+This repository is a static portfolio and changelog site for Islambek Chynybekov. The main page is `index.html`, the commit-backed history page is `versions.html`, and the production artifact is generated into `_site`.
 
 # Tech Stack
 
-- HTML for structure and content.
-- One main stylesheet at `/css/style.css`.
-- Vanilla JavaScript modules in `/js` for animation, interaction, gestures, and the Versions page.
+- Plain HTML for structure.
+- Two standalone stylesheets: `/css/style.css` and `/css/versions.css`.
+- Vanilla JavaScript modules in `/js` for page behavior, reveals, particles, and version history.
 - Playwright for regression coverage.
-- GitHub Actions for Pages deployment.
+- A Node-based build step that minifies HTML, CSS, and JavaScript into `_site`.
+- GitHub Actions for GitHub Pages deployment.
 
 # File Structure
 
 - `/index.html`: main portfolio page.
-- `/versions.html`: GitHub-backed version history page.
-- `/css/style.css`: primary portfolio styling and motion system.
-- `/css/versions.css`: standalone styling for the Versions page.
-- `/js/main.js`: navigation, scroll state, cursor, lightbox, and hover interactions.
-- `/js/animations.js`: character splitting, reveal orchestration, and counters.
-- `/js/particles.js`: hero canvas rendering.
-- `/js/gestures.js`: mobile gestures and easter eggs.
-- `/js/versions.js`: commit fetching, sessionStorage caching, and timeline rendering.
-- `/sw.js`: precache and runtime caching.
-- `/tests`: Playwright coverage for desktop, mobile, accessibility, interactions, and versions.
+- `/versions.html`: version history page backed by GitHub commits.
+- `/css/style.css`: portfolio styling, layout, motion, and responsive rules.
+- `/css/versions.css`: isolated styling for the Versions page.
+- `/js/main.js`: navigation state, smooth scrolling, cursor behavior, lightbox, tilt, magnetic buttons, and mobile navbar behavior.
+- `/js/animations.js`: reveal orchestration for titles, blocks, cards, and photo entry.
+- `/js/particles.js`: hero canvas particle rendering with visibility-aware RAF management.
+- `/js/versions.js`: GitHub commit fetching, sessionStorage caching, and timeline rendering.
+- `/scripts/build-site.mjs`: production build script that minifies and copies only shipped assets.
+- `/sw.js`: app-shell precache and runtime caching.
+- `/tests`: Playwright coverage for accessibility, layout, interactions, mobile behavior, and the Versions page.
 
 # Commands
 
+- `npm run build`: generate the production `_site` bundle.
 - `npm test`: run the Playwright suite.
 - `npm run test:ui`: open Playwright UI mode.
-- `npm run serve`: serve the site locally on port `3000`.
+- `npm run serve`: serve the repository locally on port `3000`.
 
 # Conventions
 
-- Keep the site dependency-light. Prefer native browser APIs over new packages.
-- Preserve the dark visual language and existing design tokens unless the task explicitly changes them.
-- Respect `prefers-reduced-motion` in both CSS and JavaScript.
-- Add direct asset references instead of introducing a bundling step.
-- Treat `/assets`, `/css`, `/js`, `index.html`, `versions.html`, `manifest.webmanifest`, and `sw.js` as the production surface shipped to Pages.
+- Keep runtime code dependency-light and browser-native.
+- Treat `_site` as the only deployable artifact; docs, tests, plans, and config must stay out of the shipped bundle.
+- Keep implementation notes in Markdown files, not in production HTML/CSS/JS.
+- Preserve `prefers-reduced-motion` behavior in both CSS and JavaScript.
+- Prefer optimized `webp` assets for on-page imagery; keep raster fallbacks only when they serve a real external need such as social previews.
+- Preserve the current visual direction: dark atmosphere, strong typography, cyan-to-amber accents, and a split hero layout.
 
 # Design Tokens
 
-- Primary background: `#000000`
-- Secondary background: `#0A0A0A`
-- Primary text: `#F5F5F7`
-- Secondary text: `#A1A1AA`
-- Accent: `#A78BFA`
-- Secondary accent: `#00FFE0`
-- Surface: `rgba(255, 255, 255, 0.03)`
-- Border: `rgba(255, 255, 255, 0.06)`
+- Primary background: `#05070B`
+- Secondary background: `#090D13`
+- Primary text: `#EEF2F7`
+- Secondary text: `#9BA6B5`
+- Accent: `#8BF5D2`
+- Warm accent: `#F3B87A`
+- Surface: `rgba(15, 21, 29, 0.78)`
+- Border: `rgba(255, 255, 255, 0.08)`
 - Main easing: `cubic-bezier(0.16, 1, 0.3, 1)`
 - Spring easing: `cubic-bezier(0.34, 1.56, 0.64, 1)`

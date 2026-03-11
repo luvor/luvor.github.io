@@ -25,8 +25,8 @@
     mouseRadiusSq: 200 * 200,
     mouseForce: 0.02,
     colors: [
-      'rgba(0, 255, 224, ',
-      'rgba(167, 139, 250, ',
+      'rgba(139, 245, 210, ',
+      'rgba(243, 184, 122, ',
     ],
     particleOpacity: { min: 0.3, max: 0.9 },
     glowThreshold: 2,
@@ -123,7 +123,7 @@
     }
 
     const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
-    gradient.addColorStop(0, 'rgba(0, 255, 224, 0.04)');
+    gradient.addColorStop(0, 'rgba(139, 245, 210, 0.04)');
     gradient.addColorStop(1, 'transparent');
     mouseGlow = gradient;
 

@@ -55,14 +55,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700;900&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <noscript><style>.skeleton-wrap img{opacity:1!important}.skeleton-wrap::after{display:none}</style></noscript>
 </head>
-<body class="hero-load">
+<body>
   <div id="custom-cursor" aria-hidden="true"></div>
   <a href="#about" class="skip-link">Skip to content</a>
   <div id="scroll-progress" aria-hidden="true"></div>
@@ -95,26 +92,54 @@
   <main>
     <section id="hero" class="hero">
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
-      <div class="hero-content">
-        <div class="hero-badge reveal">
-          <span class="badge-dot"></span>
-          Available for work
+      <div class="container hero-shell">
+        <div class="hero-copy">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Available for work
+          </div>
+          <p class="hero-kicker">Senior Frontend Engineer / AI Systems Builder / Kazakhstan</p>
+          <h1 class="hero-name">
+            <span class="hero-name-line">Islambek</span>
+            <span class="hero-name-line gradient-text">Chynybekov</span>
+          </h1>
+          <p class="hero-subtitle">
+            I build high-discipline interfaces and AI-augmented product systems that feel precise,
+            fast, and unmistakably production ready.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Work</a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          </div>
+          <ul class="hero-signals">
+            <li><strong>5+</strong><span>years shipping digital products</span></li>
+            <li><strong>30+</strong><span>projects delivered across fintech and AI</span></li>
+            <li><strong>AI × UX</strong><span>frontend systems with practical automation</span></li>
+          </ul>
         </div>
-        <h1 class="hero-name">
-          <span class="char-stagger" data-text="ISLAMBEK">ISLAMBEK</span>
-          <span class="char-stagger" data-text="CHYNYBEKOV">CHYNYBEKOV</span>
-        </h1>
-        <p class="hero-subtitle">
-          Senior Frontend Engineer &amp; AI Integrator<br>
-          building <em>intelligent products</em> that matter.
-        </p>
-        <div class="hero-actions reveal">
-          <a href="#projects" class="btn btn-primary">View Work</a>
-          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-        </div>
-        <div class="scroll-indicator">
-          <div class="scroll-line"></div>
-        </div>
+        <aside class="hero-panel reveal-slide">
+          <span class="hero-panel-label">Current Focus</span>
+          <h2 class="hero-panel-title">
+            Building the bridge between resilient frontend systems and practical AI leverage.
+          </h2>
+          <div class="hero-panel-grid">
+            <div class="hero-panel-card">
+              <span class="hero-panel-eyebrow">At Halyk</span>
+              <p>Leading a frontend stream and raising delivery quality across products.</p>
+            </div>
+            <div class="hero-panel-card">
+              <span class="hero-panel-eyebrow">With AI</span>
+              <p>Using agents for review, documentation, testing, and developer acceleration.</p>
+            </div>
+            <div class="hero-panel-card">
+              <span class="hero-panel-eyebrow">In Product</span>
+              <p>Designing interfaces that stay sharp under scale, complexity, and change.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
       </div>
     </section>
 
@@ -154,27 +179,22 @@
             <div class="photo-reveal">
               <div class="skeleton-wrap">
                 <img
-                  src="assets/portfolio/imagine-99.jpg"
+                  src="assets/portfolio/imagine-99.webp"
                   alt="Islambek Chynybekov"
                   loading="lazy"
+                  decoding="async"
                   width="800"
                   height="1200"
                 >
               </div>
             </div>
-            <div class="about-stats">
-              <div class="stat reveal">
-                <span class="stat-number" data-count="5">0</span><span class="stat-suffix">+</span>
-                <span class="stat-label">Years Experience</span>
-              </div>
-              <div class="stat reveal">
-                <span class="stat-number" data-count="30">0</span><span class="stat-suffix">+</span>
-                <span class="stat-label">Projects Shipped</span>
-              </div>
-              <div class="stat reveal">
-                <span class="stat-number" data-count="2">0</span><span class="stat-suffix">×</span>
-                <span class="stat-label">Hackathon Winner</span>
-              </div>
+            <div class="about-note reveal">
+              <span class="about-note-label">How I work</span>
+              <ul class="about-note-list">
+                <li>System thinking before feature clutter.</li>
+                <li>Performance as a product trait, not a polish pass.</li>
+                <li>AI used for leverage, never for noise.</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -384,9 +404,10 @@
             <div class="project-image">
               <div class="skeleton-wrap">
                 <img
-                  src="assets/portfolio/IMG_0167.jpg"
+                  src="assets/portfolio/IMG_0167.webp"
                   alt="Telegram Semantic Search RAG system"
                   loading="lazy"
+                  decoding="async"
                   width="800"
                   height="1200"
                 >
@@ -411,9 +432,10 @@
             <div class="project-image">
               <div class="skeleton-wrap">
                 <img
-                  src="assets/portfolio/imagine-79.jpg"
+                  src="assets/portfolio/imagine-79.webp"
                   alt="AI-Powered Development Workflow"
                   loading="lazy"
+                  decoding="async"
                   width="800"
                   height="1200"
                 >
@@ -438,9 +460,10 @@
             <div class="project-image">
               <div class="skeleton-wrap">
                 <img
-                  src="assets/portfolio/imagine-99.jpg"
+                  src="assets/portfolio/imagine-99.webp"
                   alt="Generative Image Platform"
                   loading="lazy"
+                  decoding="async"
                   width="800"
                   height="1200"
                 >
@@ -466,11 +489,12 @@
             <div class="project-image">
               <div class="skeleton-wrap">
                 <img
-                  src="assets/portfolio/IMG_1919.JPG"
+                  src="assets/portfolio/IMG_1919.webp"
                   alt="Ioka Fintech Event Platform"
                   loading="lazy"
-                  width="1200"
-                  height="900"
+                  decoding="async"
+                  width="960"
+                  height="720"
                 >
               </div>
             </div>
@@ -544,11 +568,12 @@
           <div class="gallery-item" role="button" tabindex="0" aria-label="Adventure mode">
             <div class="skeleton-wrap">
               <img
-                src="assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.JPG"
+                src="assets/portfolio/BB044F8D-5F02-40B8-AE15-B2B454256790.webp"
                 alt="Swimming adventure"
                 loading="lazy"
-                width="1200"
-                height="900"
+                decoding="async"
+                width="960"
+                height="720"
               >
             </div>
             <span class="gallery-caption">Adventure mode</span>
@@ -556,11 +581,12 @@
           <div class="gallery-item" role="button" tabindex="0" aria-label="Exploring nature">
             <div class="skeleton-wrap">
               <img
-                src="assets/portfolio/IMG_1825.JPG"
+                src="assets/portfolio/IMG_1825.webp"
                 alt="Forest bridge exploration"
                 loading="lazy"
-                width="900"
-                height="1200"
+                decoding="async"
+                width="720"
+                height="960"
               >
             </div>
             <span class="gallery-caption">Exploring nature</span>
@@ -568,9 +594,10 @@
           <div class="gallery-item" role="button" tabindex="0" aria-label="Cafe vibes">
             <div class="skeleton-wrap">
               <img
-                src="assets/portfolio/IMG_0167.jpg"
+                src="assets/portfolio/IMG_0167.webp"
                 alt="Cafe vibes with matcha"
                 loading="lazy"
+                decoding="async"
                 width="800"
                 height="1200"
               >
@@ -580,11 +607,12 @@
           <div class="gallery-item" role="button" tabindex="0" aria-label="Off duty">
             <div class="skeleton-wrap">
               <img
-                src="assets/portfolio/IMG_1527.JPG"
+                src="assets/portfolio/IMG_1527.webp"
                 alt="Casual style"
                 loading="lazy"
-                width="1200"
-                height="900"
+                decoding="async"
+                width="960"
+                height="720"
               >
             </div>
             <span class="gallery-caption">Off duty</span>
@@ -592,11 +620,12 @@
           <div class="gallery-item" role="button" tabindex="0" aria-label="Remote office">
             <div class="skeleton-wrap">
               <img
-                src="assets/portfolio/IMG_1919.JPG"
+                src="assets/portfolio/IMG_1919.webp"
                 alt="Working remotely by the water"
                 loading="lazy"
-                width="1200"
-                height="900"
+                decoding="async"
+                width="960"
+                height="720"
               >
             </div>
             <span class="gallery-caption">Remote office</span>
@@ -634,7 +663,6 @@
 
   <script src="js/particles.js" defer></script>
   <script src="js/animations.js" defer></script>
-  <script src="js/gestures.js" defer></script>
   <script src="js/main.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
