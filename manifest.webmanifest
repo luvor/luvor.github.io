@@ -1,13 +1,18 @@
 {
+  "id": "/",
   "name": "Islambek Chynybekov — Frontend & AI Engineer",
   "short_name": "IC Portfolio",
   "description": "Senior Frontend Engineer with 5+ years in FinTech, building intelligent products with LLMs and autonomous agents.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#05070B",
+  "theme_color": "#05070B",
   "orientation": "portrait-primary",
-  "categories": ["portfolio", "personal"],
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["portfolio", "personal", "business"],
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
@@ -25,5 +30,37 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "assets/portfolio/imagine-99.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Portfolio hero section"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "url": "/#projects",
+      "description": "View selected case studies"
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "url": "/#contact",
+      "description": "Get in touch"
+    },
+    {
+      "name": "Version History",
+      "short_name": "Versions",
+      "url": "/versions.html",
+      "description": "View portfolio changelog"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 480
+  }
 }

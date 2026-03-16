@@ -85,20 +85,47 @@
 
   onScrollFrame();
 
+  function lockScroll() {
+    document.body.dataset.scrollY = String(window.scrollY);
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.inset = '0';
+    document.body.style.width = '100%';
+  }
+
+  function unlockScroll() {
+    var savedY = parseInt(document.body.dataset.scrollY || '0', 10);
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.inset = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedY);
+  }
+
+  function closeNav() {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    unlockScroll();
+  }
+
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', function () {
       const isOpen = navLinks.classList.toggle('open');
       navToggle.classList.toggle('open', isOpen);
       navToggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (isOpen) {
+        lockScroll();
+        var firstLink = navLinks.querySelector('a');
+        if (firstLink) firstLink.focus();
+      } else {
+        unlockScroll();
+      }
     });
 
     navLinks.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        navToggle.classList.remove('open');
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        closeNav();
       });
     });
   }
@@ -242,7 +269,7 @@
         const currentY = window.scrollY;
         const delta = currentY - lastScrollY;
 
-        if (delta > 10 && currentY > 120 && !navHidden) {
+        if (delta > 10 && currentY > 120 && !navHidden && !(navLinks && navLinks.classList.contains('open'))) {
           navbar.classList.add('nav-hidden');
           navHidden = true;
         } else if (delta < -6 && navHidden) {
@@ -258,10 +285,9 @@
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && navToggle && navLinks && navLinks.classList.contains('open')) {
-      navToggle.classList.remove('open');
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      closeNav();
+      navToggle.focus();
     }
   });
+
 })();

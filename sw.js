@@ -1,5 +1,5 @@
-const CACHE_NAME = 'ic-portfolio-v5';
-const RUNTIME_CACHE = 'ic-portfolio-runtime-v5';
+const CACHE_NAME = 'ic-portfolio-v6';
+const RUNTIME_CACHE = 'ic-portfolio-runtime-v6';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -24,10 +24,10 @@ self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.addAll(PRECACHE_ASSETS);
+    }).then(function () {
+      return self.skipWaiting();
     })
   );
-
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', function (event) {
@@ -49,8 +49,8 @@ self.addEventListener('activate', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-  const request = event.request;
-  const url = new URL(request.url);
+  var request = event.request;
+  var url = new URL(request.url);
 
   if (request.method !== 'GET') {
     return;
@@ -58,11 +58,21 @@ self.addEventListener('fetch', function (event) {
 
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request).catch(function () {
-        return caches.match(request).then(function (cachedPage) {
-          return cachedPage || caches.match('/index.html');
-        });
-      })
+      fetch(request)
+        .then(function (response) {
+          if (response.ok) {
+            var clone = response.clone();
+            caches.open(CACHE_NAME).then(function (cache) {
+              cache.put(request, clone);
+            });
+          }
+          return response;
+        })
+        .catch(function () {
+          return caches.match(request).then(function (cachedPage) {
+            return cachedPage || caches.match('/index.html');
+          });
+        })
     );
     return;
   }
@@ -71,7 +81,7 @@ self.addEventListener('fetch', function (event) {
     event.respondWith(
       caches.open(RUNTIME_CACHE).then(function (cache) {
         return cache.match(request).then(function (cachedResponse) {
-          const fetchedResponse = fetch(request).then(function (response) {
+          var fetchedResponse = fetch(request).then(function (response) {
             cache.put(request, response.clone());
             return response;
           });
@@ -83,7 +93,7 @@ self.addEventListener('fetch', function (event) {
     return;
   }
 
-  if (request.destination === 'image' || request.destination === 'document' && url.pathname.endsWith('.pdf')) {
+  if (request.destination === 'image' || (request.destination === 'document' && url.pathname.endsWith('.pdf'))) {
     event.respondWith(
       caches.open(RUNTIME_CACHE).then(function (cache) {
         return cache.match(request).then(function (cachedResponse) {
@@ -103,7 +113,15 @@ self.addEventListener('fetch', function (event) {
 
   event.respondWith(
     caches.match(request).then(function (cachedResponse) {
-      return cachedResponse || fetch(request);
+      if (cachedResponse) {
+        fetch(request).then(function (response) {
+          caches.open(CACHE_NAME).then(function (cache) {
+            cache.put(request, response);
+          });
+        });
+        return cachedResponse;
+      }
+      return fetch(request);
     })
   );
 });

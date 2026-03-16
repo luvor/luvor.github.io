@@ -8,13 +8,17 @@
     name="description"
     content="Portfolio of Islambek Chynybekov — Senior Frontend Engineer with 5+ years experience, specializing in FinTech, AI integration, and LLM-powered workflows."
   >
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#05070B">
+  <meta name="color-scheme" content="dark">
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="IC Portfolio">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Islambek Chynybekov — Senior Frontend Engineer & AI Engineer">
@@ -617,7 +621,7 @@
           Let's build something<br>
           <span class="gradient-text">amazing together</span>
         </h2>
-        <a href="mailto:formalibus@gmail.com" class="contact-email">formalibus@gmail.com</a>
+        <a href="mailto:formalibus@gmail.com" class="contact-email">formalibus@&#8203;gmail.com</a>
         <div class="contact-links">
           <a href="mailto:formalibus@gmail.com">Email &rarr;</a>
           <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener">LinkedIn &rarr;</a>
@@ -638,6 +642,39 @@
         navigator.serviceWorker.register('/sw.js');
       });
     }
+
+    (function () {
+      var deferredPrompt = null;
+
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        var badge = document.querySelector('.hero-badge');
+        if (!badge) return;
+
+        var installBtn = document.createElement('button');
+        installBtn.className = 'pwa-install-btn';
+        installBtn.textContent = 'Install App';
+        installBtn.setAttribute('aria-label', 'Install as application');
+        badge.parentNode.insertBefore(installBtn, badge.nextSibling);
+
+        installBtn.addEventListener('click', function () {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () {
+            deferredPrompt = null;
+            installBtn.remove();
+          });
+        });
+      });
+
+      window.addEventListener('appinstalled', function () {
+        deferredPrompt = null;
+        var btn = document.querySelector('.pwa-install-btn');
+        if (btn) btn.remove();
+      });
+    })();
   </script>
 </body>
 </html>

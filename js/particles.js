@@ -34,8 +34,9 @@
   };
 
   function getParticleCount() {
-    if (prefersReduced) return 8;
-    if (width < 480) return 12;
+    if (prefersReduced) return 6;
+    if (width < 480) return 8;
+    if (width < 768) return 14;
     if (width < 1024) return 20;
     return 60;
   }
@@ -151,19 +152,26 @@
       ctx.fill();
     });
 
-    ctx.shadowBlur = CONFIG.glowBlur;
+    var useGlow = width >= 768;
+    if (useGlow) {
+      ctx.shadowBlur = CONFIG.glowBlur;
+    }
     particles.forEach(function (particle) {
       if (!particle.isGlow) return;
 
-      ctx.shadowColor = particle.color + '0.5)';
+      if (useGlow) {
+        ctx.shadowColor = particle.color + '0.5)';
+      }
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
       ctx.fillStyle = particle.color + particle.currentOpacity + ')';
       ctx.fill();
     });
-    ctx.shadowBlur = 0;
+    if (useGlow) {
+      ctx.shadowBlur = 0;
+    }
 
-    const glow = getMouseGlow();
+    var glow = useGlow ? getMouseGlow() : null;
     if (glow) {
       ctx.fillStyle = glow;
       ctx.fillRect(mouse.x - 150, mouse.y - 150, 300, 300);
