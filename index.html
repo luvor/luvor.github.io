@@ -6,7 +6,7 @@
   <title>Islambek Chynybekov — Senior Frontend Engineer & AI Engineer</title>
   <meta
     name="description"
-    content="Portfolio of Islambek Chynybekov — Senior Frontend Engineer with 5+ years experience, specializing in FinTech, AI integration, and LLM-powered workflows."
+    content="Portfolio of Islambek Chynybekov — Senior Frontend Engineer & AI Systems Builder. 5+ years in FinTech. Overlayer AI (native macOS), tg-moder production RAG, HalykMarket AI delivery."
   >
   <meta name="theme-color" content="#05070B">
   <meta name="color-scheme" content="dark">
@@ -20,11 +20,16 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
 
+  <link rel="canonical" href="https://luvor.github.io/">
+  <link rel="alternate" hreflang="en" href="https://luvor.github.io/">
+  <link rel="alternate" hreflang="ru" href="https://luvor.github.io/?lang=ru">
+  <link rel="alternate" hreflang="x-default" href="https://luvor.github.io/">
+
   <meta property="og:type" content="website">
   <meta property="og:title" content="Islambek Chynybekov — Senior Frontend Engineer & AI Engineer">
   <meta
     property="og:description"
-    content="Senior Frontend Engineer with 5+ years in FinTech, transitioning to AI Engineering. Building intelligent products with LLMs and autonomous agents."
+    content="Senior Frontend Engineer from Kazakhstan. 5+ years in FinTech. AI systems, native macOS, production RAG, enterprise frontend leadership."
   >
   <meta property="og:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
   <meta property="og:url" content="https://luvor.github.io/">
@@ -33,7 +38,7 @@
   <meta name="twitter:title" content="Islambek Chynybekov — Senior Frontend Engineer & AI Engineer">
   <meta
     name="twitter:description"
-    content="Senior Frontend Engineer with 5+ years in FinTech, transitioning to AI Engineering. Building intelligent products with LLMs and autonomous agents."
+    content="Senior Frontend Engineer from Kazakhstan. 5+ years in FinTech. AI systems, native macOS, production RAG, enterprise frontend leadership."
   >
   <meta name="twitter:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
 
@@ -44,7 +49,7 @@
     "name": "Islambek Chynybekov",
     "jobTitle": "Senior Frontend Engineer & AI Engineer",
     "url": "https://luvor.github.io",
-    "email": "formalibus@gmail.com",
+    "email": "theluruous@icloud.com",
     "sameAs": [
       "https://github.com/luvor",
       "https://www.linkedin.com/in/luvor"
@@ -53,8 +58,33 @@
       "@type": "CollegeOrUniversity",
       "name": "Almaty Management University"
     },
-    "knowsAbout": ["Frontend Engineering", "AI Engineering", "LLM Integration", "Vue.js", "React", "TypeScript"]
+    "knowsAbout": [
+      "Frontend Engineering",
+      "AI Engineering",
+      "LLM Integration",
+      "RAG Architecture",
+      "Vue.js",
+      "React",
+      "TypeScript",
+      "Swift",
+      "macOS Development",
+      "Python"
+    ]
   }
+  </script>
+
+  <!-- i18n boot: detect lang before render to avoid FOUC -->
+  <script>
+    (function () {
+      var qs = new URLSearchParams(window.location.search).get('lang');
+      var stored = localStorage.getItem('lang');
+      var nav = (navigator.language || navigator.userLanguage || '').slice(0, 2).toLowerCase();
+      var lang = qs || stored || (nav === 'ru' ? 'ru' : 'en');
+      if (lang !== 'en' && lang !== 'ru') lang = 'en';
+      window.__siteLang = lang;
+      document.documentElement.lang = lang;
+      if (qs && qs !== stored) localStorage.setItem('lang', lang);
+    })();
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,7 +94,7 @@
 </head>
 <body>
   <div id="custom-cursor" aria-hidden="true"></div>
-  <a href="#about" class="skip-link">Skip to content</a>
+  <a href="#about" class="skip-link" data-i18n="skip.link">Skip to content</a>
   <div id="scroll-progress" aria-hidden="true"></div>
 
   <nav id="navbar" class="navbar">
@@ -81,13 +111,22 @@
         <span></span>
       </button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#evidence">Evidence</a></li>
-        <li><a href="#contact" class="nav-cta">Contact</a></li>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#education" data-i18n="nav.education">Education</a></li>
+        <li><a href="#evidence" data-i18n="nav.evidence">Evidence</a></li>
+        <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
+        <li>
+          <button
+            id="lang-toggle"
+            class="lang-toggle"
+            aria-label="Switch to Russian"
+            data-i18n-attr="aria-label"
+            data-i18n="nav.lang-toggle"
+          >RU</button>
+        </li>
       </ul>
     </div>
   </nav>
@@ -99,44 +138,53 @@
         <div class="hero-copy">
           <div class="hero-badge">
             <span class="badge-dot"></span>
-            Available for work
+            <span data-i18n="hero.badge">Available for work</span>
           </div>
-          <p class="hero-kicker">Senior Frontend Engineer / AI Systems Builder / Kazakhstan</p>
+          <p class="hero-kicker" data-i18n="hero.kicker">Senior Frontend Engineer / AI Systems Builder / Kazakhstan</p>
           <h1 class="hero-name">
             <span class="hero-name-line">Islambek</span>
             <span class="hero-name-line gradient-text">Chynybekov</span>
           </h1>
-          <p class="hero-subtitle">
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
             I build high-discipline interfaces and AI-augmented product systems that feel precise,
             fast, and unmistakably production ready.
           </p>
           <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">View Work</a>
-            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+            <a href="#projects" class="btn btn-primary" data-i18n="hero.cta.work">View Work</a>
+            <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta.contact">Get in Touch</a>
           </div>
           <ul class="hero-signals">
-            <li><strong>5+</strong><span>years shipping digital products</span></li>
-            <li><strong>30+</strong><span>projects delivered across fintech and AI</span></li>
-            <li><strong>AI × UX</strong><span>frontend systems with practical automation</span></li>
+            <li>
+              <strong data-i18n="hero.signal.years.num">5+</strong>
+              <span data-i18n="hero.signal.years.label">years shipping digital products</span>
+            </li>
+            <li>
+              <strong data-i18n="hero.signal.projects.num">30+</strong>
+              <span data-i18n="hero.signal.projects.label">projects delivered across fintech and AI</span>
+            </li>
+            <li>
+              <strong data-i18n="hero.signal.ai.num">AI × UX</strong>
+              <span data-i18n="hero.signal.ai.label">frontend systems with practical automation</span>
+            </li>
           </ul>
         </div>
         <aside class="hero-panel reveal-slide">
-          <span class="hero-panel-label">Current Focus</span>
-          <h2 class="hero-panel-title">
+          <span class="hero-panel-label" data-i18n="hero.panel.label">Current Focus</span>
+          <h2 class="hero-panel-title" data-i18n="hero.panel.title">
             Building the bridge between resilient frontend systems and practical AI leverage.
           </h2>
           <div class="hero-panel-grid">
             <div class="hero-panel-card">
-              <span class="hero-panel-eyebrow">At Halyk</span>
-              <p>Leading a frontend stream and raising delivery quality across products.</p>
+              <span class="hero-panel-eyebrow" data-i18n="hero.panel.halyk.eyebrow">At Halyk</span>
+              <p data-i18n="hero.panel.halyk.text">Leading a frontend stream and raising delivery quality across products.</p>
             </div>
             <div class="hero-panel-card">
-              <span class="hero-panel-eyebrow">With AI</span>
-              <p>Using agents for review, documentation, testing, and developer acceleration.</p>
+              <span class="hero-panel-eyebrow" data-i18n="hero.panel.ai.eyebrow">With AI</span>
+              <p data-i18n="hero.panel.ai.text">Using agents for review, documentation, testing, and developer acceleration.</p>
             </div>
             <div class="hero-panel-card">
-              <span class="hero-panel-eyebrow">In Product</span>
-              <p>Designing interfaces that stay sharp under scale, complexity, and change.</p>
+              <span class="hero-panel-eyebrow" data-i18n="hero.panel.product.eyebrow">In Product</span>
+              <p data-i18n="hero.panel.product.text">Designing interfaces that stay sharp under scale, complexity, and change.</p>
             </div>
           </div>
         </aside>
@@ -150,22 +198,22 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-content">
-            <span class="section-label reveal">About Me</span>
+            <span class="section-label reveal" data-i18n="about.label">About Me</span>
             <h2 class="section-title reveal-title">
-              Building the bridge between<br>
-              <span class="gradient-text">AI &amp; great UX</span>
+              <span data-i18n="about.title.1">Building the bridge between</span><br>
+              <span class="gradient-text" data-i18n="about.title.2">AI &amp; great UX</span>
             </h2>
-            <p class="about-text reveal">
+            <p class="about-text reveal" data-i18n="about.p1">
               I am a Senior Frontend Engineer based in Kazakhstan with 5+ years in FinTech and product delivery.
               My strongest work happens where interface quality, system thinking, and execution discipline have to
               coexist under real business pressure.
             </p>
-            <p class="about-text reveal">
+            <p class="about-text reveal" data-i18n="about.p2">
               At Halyk Finservice I lead a frontend stream and introduced AI agents into review,
               documentation, and testing workflows. The point is not novelty. The point is raising team
               throughput without lowering engineering standards.
             </p>
-            <p class="about-text reveal">
+            <p class="about-text reveal" data-i18n="about.p3">
               I focus on building calmer systems: clearer interfaces, cleaner delivery loops, better
               architecture decisions, and AI that actually removes friction instead of adding noise.
             </p>
@@ -176,36 +224,37 @@
               <span class="tag">FinTech</span>
               <span class="tag">Team Leadership</span>
               <span class="tag">Vue / React</span>
+              <span class="tag">Swift / macOS</span>
             </div>
           </div>
           <div class="about-visual">
             <div class="about-dossier reveal-slide">
-              <span class="about-note-label">Operator Snapshot</span>
+              <span class="about-note-label" data-i18n="about.dossier.label">Operator Snapshot</span>
               <div class="about-dossier-grid">
                 <div class="about-dossier-item">
-                  <span>Current role</span>
-                  <strong>Frontend Lead / AI Systems Builder</strong>
+                  <span data-i18n="about.dossier.role.label">Current role</span>
+                  <strong data-i18n="about.dossier.role.value">Frontend Lead / AI Systems Builder</strong>
                 </div>
                 <div class="about-dossier-item">
-                  <span>Primary domain</span>
-                  <strong>FinTech, internal platforms, delivery systems</strong>
+                  <span data-i18n="about.dossier.domain.label">Primary domain</span>
+                  <strong data-i18n="about.dossier.domain.value">FinTech, internal platforms, delivery systems</strong>
                 </div>
                 <div class="about-dossier-item">
-                  <span>Core edge</span>
-                  <strong>Turning complexity into cleaner execution</strong>
+                  <span data-i18n="about.dossier.edge.label">Core edge</span>
+                  <strong data-i18n="about.dossier.edge.value">Turning complexity into cleaner execution</strong>
                 </div>
                 <div class="about-dossier-item">
-                  <span>Working style</span>
-                  <strong>High standards, low noise, production-first decisions</strong>
+                  <span data-i18n="about.dossier.style.label">Working style</span>
+                  <strong data-i18n="about.dossier.style.value">High standards, low noise, production-first decisions</strong>
                 </div>
               </div>
             </div>
             <div class="about-note reveal">
-              <span class="about-note-label">How I work</span>
+              <span class="about-note-label" data-i18n="about.note.label">How I work</span>
               <ul class="about-note-list">
-                <li>System thinking before feature clutter.</li>
-                <li>Performance as a product trait, not a polish pass.</li>
-                <li>AI used for leverage, never for noise.</li>
+                <li data-i18n="about.note.li1">System thinking before feature clutter.</li>
+                <li data-i18n="about.note.li2">Performance as a product trait, not a polish pass.</li>
+                <li data-i18n="about.note.li3">AI used for leverage, never for noise.</li>
               </ul>
             </div>
           </div>
@@ -216,8 +265,8 @@
     <section id="skills" class="section skills">
       <div class="container">
         <div class="section-header">
-          <span class="section-label reveal">Skills &amp; Tools</span>
-          <h2 class="section-title reveal-title">Technologies I work with</h2>
+          <span class="section-label reveal" data-i18n="skills.label">Skills &amp; Tools</span>
+          <h2 class="section-title reveal-title" data-i18n="skills.title">Technologies I work with</h2>
         </div>
         <div class="skills-grid">
           <div class="skill-group">
@@ -239,9 +288,9 @@
               <li>LLM Integration (GPT, Claude)</li>
               <li>RAG Architectures</li>
               <li>AI Agents &amp; Automation</li>
-              <li>Vector Embeddings</li>
-              <li>Pandas / Scikit-learn</li>
-              <li>Generative Image Models</li>
+              <li>Vector Embeddings (pgvector)</li>
+              <li>Apple NLEmbedding / Vision</li>
+              <li>Hybrid Retrieval (BM25 + Vector)</li>
             </ul>
           </div>
           <div class="skill-group">
@@ -249,11 +298,11 @@
             <hr class="skill-rule">
             <ul class="skill-list">
               <li>Python / FastAPI</li>
+              <li>Swift 5.10 / macOS</li>
               <li>Node.js / Nest.js</li>
               <li>PL/SQL / PostgreSQL</li>
               <li>REST API / GraphQL</li>
               <li>Blockchain (Web3)</li>
-              <li>Quasar Framework</li>
             </ul>
           </div>
           <div class="skill-group">
@@ -261,7 +310,7 @@
             <hr class="skill-rule">
             <ul class="skill-list">
               <li>Git / GitHub / CI-CD</li>
-              <li>Docker</li>
+              <li>Docker / Railway</li>
               <li>Webpack / Vite</li>
               <li>AppStore &amp; Play Store</li>
               <li>Figma / UI Design</li>
@@ -275,9 +324,9 @@
     <section id="experience" class="section experience">
       <div class="container">
         <div class="section-header">
-          <span class="section-label reveal">Experience</span>
+          <span class="section-label reveal" data-i18n="experience.label">Experience</span>
           <h2 class="section-title reveal-title">
-            My professional <span class="gradient-text">journey</span>
+            <span data-i18n="experience.title.1">My professional</span> <span class="gradient-text" data-i18n="experience.title.accent">journey</span>
           </h2>
         </div>
         <div class="experience-stack">
@@ -390,12 +439,12 @@
         <div class="cv-download reveal">
           <div class="cv-download-inner">
             <div class="cv-download-text">
-              <h3>Want the full story?</h3>
-              <p>Download my complete CV for a detailed overview of my experience and skills.</p>
+              <h3 data-i18n="experience.cv.title">Want the full story?</h3>
+              <p data-i18n="experience.cv.desc">Download my complete CV for a detailed overview of my experience and skills.</p>
             </div>
             <a href="assets/portfolio/CV_Chynybekov_2026.pdf" download class="btn btn-primary">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download CV
+              <span data-i18n="experience.cv.btn">Download CV</span>
             </a>
           </div>
         </div>
@@ -405,138 +454,161 @@
     <section id="projects" class="section projects">
       <div class="container">
         <div class="section-header">
-          <span class="section-label reveal">Projects</span>
+          <span class="section-label reveal" data-i18n="projects.label">Projects</span>
           <h2 class="section-title reveal-title">
-            Selected <span class="gradient-text">case studies</span>
+            <span data-i18n="projects.title.1">Selected</span> <span class="gradient-text" data-i18n="projects.title.accent">case studies</span>
           </h2>
         </div>
         <div class="projects-stack">
+
+          <!-- CS01: Overlayer AI -->
           <article class="case-study featured" data-tilt>
             <div class="case-study-main">
-              <span class="case-study-kicker">Case Study 01</span>
-              <h3>AI delivery system inside a bank-scale frontend stream</h3>
-              <p class="case-study-summary">
-                Built a practical AI layer around the engineering workflow at Halyk Finservice:
-                automated review support, documentation generation, test drafting, and cleaner delivery rituals.
+              <span class="case-study-kicker" data-i18n="cs01.kicker">Case Study 01</span>
+              <h3 data-i18n="cs01.title">Overlayer AI — Ambient context engine for macOS developers</h3>
+              <p class="case-study-summary" data-i18n="cs01.summary">
+                A native macOS app that continuously captures screen context via Vision OCR, accessibility trees, and clipboard — surfacing contextual hints in a frosted-glass overlay during natural developer pauses. Zero telemetry. Local-first.
               </p>
               <ul class="case-study-points">
-                <li>Inserted AI agents where manual repetition was highest and quality drift was expensive.</li>
-                <li>Framed the system as delivery leverage, not demo-ware.</li>
-                <li>Kept architectural review and final engineering judgment human-led.</li>
-              </ul>
-              <div class="project-links">
-                <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
-                  Context
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="case-study-aside">
-              <div class="case-study-stat">
-                <span>Focus</span>
-                <strong>Velocity without entropy</strong>
-                <p>Reduce overhead while raising consistency.</p>
-              </div>
-              <div class="case-study-stat">
-                <span>Core stack</span>
-                <strong>Vue 3, TypeScript, LLM agents</strong>
-                <p>Operational AI applied directly to delivery flow.</p>
-              </div>
-              <div class="case-study-stack">
-                <span>Review automation</span><span>Documentation</span><span>Testing</span><span>Lead workflow</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="case-study" data-tilt>
-            <div class="case-study-main">
-              <span class="case-study-kicker">Case Study 02</span>
-              <h3>Semantic retrieval for Telegram knowledge at scale</h3>
-              <p class="case-study-summary">
-                Designed a RAG workflow that indexes long Telegram histories and returns semantically relevant
-                answers instead of brittle keyword matches.
-              </p>
-              <ul class="case-study-points">
-                <li>Chunking and embedding strategy built for messy conversational data.</li>
-                <li>Search tuned for context recovery, not vanity demos.</li>
-                <li>Useful where institutional knowledge lives in chat, not in docs.</li>
+                <li data-i18n="cs01.li1">Hybrid search: Apple NLEmbedding (vector) + FTS5 (keyword) + reciprocal rank fusion — all on-device.</li>
+                <li data-i18n="cs01.li2">Complexity-routed LLM dispatch: simple → Haiku, complex → Sonnet, privacy-sensitive → local Apple Foundation Models.</li>
+                <li data-i18n="cs01.li3">MCP server exposes context to Claude Code and external agents. Swift 5.10 + GRDB SQLite. Apache 2.0.</li>
               </ul>
               <div class="project-links">
                 <a href="https://github.com/luvor" target="_blank" rel="noopener" class="project-link">
-                  GitHub
+                  <span data-i18n="cs01.link">GitHub</span>
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </div>
             <div class="case-study-aside">
               <div class="case-study-stat">
-                <span>Problem</span>
-                <strong>Knowledge trapped in chat logs</strong>
-                <p>Retrieval had to work on meaning, not literal phrasing.</p>
+                <span data-i18n="cs01.stat1.label">Platform</span>
+                <strong data-i18n="cs01.stat1.value">Native macOS 14+</strong>
+                <p data-i18n="cs01.stat1.desc">Swift + Vision framework + NLEmbedding. No Electron, no web shell.</p>
+              </div>
+              <div class="case-study-stat">
+                <span data-i18n="cs01.stat2.label">Architecture</span>
+                <strong data-i18n="cs01.stat2.value">Privacy-first, local compute</strong>
+                <p data-i18n="cs01.stat2.desc">All embeddings and search run on-device. LLM routing by privacy sensitivity.</p>
               </div>
               <div class="case-study-stack">
-                <span>Python</span><span>RAG</span><span>Embeddings</span><span>Semantic search</span>
+                <span>Swift 5.10</span><span>Vision OCR</span><span>NLEmbedding</span><span>GRDB SQLite</span><span>MCP</span>
               </div>
             </div>
           </article>
 
+          <!-- CS02: HalykMarket AI delivery -->
           <article class="case-study" data-tilt>
             <div class="case-study-main">
-              <span class="case-study-kicker">Case Study 03</span>
-              <h3>FinTech MVPs under hackathon-level time pressure</h3>
-              <p class="case-study-summary">
-                Built fast-moving product systems for competitive environments, including a Mastercard-linked
-                event platform and a blockchain-oriented mining operations MVP.
+              <span class="case-study-kicker" data-i18n="cs02.kicker">Case Study 02</span>
+              <h3 data-i18n="cs02.title">HalykMarket AI delivery system — Enterprise frontend at bank scale</h3>
+              <p class="case-study-summary" data-i18n="cs02.summary">
+                Built a practical AI layer inside the engineering workflow at Halyk Finservice — Kazakhstan's largest bank subsidiary. Automated review support, documentation generation, test drafting, and cleaner delivery rituals.
               </p>
               <ul class="case-study-points">
-                <li>Compressed product, UX, architecture, and delivery into one cycle.</li>
-                <li>Optimized for clarity of concept and execution speed.</li>
-                <li>Won by making the product legible fast, not by adding fluff.</li>
+                <li data-i18n="cs02.li1">Inserted AI agents where manual repetition was highest and quality drift was most expensive.</li>
+                <li data-i18n="cs02.li2">Framed the system as delivery leverage, not demo-ware. Architectural review and final judgment stayed human-led.</li>
+                <li data-i18n="cs02.li3">Ghost Mode: zero AI attribution in external artifacts (MRs, commits, emails, Jira) — enforced systematically.</li>
               </ul>
               <div class="project-links">
                 <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
-                  Proof
+                  <span data-i18n="cs02.link">Context</span>
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </div>
             <div class="case-study-aside">
               <div class="case-study-stat">
-                <span>Constraint</span>
-                <strong>Severe time compression</strong>
-                <p>Architecture still had to stay coherent under deadline stress.</p>
+                <span data-i18n="cs02.stat1.label">Focus</span>
+                <strong data-i18n="cs02.stat1.value">Velocity without entropy</strong>
+                <p data-i18n="cs02.stat1.desc">Reduce overhead while raising consistency across the team.</p>
+              </div>
+              <div class="case-study-stat">
+                <span data-i18n="cs02.stat2.label">Core stack</span>
+                <strong data-i18n="cs02.stat2.value">Vue 3, TypeScript, LLM agents</strong>
+                <p data-i18n="cs02.stat2.desc">Operational AI applied directly to delivery flow.</p>
               </div>
               <div class="case-study-stack">
-                <span>FinTech</span><span>Payments</span><span>Blockchain</span><span>MVP delivery</span>
+                <span>Review automation</span><span>Documentation</span><span>Testing</span><span>Ghost Mode</span>
               </div>
             </div>
           </article>
 
+          <!-- CS03: tg-moder -->
           <article class="case-study" data-tilt>
             <div class="case-study-main">
-              <span class="case-study-kicker">Case Study 04</span>
-              <h3>Cross-platform product delivery across app stores and teams</h3>
-              <p class="case-study-summary">
-                Shipped multiple mobile and desktop products across App Store, Play Store, and modern hybrid stacks
-                while keeping frontend quality, release discipline, and testing intact.
+              <span class="case-study-kicker" data-i18n="cs03.kicker">Case Study 03</span>
+              <h3 data-i18n="cs03.title">tg-moder — Production RAG moderation system at $2/mo</h3>
+              <p class="case-study-summary" data-i18n="cs03.summary">
+                Production Telegram moderation bot for a 17K-member community. 3-pass hybrid retrieval (pgvector HNSW + tsvector BM25 + ILIKE) with RRF k=60. Deployed on Railway with shadow-before-live discipline.
               </p>
               <ul class="case-study-points">
-                <li>Worked across Vue, Nuxt, Capacitor, Ionic, and Tauri.</li>
-                <li>Balanced speed of shipping with maintainability.</li>
-                <li>Turned implementation details into repeatable delivery patterns.</li>
+                <li data-i18n="cs03.li1">10-stage cost cascade: cache → FAQ → route → RAG → LLM → judge. $2/mo operational cost with ~67% FAQ hit rate.</li>
+                <li data-i18n="cs03.li2">Confidence gate 0.65, relevance floor 0.15, monthly budget hard cap ($5) checked BEFORE embed call.</li>
+                <li data-i18n="cs03.li3">Shadow mode first: logged every response before enabling live replies. Replay fixtures + pre-deploy checks.</li>
               </ul>
+              <div class="project-links">
+                <a href="https://github.com/luvor" target="_blank" rel="noopener" class="project-link">
+                  <span data-i18n="cs03.link">GitHub</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
             </div>
             <div class="case-study-aside">
               <div class="case-study-stat">
-                <span>Strength</span>
-                <strong>Execution across surfaces</strong>
-                <p>Web, hybrid mobile, and productized frontend systems.</p>
+                <span data-i18n="cs03.stat1.label">Retrieval</span>
+                <strong data-i18n="cs03.stat1.value">3-pass hybrid + RRF k=60</strong>
+                <p data-i18n="cs03.stat1.desc">pgvector HNSW · tsvector BM25 · ILIKE. OpenAI text-embedding-3-large (3072d).</p>
+              </div>
+              <div class="case-study-stat">
+                <span data-i18n="cs03.stat2.label">Cost</span>
+                <strong data-i18n="cs03.stat2.value">$2/mo operational</strong>
+                <p data-i18n="cs03.stat2.desc">Budget hard cap enforced pre-embed. LLM cost cascade, not brute force.</p>
               </div>
               <div class="case-study-stack">
-                <span>Nuxt 3</span><span>Capacitor</span><span>Ionic</span><span>Tauri</span>
+                <span>pgvector</span><span>BM25</span><span>RRF k=60</span><span>Railway</span><span>Python</span>
               </div>
             </div>
           </article>
+
+          <!-- CS04: Hackathons + cross-platform -->
+          <article class="case-study" data-tilt>
+            <div class="case-study-main">
+              <span class="case-study-kicker" data-i18n="cs04.kicker">Case Study 04</span>
+              <h3 data-i18n="cs04.title">Shipping under pressure — hackathon wins and App Store delivery</h3>
+              <p class="case-study-summary" data-i18n="cs04.summary">
+                Two hackathon 1st places and sustained cross-platform delivery to App Store and Play Store. Speed of execution without architectural shortcuts.
+              </p>
+              <ul class="case-study-points">
+                <li data-i18n="cs04.li1">Savabit Mining hackathon — 1st place: blockchain/mining operations MVP, full product cycle under 48h.</li>
+                <li data-i18n="cs04.li2">Ioka.kz × Mastercard hackathon — 1st place: payment platform MVP with live transaction flows.</li>
+                <li data-i18n="cs04.li3">Adamar Solutions: shipped multiple apps to App Store + Play Store using Vue 3 + Nuxt 3 + Capacitor + Ionic + Tauri.</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" class="project-link">
+                  <span data-i18n="cs04.link">LinkedIn</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="case-study-aside">
+              <div class="case-study-stat">
+                <span data-i18n="cs04.stat1.label">Wins</span>
+                <strong data-i18n="cs04.stat1.value">2× hackathon 1st place</strong>
+                <p data-i18n="cs04.stat1.desc">Named events, verifiable on LinkedIn. Product speed without cutting engineering corners.</p>
+              </div>
+              <div class="case-study-stat">
+                <span data-i18n="cs04.stat2.label">Platforms</span>
+                <strong data-i18n="cs04.stat2.value">Web · iOS · Android · Desktop</strong>
+                <p data-i18n="cs04.stat2.desc">Sustained cross-platform delivery — not prototypes, shipped to stores.</p>
+              </div>
+              <div class="case-study-stack">
+                <span>FinTech</span><span>Payments</span><span>Blockchain</span><span>Capacitor</span><span>Tauri</span>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
@@ -544,9 +616,9 @@
     <section id="education" class="section education">
       <div class="container">
         <div class="section-header">
-          <span class="section-label reveal">Education</span>
+          <span class="section-label reveal" data-i18n="education.label">Education</span>
           <h2 class="section-title reveal-title">
-            Learning never <span class="gradient-text">stops</span>
+            <span data-i18n="education.title.1">Learning never</span> <span class="gradient-text" data-i18n="education.title.accent">stops</span>
           </h2>
         </div>
         <div class="education-grid">
@@ -584,31 +656,31 @@
     <section id="evidence" class="section evidence">
       <div class="container">
         <div class="section-header">
-          <span class="section-label reveal">Evidence</span>
+          <span class="section-label reveal" data-i18n="evidence.label">Evidence</span>
           <h2 class="section-title reveal-title">
-            What this work is really <span class="gradient-text">about</span>
+            <span data-i18n="evidence.title.1">What this work is really</span> <span class="gradient-text" data-i18n="evidence.title.accent">about</span>
           </h2>
         </div>
         <div class="evidence-grid">
           <article class="evidence-card reveal-slide">
-            <span class="evidence-label">Delivery</span>
-            <h3>I optimize for throughput that still feels deliberate.</h3>
-            <p>Speed matters only when architecture, review quality, and product clarity survive it.</p>
+            <span class="evidence-label" data-i18n="evidence.card1.label">Delivery</span>
+            <h3 data-i18n="evidence.card1.title">I optimize for throughput that still feels deliberate.</h3>
+            <p data-i18n="evidence.card1.desc">Speed matters only when architecture, review quality, and product clarity survive it.</p>
           </article>
           <article class="evidence-card reveal-slide">
-            <span class="evidence-label">AI</span>
-            <h3>I use AI as leverage inside the workflow, not as decoration on top of it.</h3>
-            <p>Automation belongs where teams repeat expensive manual work and where consistency matters.</p>
+            <span class="evidence-label" data-i18n="evidence.card2.label">AI</span>
+            <h3 data-i18n="evidence.card2.title">I use AI as leverage inside the workflow, not as decoration on top of it.</h3>
+            <p data-i18n="evidence.card2.desc">Automation belongs where teams repeat expensive manual work and where consistency matters.</p>
           </article>
           <article class="evidence-card reveal-slide">
-            <span class="evidence-label">Leadership</span>
-            <h3>I make systems calmer for the people shipping them.</h3>
-            <p>That means cleaner decisions, clearer interfaces, better decomposition, and less operational chaos.</p>
+            <span class="evidence-label" data-i18n="evidence.card3.label">Leadership</span>
+            <h3 data-i18n="evidence.card3.title">I make systems calmer for the people shipping them.</h3>
+            <p data-i18n="evidence.card3.desc">That means cleaner decisions, clearer interfaces, better decomposition, and less operational chaos.</p>
           </article>
           <article class="evidence-card reveal-slide">
-            <span class="evidence-label">Fit</span>
-            <h3>My best environment is ambitious product work with real complexity and real stakes.</h3>
-            <p>FinTech, internal platforms, AI-enabled tooling, and teams that care about execution quality.</p>
+            <span class="evidence-label" data-i18n="evidence.card4.label">Fit</span>
+            <h3 data-i18n="evidence.card4.title">My best environment is ambitious product work with real complexity and real stakes.</h3>
+            <p data-i18n="evidence.card4.desc">FinTech, internal platforms, AI-enabled tooling, and teams that care about execution quality.</p>
           </article>
         </div>
       </div>
@@ -616,23 +688,24 @@
 
     <section id="contact" class="section contact">
       <div class="container">
-        <span class="section-label reveal">Contact</span>
+        <span class="section-label reveal" data-i18n="contact.label">Contact</span>
         <h2 class="section-title reveal-title">
-          Let's build something<br>
-          <span class="gradient-text">amazing together</span>
+          <span data-i18n="contact.title.1">Let's build something</span><br>
+          <span class="gradient-text" data-i18n="contact.title.accent">amazing together</span>
         </h2>
-        <a href="mailto:formalibus@gmail.com" class="contact-email">formalibus@&#8203;gmail.com</a>
+        <a href="mailto:theluruous@icloud.com" class="contact-email">theluruous@&#8203;icloud.com</a>
         <div class="contact-links">
-          <a href="mailto:formalibus@gmail.com">Email &rarr;</a>
-          <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener">LinkedIn &rarr;</a>
-          <a href="https://github.com/luvor" target="_blank" rel="noopener">GitHub &rarr;</a>
-          <a href="/versions.html">Versions &rarr;</a>
+          <a href="mailto:theluruous@icloud.com" data-i18n="contact.link.email">Email &rarr;</a>
+          <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" data-i18n="contact.link.linkedin">LinkedIn &rarr;</a>
+          <a href="https://github.com/luvor" target="_blank" rel="noopener" data-i18n="contact.link.github">GitHub &rarr;</a>
+          <a href="/versions.html" data-i18n="contact.link.versions">Versions &rarr;</a>
         </div>
-        <p class="copyright">&copy; 2026 Islambek Chynybekov</p>
+        <p class="copyright" data-i18n="contact.copyright">&copy; 2026 Islambek Chynybekov</p>
       </div>
     </section>
   </main>
 
+  <script src="js/i18n.js" defer></script>
   <script src="js/particles.js" defer></script>
   <script src="js/animations.js" defer></script>
   <script src="js/main.js" defer></script>
@@ -655,7 +728,7 @@
 
         var installBtn = document.createElement('button');
         installBtn.className = 'pwa-install-btn';
-        installBtn.textContent = 'Install App';
+        installBtn.textContent = (window.__i18n && window.__i18n.t) ? window.__i18n.t('pwa.install') : 'Install App';
         installBtn.setAttribute('aria-label', 'Install as application');
         badge.parentNode.insertBefore(installBtn, badge.nextSibling);
 
