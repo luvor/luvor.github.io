@@ -12,6 +12,10 @@ const outDir = path.join(rootDir, '_site');
 const textAssets = [
   ['index.html', 'html'],
   ['versions.html', 'html'],
+  ['privacy.html', 'html'],
+  ['privacy.ru.html', 'html'],
+  ['use/index.html', 'html'],
+  ['.well-known/apple-app-site-association', 'json'],
   ['css/style.css', 'css'],
   ['css/versions.css', 'css'],
   ['js/main.js', 'js'],
