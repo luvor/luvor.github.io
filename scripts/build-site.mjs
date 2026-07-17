@@ -14,6 +14,7 @@ const textAssets = [
   ['versions.html', 'html'],
   ['privacy.html', 'html'],
   ['privacy.ru.html', 'html'],
+  ['licenses.html', 'html'],
   ['use/index.html', 'html'],
   ['.well-known/apple-app-site-association', 'json'],
   ['css/style.css', 'css'],

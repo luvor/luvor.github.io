@@ -5,13 +5,8 @@
         "appIDs": ["V45669B929.com.luvor.tracy"],
         "components": [
           {
-            "/": "/use",
-            "comment": "Open a shared Tripmaxx edit template in the app"
-          },
-          {
             "/": "/use*",
-            "?": { "template": "?*" },
-            "comment": "Use-this-edit deep link carrying a ?template= query"
+            "comment": "Open the Tripmaxx recap QR and install landing in the app"
           }
         ]
       }
