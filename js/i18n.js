@@ -21,7 +21,7 @@
 
       // Hero
       'hero.badge': 'Available for work',
-      'hero.kicker': 'Senior Frontend Engineer / AI Systems Builder / Kazakhstan',
+      'hero.kicker': 'AI Engineer / Senior Frontend / Astana, Kazakhstan',
       'hero.subtitle': 'I build high-discipline interfaces and AI-augmented product systems that feel precise, fast, and unmistakably production ready.',
       'hero.cta.work': 'View Work',
       'hero.cta.contact': 'Get in Touch',
@@ -46,12 +46,12 @@
       'about.label': 'About Me',
       'about.title.1': 'Building the bridge between',
       'about.title.2': 'AI & great UX',
-      'about.p1': 'I am a Senior Frontend Engineer based in Kazakhstan with 5+ years in FinTech and product delivery. My strongest work happens where interface quality, system thinking, and execution discipline have to coexist under real business pressure.',
+      'about.p1': 'I am an AI Engineer and Senior Frontend Engineer based in Astana, Kazakhstan, with 5+ years in FinTech and product delivery. My strongest work happens where interface quality, system thinking, and execution discipline have to coexist under real business pressure.',
       'about.p2': 'At Halyk Finservice I lead a frontend stream and introduced AI agents into review, documentation, and testing workflows. The point is not novelty. The point is raising team throughput without lowering engineering standards.',
       'about.p3': 'I focus on building calmer systems: clearer interfaces, cleaner delivery loops, better architecture decisions, and AI that actually removes friction instead of adding noise.',
       'about.dossier.label': 'Operator Snapshot',
       'about.dossier.role.label': 'Current role',
-      'about.dossier.role.value': 'Frontend Lead / AI Systems Builder',
+      'about.dossier.role.value': 'AI Engineer / Frontend Lead',
       'about.dossier.domain.label': 'Primary domain',
       'about.dossier.domain.value': 'FinTech, internal platforms, delivery systems',
       'about.dossier.edge.label': 'Core edge',
@@ -192,7 +192,7 @@
 
       // Hero
       'hero.badge': 'Открыт к предложениям',
-      'hero.kicker': 'Senior Frontend Engineer / AI Systems Builder / Казахстан',
+      'hero.kicker': 'AI Engineer / Senior Frontend / Астана, Казахстан',
       'hero.subtitle': 'Строю высокодисциплинированные интерфейсы и AI-продукты — точные, быстрые и готовые к production.',
       'hero.cta.work': 'Смотреть работы',
       'hero.cta.contact': 'Написать',
@@ -217,12 +217,12 @@
       'about.label': 'Обо мне',
       'about.title.1': 'Строю мост между',
       'about.title.2': 'AI и качественным UX',
-      'about.p1': 'Senior Frontend Engineer из Казахстана с 5+ годами в FinTech и продуктовой разработке. Лучшие результаты — там, где качество интерфейса, системное мышление и дисциплина исполнения должны сосуществовать под реальным бизнес-давлением.',
+      'about.p1': 'AI Engineer и Senior Frontend Engineer из Астаны с 5+ годами в FinTech и продуктовой разработке. Лучшие результаты — там, где качество интерфейса, системное мышление и дисциплина исполнения должны сосуществовать под реальным бизнес-давлением.',
       'about.p2': 'В Halyk Finservice руковожу frontend-стримом и ввёл AI-агентов в процессы ревью, документации и тестирования. Цель — не новизна. Цель — повысить пропускную способность команды без снижения инженерных стандартов.',
       'about.p3': 'Фокус — на более спокойных системах: чище интерфейсы, чище циклы доставки, лучше архитектурные решения, и AI, который убирает трение, а не добавляет шум.',
       'about.dossier.label': 'Оперативный дашборд',
       'about.dossier.role.label': 'Текущая роль',
-      'about.dossier.role.value': 'Frontend Lead / AI Systems Builder',
+      'about.dossier.role.value': 'AI Engineer / Frontend Lead',
       'about.dossier.domain.label': 'Основная область',
       'about.dossier.domain.value': 'FinTech, внутренние платформы, системы доставки',
       'about.dossier.edge.label': 'Ключевое преимущество',
@@ -396,11 +396,11 @@
     // Update meta description for RU
     if (lang === 'ru') {
       var metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) metaDesc.setAttribute('content', 'Портфолио Islambek Chynybekov — Senior Frontend Engineer и AI Systems Builder. 5+ лет в FinTech. Overlayer AI, tg-moder RAG, HalykMarket AI delivery.');
+      if (metaDesc) metaDesc.setAttribute('content', 'Портфолио Islambek Chynybekov — AI Engineer и Senior Frontend Engineer. 5+ лет в FinTech. Overlayer AI, tg-moder RAG, HalykMarket AI delivery.');
       var ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) ogDesc.setAttribute('content', 'Senior Frontend Engineer из Казахстана. 5+ лет в FinTech. AI-системы, нативный macOS, production RAG, лидерство в банковском масштабе.');
+      if (ogDesc) ogDesc.setAttribute('content', 'AI Engineer из Казахстана. 5+ лет в FinTech. AI-системы, нативный macOS, production RAG, лидерство в банковском масштабе.');
       var twDesc = document.querySelector('meta[name="twitter:description"]');
-      if (twDesc) twDesc.setAttribute('content', 'Senior Frontend Engineer из Казахстана. 5+ лет в FinTech. AI-системы, нативный macOS, production RAG, лидерство в банковском масштабе.');
+      if (twDesc) twDesc.setAttribute('content', 'AI Engineer из Казахстана. 5+ лет в FinTech. AI-системы, нативный macOS, production RAG, лидерство в банковском масштабе.');
     }
   }
 
