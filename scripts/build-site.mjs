@@ -19,6 +19,7 @@ const textAssets = [
   ['.well-known/apple-app-site-association', 'json'],
   ['css/style.css', 'css'],
   ['css/versions.css', 'css'],
+  ['js/i18n.js', 'js'],
   ['js/main.js', 'js'],
   ['js/animations.js', 'js'],
   ['js/particles.js', 'js'],
@@ -33,7 +34,6 @@ const staticAssets = [
   'assets/icons/icon-192.png',
   'assets/icons/icon-512.png',
   'assets/icons/icon-maskable-512.png',
-  'assets/portfolio/CV_Chynybekov_2026.pdf',
   'assets/portfolio/imagine-99.jpg',
 ];
 

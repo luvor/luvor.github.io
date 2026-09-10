@@ -1,5 +1,6 @@
-const CACHE_NAME = 'ic-portfolio-v6';
-const RUNTIME_CACHE = 'ic-portfolio-runtime-v6';
+const CACHE_NAME = 'ic-portfolio-v12';
+const RUNTIME_CACHE = 'ic-portfolio-runtime-v12';
+const LEGACY_CV_PATH = '/assets/portfolio/CV_Chynybekov_2026.pdf';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -17,7 +18,6 @@ const PRECACHE_ASSETS = [
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png',
   '/assets/icons/icon-maskable-512.png',
-  '/assets/portfolio/CV_Chynybekov_2026.pdf',
 ];
 
 self.addEventListener('install', function (event) {
@@ -53,6 +53,14 @@ self.addEventListener('fetch', function (event) {
   var url = new URL(request.url);
 
   if (request.method !== 'GET') {
+    return;
+  }
+
+  if (url.origin === self.location.origin && url.pathname === LEGACY_CV_PATH) {
+    event.respondWith(new Response('Not Found', {
+      status: 404,
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    }));
     return;
   }
 
