@@ -1,5 +1,6 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const { mkdirSync } = require('node:fs');
 
 test.describe('Mobile Responsiveness', () => {
   test.beforeEach(async ({ page }) => {
@@ -25,14 +26,23 @@ test.describe('Mobile Responsiveness', () => {
     }
   });
 
+  test('portfolio fits the viewport and captures mobile press proof', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'Mobile-only visual evidence');
+    await expect(page.locator('#hero h1')).toBeVisible();
+    await expect(page.locator('#projects article')).toHaveCount(9);
+    await expect(page.locator('#about .experience-list')).toBeAttached();
+    mkdirSync('/private/tmp/qa-out/portfolio/press-proof', { recursive: true });
+    await page.screenshot({ path: '/private/tmp/qa-out/portfolio/press-proof/mobile.png', fullPage: true });
+  });
+
   test('images do not overflow container', async ({ page }) => {
     const overflowingImages = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('img')).flatMap((img) => {
         if (!(img instanceof HTMLImageElement)) return [];
         if (!img.offsetParent) return [];
 
-        // Cropped artwork is bounded by its media frame, not the scaled bitmap.
-        const rect = (img.closest('.range-media') || img).getBoundingClientRect();
+        // The hero intentionally crops its mosaic at the viewport edge.
+        const rect = (img.closest('.hero') || img.closest('.project-image') || img).getBoundingClientRect();
         if (rect.right <= window.innerWidth + 5) return [];
 
         return [{
@@ -68,7 +78,7 @@ test.describe('Mobile Responsiveness', () => {
       expect(Math.round(box.width)).toBeGreaterThanOrEqual(44);
       expect(Math.round(box.height)).toBeGreaterThanOrEqual(44);
     }
-    const buttons = page.locator('.btn');
+    const buttons = page.locator('.button');
     const count = await buttons.count();
     for (let i = 0; i < count; i++) {
       const btn = buttons.nth(i);
@@ -133,11 +143,14 @@ test.describe('Case Study Layout', () => {
     await page.waitForLoadState('networkidle');
   });
 
-  test('case studies collapse into a single column', async ({ page, isMobile }) => {
+  test('case studies stay within the mobile viewport', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'Mobile only test');
-    const firstCase = page.locator('.case-card').first();
-    const columns = await firstCase.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
-    expect(columns.split(' ').filter(Boolean).length).toBe(1);
+    const cards = await page.locator('#projects article').evaluateAll(nodes => nodes.map(node => {
+      const box = node.getBoundingClientRect();
+      return box.right <= innerWidth + 1;
+    }));
+    expect(cards).toHaveLength(9);
+    expect(cards.every(Boolean)).toBe(true);
   });
 
 });

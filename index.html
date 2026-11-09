@@ -1,290 +1,110 @@
-<!DOCTYPE html>
+<!--
+THESIS: Printed product proof instead of a generic portfolio grid.
+OWN-WORLD: Paper, ink, signal blue, hairline rules, Unbounded headlines and Onest text.
+STORY: See a shipped product, compare nine cases, then contact the designer.
+FIRST VIEWPORT: Cobalt field; name, role, headline and paper actions on the left, six straight framed crops in a right-bleeding mosaic; three proof facts below.
+FORM: Pinned Press proof / signal blue direction; a six-discipline hero mosaic, no concept seed used.
+-->
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Islambek Chynybekov — Product Designer &amp; Builder</title>
-  <meta
-    name="description"
-    content="Portfolio of Islambek Chynybekov: design and development from interface to working product."
-  >
-  <meta name="theme-color" content="#05070B">
-  <meta name="color-scheme" content="dark">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Islambek Chynybekov — Product designer and developer</title>
+  <meta name="description" content="Portfolio of Islambek Chynybekov: design and development from interface to working product.">
+  <meta name="theme-color" content="#2236FF">
+  <meta name="color-scheme" content="light">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="IC Portfolio">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="format-detection" content="telephone=no">
-
-  <link rel="canonical" href="https://luvor.github.io/">
+  <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Islambek Chynybekov"><meta name="mobile-web-app-capable" content="yes"><link rel="canonical" href="https://luvor.github.io/">
   <link rel="alternate" hreflang="en" href="https://luvor.github.io/">
   <link rel="alternate" hreflang="ru" href="https://luvor.github.io/?lang=ru">
   <link rel="alternate" hreflang="x-default" href="https://luvor.github.io/">
-
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Islambek Chynybekov — Product Designer &amp; Builder">
-  <meta
-    property="og:description"
-    content="One designer, six disciplines: from interface to working product."
-  >
-  <meta property="og:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
+  <meta property="og:title" content="Islambek Chynybekov — Product designer and developer">
+  <meta property="og:description" content="One designer, six disciplines: from interface to working product.">
+  <meta property="og:image" content="https://luvor.github.io/assets/portfolio/cases/tripmaxx.webp">
   <meta property="og:url" content="https://luvor.github.io/">
-
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Islambek Chynybekov — Product Designer &amp; Builder">
-  <meta
-    name="twitter:description"
-    content="One designer, six disciplines: from interface to working product."
-  >
-  <meta name="twitter:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Islambek Chynybekov",
-    "jobTitle": "Product Designer & Builder",
-    "url": "https://luvor.github.io",
-    "email": "theluruous@icloud.com",
-    "sameAs": [
-      "https://github.com/luvor",
-      "https://www.linkedin.com/in/luvor"
-    ],
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Almaty Management University"
-    },
-    "knowsAbout": [
-      "Frontend Engineering",
-      "Product Engineering",
-      "Product Discovery",
-      "Production Delivery",
-      "Vue.js",
-      "React",
-      "TypeScript",
-      "Swift",
-      "macOS Development",
-      "Python"
-    ]
-  }
-  </script>
-
-  <!-- i18n boot: detect lang before render to avoid FOUC -->
-  <script>
-    (function () {
-      var qs = new URLSearchParams(window.location.search).get('lang');
-      var stored = localStorage.getItem('lang');
-      var nav = (navigator.language || navigator.userLanguage || '').slice(0, 2).toLowerCase();
-      var lang = qs || stored || (nav === 'ru' ? 'ru' : 'en');
-      if (lang !== 'en' && lang !== 'ru') lang = 'en';
-      window.__siteLang = lang;
-      document.documentElement.lang = lang;
-      if (qs && qs !== stored) localStorage.setItem('lang', lang);
-    })();
-  </script>
-
+  <meta name="twitter:title" content="Islambek Chynybekov — Product designer and developer">
+  <meta name="twitter:description" content="One designer, six disciplines: from interface to working product.">
+  <meta name="twitter:image" content="https://luvor.github.io/assets/portfolio/cases/tripmaxx.webp">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Islambek Chynybekov","jobTitle":"Product designer and developer","url":"https://luvor.github.io","email":"theluruous@icloud.com","sameAs":["https://github.com/luvor","https://www.linkedin.com/in/luvor"],"alumniOf":{"@type":"CollegeOrUniversity","name":"Almaty Management University"}}</script>
+  <script>(function(){var q=new URLSearchParams(location.search).get('lang'),s=localStorage.getItem('lang'),n=(navigator.language||'').slice(0,2).toLowerCase();var l=q||s||(n==='ru'?'ru':'en');if(l!=='ru')l='en';window.__siteLang=l;document.documentElement.lang=l;if(q)localStorage.setItem('lang',l)})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@600&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="custom-cursor" aria-hidden="true"></div>
-  <a href="#about" class="skip-link" data-i18n="skip.link">Skip to content</a>
-  <div id="scroll-progress" aria-hidden="true"></div>
-
-  <nav id="navbar" class="navbar">
-    <div class="nav-inner">
-      <a href="#hero" class="nav-logo">IC</a>
-      <button
-        class="nav-toggle"
-        id="nav-toggle"
-        aria-label="Toggle menu"
-        aria-controls="nav-links"
-        aria-expanded="false"
-      >
-        <span></span>
-        <span></span>
-      </button>
+  <a class="skip-link" href="#projects" data-i18n="skip.link">Skip to content</a>
+  <nav class="navbar" id="navbar" aria-label="Main navigation">
+    <div class="wrap nav-inner">
+      <a class="nav-logo" href="#hero" aria-label="Islambek Chynybekov">Islambek Chynybekov</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false"><span></span><span></span></button>
       <ul class="nav-links" id="nav-links">
         <li><a href="#projects" data-i18n="nav.work">Work</a></li>
         <li><a href="#about" data-i18n="nav.about">About</a></li>
-        <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
-        <li>
-          <button
-            id="lang-toggle"
-            class="lang-toggle"
-            aria-label="Switch to Russian"
-            data-i18n-attr="aria-label"
-            data-i18n="nav.lang-toggle"
-          >RU</button>
-        </li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><button id="lang-toggle" class="lang-toggle" aria-label="Switch language">RU</button></li>
       </ul>
     </div>
   </nav>
-
   <main>
-    <section id="hero" class="hero">
-      <div class="container hero-shell">
-        <div class="hero-layout">
-          <div class="hero-copy">
-            <p class="hero-kicker" data-i18n="hero.kicker">Islambek Chynybekov · Product designer and developer</p>
-            <h1 class="hero-name"><span class="hero-name-line" data-i18n="hero.claim">One designer. Six disciplines.</span><span class="hero-name-line"><span data-i18n="hero.claim.accent">From idea to</span> <span class="hero-result" data-i18n="hero.claim.result">working product.</span></span></h1>
-            <p class="hero-subtitle" data-i18n="hero.subtitle">Digital products, from first screen to release.</p>
-            <div class="hero-actions">
-              <a href="#projects" class="btn btn-primary" data-i18n="hero.cta.work">View Work</a>
-              <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta.contact">Get in Touch</a>
-            </div>
-          </div>
-          <div class="hero-showcase" aria-label="Selected work across six disciplines">
-            <a class="showcase-tile showcase-tripmaxx" href="https://chynybekov.com/en/projects/tripmaxx" rel="noopener" data-case-slug="tripmaxx" data-i18n-attr="aria-label" data-i18n="showcase.ios" aria-label="iOS — Tripmaxx"><img src="assets/portfolio/tripmaxx-frame-2026-11-06.webp" alt=""><span data-i18n="showcase.ios">iOS · Tripmaxx</span></a>
-            <a class="showcase-tile showcase-netmatch" href="https://chynybekov.com/en/projects/netmatch" rel="noopener" data-case-slug="netmatch" data-i18n-attr="aria-label" data-i18n="showcase.product" aria-label="Product UI — NetMatch"><img src="assets/portfolio/netmatch-frame-2026-11-06.webp" alt=""><span data-i18n="showcase.product">Product UI · NetMatch</span></a>
-            <a class="showcase-tile showcase-ozger" href="https://chynybekov.com/en/projects/ozger" rel="noopener" data-case-slug="ozger" data-i18n-attr="aria-label" data-i18n="showcase.brand" aria-label="Brand and print — ÖZGER"><img src="assets/portfolio/ozger-brand-2026-11-09.webp" alt=""><span data-i18n="showcase.brand">Brand / print · ÖZGER</span></a>
-            <a class="showcase-tile showcase-tact" href="https://chynybekov.com/en/projects/tact" rel="noopener" data-case-slug="tact" data-i18n-attr="aria-label" data-i18n="showcase.landing" aria-label="Landing page — TACT"><img src="assets/portfolio/tact-landing-2026-11-05.webp" alt=""><span data-i18n="showcase.landing">Landing · TACT</span></a>
-            <a class="showcase-tile showcase-motion" href="https://chynybekov.com/en/projects/motion-teaser" rel="noopener" data-case-slug="motion-teaser" data-i18n-attr="aria-label" data-i18n="showcase.motion" aria-label="Motion — typography film"><img src="assets/portfolio/motion-teaser-2026-11-08-poster.webp" alt=""><span data-i18n="showcase.motion">Motion · typography film</span></a>
-            <a class="showcase-tile showcase-ai" href="#projects" data-i18n-attr="aria-label" data-i18n="showcase.ai" aria-label="AI visuals — cinematic"><img src="assets/portfolio/ai-cinematic-2026-11-09.webp" alt=""><span data-i18n="showcase.ai">AI visuals</span></a>
-          </div>
-          <ul class="hero-signals">
-            <li><strong data-i18n="hero.proof.store">App Store</strong><span data-i18n="hero.proof.store.desc">Tripmaxx, live product</span></li>
-            <li><strong data-i18n="hero.proof.cases">9 cases</strong><span data-i18n="hero.proof.cases.desc">Products, client work, concepts</span></li>
-            <li><strong data-i18n="hero.proof.languages">RU · KZ · EN</strong><span data-i18n="hero.proof.languages.desc">Across live projects</span></li>
-          </ul>
-          <div class="hero-experience"><span data-i18n="experience.label">Experience</span><strong>Halyk Finservice</strong><strong>Kaspi.kz</strong><strong>Air Astana</strong></div>
+    <section class="hero" id="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="hero-name">Islambek Chynybekov</p><p class="hero-role" data-i18n="hero.kicker">Product designer and developer</p>
+          <h1><span data-i18n="hero.claim.1">One designer.</span><span data-i18n="hero.claim.2">Six disciplines.</span><span data-i18n="hero.claim.3">From idea to working product.</span></h1>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">Digital products, from first screen to release.</p>
+          <div class="hero-actions"><a class="button button-paper" href="#projects" data-i18n="hero.cta.work">View work</a><a class="button button-outline" href="#contact" data-i18n="hero.cta.contact">Get in touch</a></div>
+        </div>
+        <div class="hero-mosaic">
+          <a class="hero-tile" href="#project-tripmaxx"><img src="assets/portfolio/cases/tripmaxx.webp" alt="iOS app" data-i18n-attr="alt" data-i18n="case.tripmaxx.alt" width="1600" height="1000"><span class="tile-label" data-i18n="discipline.ios">iOS app</span></a>
+          <a class="hero-tile" href="#project-ozger"><img src="assets/portfolio/cases/ozger.webp" alt="Brand and print" data-i18n-attr="alt" data-i18n="case.ozger.alt" width="1600" height="1000"><span class="tile-label" data-i18n="discipline.brand">Brand and print</span></a>
+          <a class="hero-tile" href="#project-netmatch"><img src="assets/portfolio/cases/netmatch-promo.webp" alt="Product UI" data-i18n-attr="alt" data-i18n="case.netmatch.alt" width="1600" height="1000"><span class="tile-label" data-i18n="discipline.ui">Product UI</span></a>
+          <a class="hero-tile" href="#project-motion-teaser"><img src="assets/portfolio/cases/motion.webp" alt="Motion" data-i18n-attr="alt" data-i18n="case.motion-teaser.alt" width="1600" height="1000"><span class="tile-label" data-i18n="discipline.motion">Motion</span></a>
+          <a class="hero-tile" href="#project-tact"><img src="assets/portfolio/cases/tact.webp" alt="Landing" data-i18n-attr="alt" data-i18n="case.tact.alt" width="1600" height="1000"><span class="tile-label" data-i18n="discipline.landing">Landing</span></a>
+          <a class="hero-tile" href="#projects"><img src="assets/portfolio/cases/ai.webp" alt="AI imagery" data-i18n-attr="alt" data-i18n="case.ai.caption" width="1600" height="1000"><span class="tile-label" data-i18n="discipline.ai">AI imagery</span></a>
         </div>
       </div>
     </section>
-
-
-    <section id="projects" class="section projects">
-      <div class="container">
-        <div class="section-header"><span class="section-label" data-i18n="range.label">Portfolio</span><h2 class="section-title" data-i18n="range.title">Selected work</h2></div>
-        <div class="range-grid">
-          <a class="case-card case-tripmaxx" href="https://chynybekov.com/en/projects/tripmaxx" rel="noopener" data-case-slug="tripmaxx">
-            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/tripmaxx-frame-2026-11-06.webp" alt="Three Tripmaxx screens from the App Store gallery" data-i18n-attr="alt" data-i18n="case.tripmaxx.alt"></span>
-            <span class="range-caption"><small data-i18n="case.tripmaxx.kind">App Store product</small><strong data-i18n="case.tripmaxx.name">Tripmaxx</strong><span class="range-proof" data-i18n="case.tripmaxx.proof">App Store · works on device</span></span>
-          </a>
-          <a class="case-card case-naqyl" href="https://chynybekov.com/en/projects/naqyl" rel="noopener" data-case-slug="naqyl">
-            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/naqyl-app-frame.webp" alt="NAQYL proverb app screen" data-i18n-attr="alt" data-i18n="case.naqyl.alt"></span>
-            <span class="range-caption"><small data-i18n="case.naqyl.kind">iOS product</small><strong data-i18n="case.naqyl.name">NAQYL</strong><span class="range-proof" data-i18n="case.naqyl.proof">SwiftUI · SwiftData · 5,883 entries · offline</span></span>
-          </a>
-          <a class="case-card case-tact" href="https://chynybekov.com/en/projects/tact" rel="noopener" data-case-slug="tact">
-            <span class="range-media tact-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/tact-landing-2026-11-05.webp" alt="TACT instant-print camera landing page" data-i18n-attr="alt" data-i18n="case.tact.alt"></span>
-            <span class="range-caption"><small data-i18n="case.tact.kind">Landing page concept</small><strong data-i18n="case.tact.name">TACT</strong><span class="range-proof" data-i18n="case.tact.proof">Mobile Lighthouse · 100 / 100 / 96 / 100</span></span>
-          </a>
-          <div class="case-card case-yasnoten">
-            <a class="case-main" href="https://chynybekov.com/en/projects/yasnoten" rel="noopener" data-case-slug="yasnoten">
-              <span class="range-media"><img loading="lazy" width="720" height="1280" src="assets/portfolio/yasnoten-2026-11-08-poster.webp" alt="Yasnoten lantern in a mountain landscape" data-i18n-attr="alt" data-i18n="case.yasnoten.alt"></span>
-              <span class="range-caption"><small data-i18n="case.yasnoten.kind">Web product</small><strong data-i18n="case.yasnoten.name">Yasnoten</strong><span class="range-proof" data-i18n="case.yasnoten.proof">React · TypeScript · Firebase · live build</span></span>
-            </a>
-            <a class="case-live" href="https://yasnoten.web.app" target="_blank" rel="noopener" data-i18n="case.yasnoten.live">Open Yasnoten live ↗</a>
-          </div>
-          <a class="case-card case-netmatch" href="https://chynybekov.com/en/projects/netmatch" rel="noopener" data-case-slug="netmatch">
-            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/netmatch-frame-2026-11-06.webp" alt="NetMatch job cards with take-home pay" data-i18n-attr="alt" data-i18n="case.netmatch.alt"></span>
-            <span class="range-caption"><small data-i18n="case.netmatch.kind">Product UI</small><strong data-i18n="case.netmatch.name">NetMatch</strong><span class="range-proof" data-i18n="case.netmatch.proof">Telegram Mini App · Postgres · live demo</span></span>
-          </a>
-          <a class="case-card case-ozger" href="https://chynybekov.com/en/projects/ozger" rel="noopener" data-case-slug="ozger">
-            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/ozger-brand-2026-11-09.webp" alt="ÖZGER identity and print materials" data-i18n-attr="alt" data-i18n="case.ozger.alt"></span>
-            <span class="range-caption"><small data-i18n="case.ozger.kind">Brand, web, print</small><strong data-i18n="case.ozger.name">ÖZGER</strong><span class="range-proof" data-i18n="case.ozger.proof">Live site in Russian and Kazakh</span></span>
-          </a>
-          <div class="case-card case-motion-teaser" data-motion>
-            <a href="https://chynybekov.com/en/projects/motion-teaser" rel="noopener" data-case-slug="motion-teaser"><span class="range-media"><img class="motion-poster" loading="lazy" width="720" height="1280" src="assets/portfolio/motion-teaser-2026-11-08-poster.webp" alt="Frames from the vertical film Agents do" data-i18n-attr="alt" data-i18n="case.motion-teaser.alt"><video data-src="assets/portfolio/motion-teaser-2026-11-08.mp4" poster="assets/portfolio/motion-teaser-2026-11-08-poster.webp" muted playsinline loop preload="none" aria-hidden="true"></video></span><span class="range-caption"><small data-i18n="case.motion-teaser.kind">Motion</small><strong data-i18n="case.motion-teaser.name">Agents</strong><span class="range-proof" data-i18n="case.motion-teaser.proof">Remotion · 1080×1920 · 30 fps · 20 sec</span></span></a>
-            <button class="motion-toggle" type="button" aria-label="Play preview" aria-pressed="false" data-i18n="range.motion.play" data-i18n-attr="aria-label"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path class="motion-play" d="M4 2.5v11L13 8z"/><path class="motion-pause" d="M4 3h3v10H4zm5 0h3v10H9z"/></svg></button>
-          </div>
-          <a class="case-card case-redteu" href="https://chynybekov.com/en/projects/redteu" rel="noopener" data-case-slug="redteu">
-            <span class="range-media case-image case-redteu-image"><img loading="lazy" width="1400" height="875" src="assets/portfolio/redteu-site.webp" alt="REDTEU public site homepage" data-i18n-attr="alt" data-i18n="case.redteu.alt"></span>
-            <span class="range-caption"><small data-i18n="case.redteu.kind">Product workflow</small><strong data-i18n="case.redteu.name">REDTEU</strong><span class="range-proof" data-i18n="case.redteu.proof">Public site · services and prices published</span></span>
-          </a>
-          <a class="case-card case-beni" href="https://chynybekov.com/en/projects/beni" rel="noopener" data-case-slug="beni">
-            <span class="range-media case-image case-beni-image"><img loading="lazy" width="1600" height="900" src="assets/portfolio/beni-hero.webp" alt="BENI studio website hero" data-i18n-attr="alt" data-i18n="case.beni.alt"></span>
-            <span class="range-caption"><small data-i18n="case.beni.kind">Digital studio</small><strong data-i18n="case.beni.name">BENI</strong><span class="range-proof" data-i18n="case.beni.proof">Public studio site · beni.kz</span></span>
-          </a>
+    <section class="fact-strip" aria-label="Selected proof" data-i18n="proof.label" data-i18n-attr="aria-label"><div class="wrap facts">
+      <p><strong>5,883</strong><span data-i18n="hero.fact.cases">NAQYL entries, works offline</span></p>
+      <p><strong>100, 100,<br>96, 100</strong><span data-i18n="hero.fact.languages">TACT mobile Lighthouse scores</span></p>
+      <p><strong data-i18n="hero.fact.store.value">App Store</strong><span data-i18n="hero.fact.store">Tripmaxx live</span></p>
+    </div></section>
+    <section class="section projects" id="projects">
+      <div class="wrap"><h2 class="section-title" data-i18n="range.title">Selected work</h2>
+        <div class="case-grid">
+          <article class="case-card" id="project-tripmaxx"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/tripmaxx" data-case-slug="tripmaxx" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/tripmaxx.webp" alt="Tripmaxx mobile product" data-i18n-attr="alt" data-i18n="case.tripmaxx.alt"><span class="status-chip live" data-i18n="case.tripmaxx.status">Live</span></a></div><div class="project-copy"><h3>Tripmaxx</h3><p class="project-role" data-i18n="case.tripmaxx.kind">Solo design and iOS development</p><p class="proof"><span data-i18n="case.tripmaxx.proof">Available on the App Store</span></p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/tripmaxx" data-case-slug="tripmaxx" rel="noopener" data-i18n="case.link">Case study</a><a class="live-link" href="https://apps.apple.com/us/app/tripmaxx/id6791935242" target="_blank" rel="noopener" data-i18n="case.tripmaxx.live">App Store</a></div></div></article>
+          <article class="case-card" id="project-netmatch"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/netmatch" data-case-slug="netmatch" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/netmatch-promo.webp" alt="NetMatch product interface" data-i18n-attr="alt" data-i18n="case.netmatch.alt"><span class="status-chip" data-i18n="case.netmatch.status">Demo</span></a></div><div class="project-copy"><h3>NetMatch</h3><p class="project-role" data-i18n="case.netmatch.kind">Product design, client and server development</p><p class="proof"><span data-i18n="case.netmatch.proof">Telegram Mini App and Postgres live demo</span></p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/netmatch" data-case-slug="netmatch" rel="noopener" data-i18n="case.link">Case study</a></div></div></article>
+          <article class="case-card" id="project-naqyl"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/naqyl" data-case-slug="naqyl" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/naqyl.webp" alt="NAQYL proverb app" data-i18n-attr="alt" data-i18n="case.naqyl.alt"><span class="status-chip" data-i18n="case.naqyl.status">In preparation</span></a></div><div class="project-copy"><h3>NAQYL</h3><p class="project-role" data-i18n="case.naqyl.kind">Personal product, prepared for release</p><p class="proof" data-i18n="case.naqyl.proof">SwiftUI, 5,883 entries, works offline.</p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/naqyl" data-case-slug="naqyl" rel="noopener" data-i18n="case.link">Case study</a></div></div></article>
+          <article class="case-card" id="project-tact"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/tact" data-case-slug="tact" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/tact.webp" alt="TACT camera landing page" data-i18n-attr="alt" data-i18n="case.tact.alt"><span class="status-chip" data-i18n="case.tact.status">Concept</span></a></div><div class="project-copy"><h3>TACT</h3><p class="project-role" data-i18n="case.tact.kind">Product concept and landing design</p><p class="proof" data-i18n="case.tact.proof">Lighthouse 100, 100, 96, 100</p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/tact" data-case-slug="tact" rel="noopener" data-i18n="case.link">Case study</a></div></div></article>
+          <article class="case-card" id="project-yasnoten"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/yasnoten" data-case-slug="yasnoten" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/yasnoten.webp" alt="Yasnoten live product" data-i18n-attr="alt" data-i18n="case.yasnoten.alt"><span class="status-chip live" data-i18n="case.yasnoten.status">Live</span></a></div><div class="project-copy"><h3>Yasnoten</h3><p class="project-role" data-i18n="case.yasnoten.kind">Product design and web development</p><p class="proof"><span data-i18n="case.yasnoten.proof">React, TypeScript, Firebase live build</span></p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/yasnoten" data-case-slug="yasnoten" rel="noopener" data-i18n="case.link">Case study</a><a href="https://yasnoten.web.app" target="_blank" rel="noopener" class="live-link" data-i18n="case.yasnoten.live">Open Yasnoten live</a></div></div></article>
+          <article class="case-card" id="project-ozger"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/ozger" data-case-slug="ozger" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/ozger.webp" alt="ÖZGER identity and print" data-i18n-attr="alt" data-i18n="case.ozger.alt"><span class="status-chip live" data-i18n="case.ozger.status">Live</span></a></div><div class="project-copy"><h3>ÖZGER</h3><p class="project-role" data-i18n="case.ozger.kind">Engineering in a team launch</p><p class="proof"><span data-i18n="case.ozger.proof">Live Russian and Kazakh site</span></p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/ozger" data-case-slug="ozger" rel="noopener" data-i18n="case.link">Case study</a><a class="live-link" href="https://ozger.kz/" target="_blank" rel="noopener" data-i18n="case.ozger.live">Open ÖZGER</a></div></div></article>
+          <article class="case-card" data-motion id="project-motion-teaser"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/motion-teaser" data-case-slug="motion-teaser" rel="noopener"><img class="motion-poster" loading="lazy" src="assets/portfolio/cases/motion.webp" alt="Typography film frame" data-i18n-attr="alt" data-i18n="case.motion-teaser.alt"><video data-src="assets/portfolio/motion-teaser-2026-11-08.mp4" poster="assets/portfolio/cases/motion.webp" muted playsinline loop preload="none" aria-hidden="true"></video><span class="status-chip" data-i18n="case.motion-teaser.status">Concept</span></a><button class="motion-toggle" type="button" aria-label="Play preview" aria-pressed="false" data-i18n="range.motion.play" data-i18n-attr="aria-label"><span aria-hidden="true"></span></button></div><div class="project-copy"><h3>Agents</h3><p class="project-role" data-i18n="case.motion-teaser.kind">Concept and motion design</p><p class="proof" data-i18n="case.motion-teaser.proof">A 20-second typography film, rendered at 1080×1920 and 30 fps.</p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/motion-teaser" data-case-slug="motion-teaser" rel="noopener" data-i18n="case.link">Case study</a></div></div></article>
+          <article class="case-card" id="project-redteu"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/redteu" data-case-slug="redteu" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/redteu.webp" alt="REDTEU service website" data-i18n-attr="alt" data-i18n="case.redteu.alt"><span class="status-chip live" data-i18n="case.redteu.status">Live</span></a></div><div class="project-copy"><h3>REDTEU</h3><p class="project-role" data-i18n="case.redteu.kind">Product and service website with my partner</p><p class="proof" data-i18n="case.redteu.proof">Bookings, pricing and owner summaries</p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/redteu" data-case-slug="redteu" rel="noopener" data-i18n="case.link">Case study</a><a class="live-link" href="https://redteu.kz/" target="_blank" rel="noopener" data-i18n="case.redteu.live">Open REDTEU</a></div></div></article>
+          <article class="case-card" id="project-beni"><div class="project-media"><a class="project-image" href="https://chynybekov.com/en/projects/beni" data-case-slug="beni" rel="noopener"><img loading="lazy" src="assets/portfolio/cases/beni.webp" alt="BENI digital studio website" data-i18n-attr="alt" data-i18n="case.beni.alt"><span class="status-chip live" data-i18n="case.beni.status">Live</span></a></div><div class="project-copy"><h3>BENI</h3><p class="project-role" data-i18n="case.beni.kind">Studio website with my partner</p><p class="proof" data-i18n="case.beni.proof">Studio site with services and process</p><div class="project-links"><a class="case-link" href="https://chynybekov.com/en/projects/beni" data-case-slug="beni" rel="noopener" data-i18n="case.link">Case study</a><a class="live-link" href="https://beni.kz/" target="_blank" rel="noopener" data-i18n="case.beni.live">Open BENI</a></div></div></article>
         </div>
       </div>
     </section>
-    <section id="about" class="section about">
-      <div class="container">
-        <div class="about-grid about-compact">
-          <div class="about-content">
-            <span class="section-label reveal" data-i18n="about.label">About Me</span>
-            <h2 class="section-title reveal-title">
-              <span data-i18n="about.title.1">From product idea to</span><br>
-              <span class="gradient-text" data-i18n="about.title.2">a real launch</span>
-            </h2>
-            <p class="about-text reveal" data-i18n="about.p1">Product Designer &amp; Builder based in Astana. I design and ship digital products, from the first screen to release.</p>
-            <ul class="about-proof" aria-label="Selected outcomes"><li><strong>100 / 100 / 96 / 100</strong><span data-i18n="about.proof.lighthouse">TACT · Lighthouse · mobile</span></li><li><strong data-i18n="about.proof.cases">9 cases</strong><span data-i18n="about.proof.cases.label">in the portfolio</span></li><li><strong data-i18n="about.proof.store">App Store</strong><span data-i18n="about.proof.store.label">Tripmaxx live</span></li></ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="proof-strip"><div class="container"><p class="skill-disciplines" data-i18n="skills.strip">Product UI · iOS · Web · Brand · Motion · AI visuals</p></div></section>
-
-    <section id="contact" class="section contact">
-      <div class="container">
-        <span class="section-label reveal" data-i18n="contact.label">Contact</span>
-        <h2 class="section-title reveal-title">
-          <span data-i18n="contact.title.1">Product design</span><br>
-          <span class="gradient-text" data-i18n="contact.title.accent">and development · Astana</span>
-        </h2>
-        <a href="mailto:theluruous@icloud.com" class="contact-email">theluruous@&#8203;icloud.com</a>
-        <div class="contact-links">
-          <a href="mailto:theluruous@icloud.com" data-i18n="contact.link.email">Email →</a>
-          <a href="https://chynybekov.com/" target="_blank" rel="noopener" data-i18n="contact.link.site">Personal site →</a>
-          <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" data-i18n="contact.link.linkedin">LinkedIn →</a>
-          <a href="https://github.com/luvor" target="_blank" rel="noopener" data-i18n="contact.link.github">GitHub →</a>
-          <a href="/versions.html" data-i18n="contact.link.versions">Versions →</a>
-        </div>
-        <p class="copyright" data-i18n="contact.copyright">© 2026 Islambek Chynybekov</p>
-      </div>
-    </section>
+    <section id="about" class="section about"><div class="wrap about-grid">
+      <img class="portrait" src="assets/portfolio/portrait.webp" alt="Portrait of Islambek Chynybekov" loading="lazy" data-i18n-attr="alt" data-i18n="about.portrait.alt">
+      <div class="about-copy"><h2 class="section-title" data-i18n="about.title.1">About</h2><p data-i18n="about.p1">Based in Astana, I lead frontend delivery and work across product design and engineering.</p><p data-i18n="about.p2">Tripmaxx is my personal App Store release; BENI, REDTEU and ÖZGER are team efforts. I work across consumer products and operational services.</p>
+      <h3 data-i18n="experience.label">Experience</h3><dl class="experience-list"><div><dt>Halyk Finservice</dt><dd><span data-i18n="exp01.role">Team Lead Frontend</span><span data-i18n="exp01.date">Jan 2024 — Present</span></dd></div><div><dt>Halyk Finservice</dt><dd><span data-i18n="exp02.role">Frontend Developer</span><span data-i18n="exp02.date">Jul 2023 — Dec 2023</span></dd></div><div><dt>Kaspi.kz</dt><dd><span data-i18n="exp03.role">Software Developer</span><span data-i18n="exp03.date">Aug 2022 — Jul 2023</span></dd></div><div><dt>Air Astana</dt><dd><span data-i18n="exp04.role">Full-stack Developer</span><span data-i18n="exp04.date">Feb 2022 — Jun 2022</span></dd></div></dl></div>
+    </div></section>
+    <section class="section contact" id="contact"><div class="wrap"><h2 class="section-title" data-i18n="contact.title.1">Let’s work together</h2><a class="contact-email" href="mailto:theluruous@icloud.com">theluruous@icloud.com</a><a class="contact-button" href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener">LinkedIn</a><p class="contact-links"><a href="https://github.com/luvor" target="_blank" rel="noopener">GitHub</a><a href="https://chynybekov.com/" target="_blank" rel="noopener">chynybekov.com</a><a href="/versions.html" data-i18n="contact.versions">Versions</a></p><button class="install-button" hidden data-i18n="pwa.install">Install app</button></div></section>
+    <footer class="site-footer"><div class="wrap">© 2026 Islambek Chynybekov</div></footer>
   </main>
-
-  <script src="js/i18n.js" defer></script>
-  <script src="js/animations.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/i18n.js" defer></script><script src="js/main.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
       });
     }
-
-    (function () {
-      var deferredPrompt = null;
-
-      window.addEventListener('beforeinstallprompt', function (e) {
-        e.preventDefault();
-        deferredPrompt = e;
-
-        var actions = document.querySelector('.hero-actions');
-        if (!actions || document.querySelector('.pwa-install-btn')) return;
-
-        var installBtn = document.createElement('button');
-        installBtn.className = 'pwa-install-btn';
-        installBtn.textContent = (window.__i18n && window.__i18n.t) ? window.__i18n.t('pwa.install') : 'Install App';
-        installBtn.setAttribute('data-i18n', 'pwa.install');
-        actions.appendChild(installBtn);
-
-        installBtn.addEventListener('click', function () {
-          if (!deferredPrompt) return;
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then(function () {
-            deferredPrompt = null;
-            installBtn.remove();
-          });
-        });
-      });
-
-      window.addEventListener('appinstalled', function () {
-        deferredPrompt = null;
-        var btn = document.querySelector('.pwa-install-btn');
-        if (btn) btn.remove();
-      });
-    })();
   </script>
 </body>
 </html>

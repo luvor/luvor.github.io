@@ -67,26 +67,16 @@ test.describe('Accessibility', () => {
     expect(focusedElement).not.toBeNull();
   });
 
-  test('aria-hidden is set on decorative elements', async ({ page }) => {
-    const decorative = ['#scroll-progress', '#hero-canvas', '#custom-cursor'];
-    for (const selector of decorative) {
-      const el = page.locator(selector).first();
-      if (await el.count() > 0) {
-        const ariaHidden = await el.getAttribute('aria-hidden');
-        expect(ariaHidden, `${selector} should have aria-hidden`).toBe('true');
-      }
-    }
-  });
-
-  test('compact proof strip remains readable', async ({ page }) => {
-    await expect(page.locator('.proof-strip')).toBeVisible();
-    await expect(page.locator('.proof-strip .skill-disciplines')).toBeVisible();
+  test('hero fact strip and profile sections remain available', async ({ page }) => {
+    await expect(page.locator('.fact-strip')).toBeVisible();
+    await expect(page.locator('#about .experience-list')).toBeAttached();
+    await expect(page.locator('.hero-mosaic .hero-tile')).toHaveCount(6);
   });
 
   test('case cards expose meaningful titles', async ({ page }) => {
-    const cards = page.locator('.case-card');
+    const cards = page.locator('#projects article');
     await expect(cards).toHaveCount(9);
-    const headings = cards.locator('.range-caption strong');
+    const headings = cards.locator('h3');
     const count = await headings.count();
     for (let i = 0; i < count; i++) {
       const text = await headings.nth(i).textContent();

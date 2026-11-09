@@ -1,18 +1,25 @@
 {
   "id": "/",
-  "name": "Islambek Chynybekov — Frontend Team Lead & Product Builder",
+  "name": "Islambek Chynybekov — Product designer and developer",
   "short_name": "IC Portfolio",
-  "description": "Frontend Team Lead and hands-on product builder shipping consumer products and operational services.",
+  "description": "Product design and development from interface to working product.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
-  "background_color": "#05070B",
-  "theme_color": "#05070B",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#F2F4F8",
+  "theme_color": "#2236FF",
   "orientation": "portrait-primary",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["portfolio", "personal", "business"],
+  "categories": [
+    "portfolio",
+    "personal",
+    "business"
+  ],
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
@@ -29,15 +36,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "assets/portfolio/imagine-99.jpg",
-      "sizes": "1200x630",
-      "type": "image/jpeg",
-      "form_factor": "wide",
-      "label": "Portfolio hero section"
     }
   ],
   "shortcuts": [

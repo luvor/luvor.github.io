@@ -1,5 +1,5 @@
-const CACHE_NAME = 'ic-portfolio-v16';
-const RUNTIME_CACHE = 'ic-portfolio-runtime-v16';
+const CACHE_NAME = 'ic-portfolio-v19';
+const RUNTIME_CACHE = 'ic-portfolio-runtime-v19';
 const LEGACY_CV_PATH = '/assets/portfolio/CV_Chynybekov_2026.pdf';
 
 const PRECACHE_ASSETS = [
@@ -10,18 +10,17 @@ const PRECACHE_ASSETS = [
   '/css/versions.css',
   '/js/main.js',
   '/js/i18n.js',
-  '/assets/portfolio/tripmaxx-frame-2026-11-06.webp',
-  '/assets/portfolio/ai-cinematic-2026-11-09.webp',
-  '/assets/portfolio/motion-teaser-2026-11-08-poster.webp',
-  '/assets/portfolio/ozger-brand-2026-11-09.webp',
-  '/assets/portfolio/tact-landing-2026-11-05.webp',
-  '/assets/portfolio/netmatch-frame-2026-11-06.webp',
-  '/assets/portfolio/redteu-site.webp',
-  '/assets/portfolio/beni-hero.webp',
-  '/assets/portfolio/yasnoten-2026-11-08-poster.webp',
-  '/assets/portfolio/naqyl-2026-11-08-poster.webp',
-  '/assets/portfolio/naqyl-app-frame.webp',
-  '/js/animations.js',
+  '/assets/portfolio/cases/tripmaxx.webp',
+  '/assets/portfolio/cases/netmatch-promo.webp',
+  '/assets/portfolio/cases/naqyl.webp',
+  '/assets/portfolio/cases/tact.webp',
+  '/assets/portfolio/cases/yasnoten.webp',
+  '/assets/portfolio/cases/ozger.webp',
+  '/assets/portfolio/cases/motion.webp',
+  '/assets/portfolio/cases/redteu.webp',
+  '/assets/portfolio/cases/beni.webp',
+  '/assets/portfolio/cases/ai.webp',
+  '/assets/portfolio/portrait.webp',
   '/js/versions.js',
   '/favicon.svg',
   '/manifest.webmanifest',
