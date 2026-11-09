@@ -14,7 +14,7 @@ test.describe('Mobile Responsiveness', () => {
   });
 
   test('all sections are visible and not clipped', async ({ page }) => {
-    const sections = ['#about', '#skills', '#experience', '#projects', '#education', '#evidence', '#contact'];
+    const sections = ['#projects', '#about', '#contact'];
     for (const selector of sections) {
       const section = page.locator(selector);
       await expect(section).toBeVisible({ timeout: 10000 });
@@ -31,7 +31,8 @@ test.describe('Mobile Responsiveness', () => {
         if (!(img instanceof HTMLImageElement)) return [];
         if (!img.offsetParent) return [];
 
-        const rect = img.getBoundingClientRect();
+        // Cropped artwork is bounded by its media frame, not the scaled bitmap.
+        const rect = (img.closest('.range-media') || img).getBoundingClientRect();
         if (rect.right <= window.innerWidth + 5) return [];
 
         return [{
@@ -134,14 +135,9 @@ test.describe('Case Study Layout', () => {
 
   test('case studies collapse into a single column', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'Mobile only test');
-    const firstCase = page.locator('.case-study').first();
+    const firstCase = page.locator('.case-card').first();
     const columns = await firstCase.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
     expect(columns.split(' ').filter(Boolean).length).toBe(1);
   });
 
-  test('evidence cards stay readable on mobile', async ({ page }) => {
-    const cards = page.locator('.evidence-card');
-    await expect(cards).toHaveCount(4);
-    await expect(cards.first()).toBeVisible();
-  });
 });

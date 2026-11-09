@@ -1,5 +1,5 @@
-const CACHE_NAME = 'ic-portfolio-v12';
-const RUNTIME_CACHE = 'ic-portfolio-runtime-v12';
+const CACHE_NAME = 'ic-portfolio-v16';
+const RUNTIME_CACHE = 'ic-portfolio-runtime-v16';
 const LEGACY_CV_PATH = '/assets/portfolio/CV_Chynybekov_2026.pdf';
 
 const PRECACHE_ASSETS = [
@@ -9,8 +9,19 @@ const PRECACHE_ASSETS = [
   '/css/style.css',
   '/css/versions.css',
   '/js/main.js',
+  '/js/i18n.js',
+  '/assets/portfolio/tripmaxx-frame-2026-11-06.webp',
+  '/assets/portfolio/ai-cinematic-2026-11-09.webp',
+  '/assets/portfolio/motion-teaser-2026-11-08-poster.webp',
+  '/assets/portfolio/ozger-brand-2026-11-09.webp',
+  '/assets/portfolio/tact-landing-2026-11-05.webp',
+  '/assets/portfolio/netmatch-frame-2026-11-06.webp',
+  '/assets/portfolio/redteu-site.webp',
+  '/assets/portfolio/beni-hero.webp',
+  '/assets/portfolio/yasnoten-2026-11-08-poster.webp',
+  '/assets/portfolio/naqyl-2026-11-08-poster.webp',
+  '/assets/portfolio/naqyl-app-frame.webp',
   '/js/animations.js',
-  '/js/particles.js',
   '/js/versions.js',
   '/favicon.svg',
   '/manifest.webmanifest',
@@ -98,6 +109,11 @@ self.addEventListener('fetch', function (event) {
         });
       })
     );
+    return;
+  }
+
+  if (request.destination === 'video' || url.pathname.endsWith('.mp4')) {
+    event.respondWith(fetch(request));
     return;
   }
 

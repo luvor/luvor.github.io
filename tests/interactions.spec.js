@@ -19,30 +19,22 @@ test.describe('Interactive Elements', () => {
 
   test('nav highlight updates on scroll', async ({ page }) => {
     await page.evaluate(() => {
-      document.getElementById('skills').scrollIntoView();
+      document.getElementById('projects').scrollIntoView();
     });
     await page.waitForTimeout(1000);
-    const skillsLink = page.locator('a[href="#skills"]');
+    const skillsLink = page.locator('a[href="#projects"]');
     const classes = await skillsLink.getAttribute('class');
     expect(classes).toContain('active');
   });
 
   test('hero renders immediately with the new composition', async ({ page }) => {
-    await expect(page.locator('.hero-name-line').first()).toHaveText('Islambek');
-    await expect(page.locator('.hero-panel')).toBeVisible();
+    await expect(page.locator('.hero-name-line').first()).toHaveText('One designer. Six disciplines.');
+    await expect(page.locator('.case-card')).toHaveCount(9);
     await expect(page.locator('.hero-signals li')).toHaveCount(3);
   });
 
-  test('case studies render with evidence panels', async ({ page }) => {
-    const cases = page.locator('.case-study');
-    await expect(cases).toHaveCount(4);
-    await expect(cases.first().locator('.case-study-aside')).toBeVisible();
-    await expect(cases.first().locator('.case-study-points li')).toHaveCount(3);
+  test('case showcase links to all nine case studies', async ({ page }) => {
+    await expect(page.locator('[data-case-slug]')).toHaveCount(9);
   });
 
-  test('evidence section exposes four strategic cards', async ({ page }) => {
-    const cards = page.locator('.evidence-card');
-    await expect(cards).toHaveCount(4);
-    await expect(cards.first().locator('.evidence-label')).toBeVisible();
-  });
 });

@@ -11,28 +11,31 @@ test.describe('Desktop Layout', () => {
   });
 
   test('all sections render correctly', async ({ page }) => {
-    const sections = ['#about', '#skills', '#experience', '#projects', '#education', '#evidence', '#contact'];
+    const sections = ['#projects', '#about', '#contact'];
     for (const selector of sections) {
       await expect(page.locator(selector)).toBeAttached();
     }
   });
 
-  test('hero uses the split manifesto layout', async ({ page }) => {
+  test('hero leads directly into the six-discipline showcase', async ({ page }) => {
     await expect(page.locator('.hero-name')).toBeVisible();
-    await expect(page.locator('.hero-panel')).toBeVisible();
-    const columns = await page.locator('.hero-shell').evaluate((el) => getComputedStyle(el).gridTemplateColumns);
-    expect(columns.split(' ').filter(Boolean).length).toBe(2);
-  });
-
-  test('skills grid has 2x2 layout on desktop', async ({ page }) => {
-    const grid = page.locator('.skills-grid');
-    const cols = await grid.evaluate(el => getComputedStyle(el).gridTemplateColumns);
-    expect(cols.split(' ').length).toBe(2);
-  });
-
-  test('projects stack has curated case studies', async ({ page }) => {
-    const cards = page.locator('.case-study');
-    expect(await cards.count()).toBeGreaterThanOrEqual(4);
+    await expect(page.locator('.case-card')).toHaveCount(9);
+    const columns = await page.locator('.range-grid').evaluate((el) => getComputedStyle(el).gridTemplateColumns);
+    expect(columns.split(' ').filter(Boolean).length).toBe(3);
+    for (const lang of ['en', 'ru']) {
+      await page.evaluate(lang => window.__i18n.switchLang(lang), lang);
+      const layout = await page.evaluate(() => {
+        const heading = document.querySelector('.hero-name');
+        return {
+          lines: heading.getBoundingClientRect().height / parseFloat(getComputedStyle(heading).lineHeight),
+          firstRow: [...document.querySelectorAll('.case-card')].slice(0, 3).every(el => el.getBoundingClientRect().top < innerHeight),
+        };
+      });
+      expect(layout.lines).toBeLessThanOrEqual(2.1);
+      expect(layout.firstRow).toBe(true);
+    }
+    await expect(page.locator('#hero-canvas, script[src="js/particles.js"]')).toHaveCount(0);
+    await expect(page.locator('.range-all')).toHaveAttribute('href', 'https://yasnoten.web.app');
   });
 
   test('navigation links work (scroll to section)', async ({ page }) => {
@@ -42,28 +45,6 @@ test.describe('Desktop Layout', () => {
     const aboutSection = page.locator('#about');
     const box = await aboutSection.boundingBox();
     expect(box.y).toBeLessThan(200);
-  });
-
-  test('education grid has 3 columns on desktop', async ({ page }) => {
-    const grid = page.locator('.education-grid');
-    const gridCols = await grid.evaluate(el => getComputedStyle(el).gridTemplateColumns);
-    const colValues = gridCols.split(' ').filter(v => v.trim());
-    expect(colValues.length).toBe(3);
-  });
-
-  test('evidence grid uses two columns on desktop', async ({ page }) => {
-    const grid = page.locator('.evidence-grid');
-    const columns = await grid.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
-    expect(columns.split(' ').filter(Boolean).length).toBe(2);
-  });
-
-  test('experience cards have watermark text', async ({ page }) => {
-    const watermark = page.locator('.experience-watermark').first();
-    await expect(watermark).toBeAttached();
-    const color = await watermark.evaluate((el) => getComputedStyle(el).color);
-    const alphaMatch = color.match(/rgba?\((?:\d+,\s*){2}\d+(?:,\s*([0-9.]+))?\)/);
-    const alpha = alphaMatch && alphaMatch[1] ? parseFloat(alphaMatch[1]) : 1;
-    expect(alpha).toBeLessThanOrEqual(0.1);
   });
 
   test('custom scrollbar is styled', async ({ page }) => {

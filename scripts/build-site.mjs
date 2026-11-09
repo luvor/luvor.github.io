@@ -22,7 +22,6 @@ const textAssets = [
   ['js/i18n.js', 'js'],
   ['js/main.js', 'js'],
   ['js/animations.js', 'js'],
-  ['js/particles.js', 'js'],
   ['js/versions.js', 'js'],
   ['sw.js', 'js'],
   ['manifest.webmanifest', 'json'],
@@ -35,6 +34,17 @@ const staticAssets = [
   'assets/icons/icon-512.png',
   'assets/icons/icon-maskable-512.png',
   'assets/portfolio/imagine-99.jpg',
+  'assets/portfolio/tripmaxx-frame-2026-11-06.webp',
+  'assets/portfolio/redteu-site.webp',
+  'assets/portfolio/beni-hero.webp',
+  'assets/portfolio/yasnoten-2026-11-08-poster.webp',
+  'assets/portfolio/naqyl-2026-11-08-poster.webp',
+  'assets/portfolio/naqyl-app-frame.webp',
+  'assets/portfolio/netmatch-frame-2026-11-06.webp',
+  'assets/portfolio/tact-landing-2026-11-05.webp',
+  'assets/portfolio/ozger-brand-2026-11-09.webp',
+  'assets/portfolio/motion-teaser-2026-11-08-poster.webp',
+  'assets/portfolio/ai-cinematic-2026-11-09.webp',
 ];
 
 function resolveFromRoot(relativePath) {
@@ -123,4 +133,10 @@ for (const [relativePath, type] of textAssets) {
 
 for (const relativePath of staticAssets) {
   await copyStaticAsset(relativePath);
+}
+
+try {
+  await copyStaticAsset('assets/portfolio/motion-teaser-2026-11-08.mp4');
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
 }

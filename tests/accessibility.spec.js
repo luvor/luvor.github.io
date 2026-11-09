@@ -78,20 +78,15 @@ test.describe('Accessibility', () => {
     }
   });
 
-  test('experience watermarks have aria-hidden', async ({ page }) => {
-    const watermarks = page.locator('.experience-watermark');
-    const count = await watermarks.count();
-    expect(count).toBeGreaterThan(0);
-    for (let i = 0; i < count; i++) {
-      const ariaHidden = await watermarks.nth(i).getAttribute('aria-hidden');
-      expect(ariaHidden).toBe('true');
-    }
+  test('compact proof strip remains readable', async ({ page }) => {
+    await expect(page.locator('.proof-strip')).toBeVisible();
+    await expect(page.locator('.proof-strip .skill-disciplines')).toBeVisible();
   });
 
-  test('evidence cards expose meaningful headings', async ({ page }) => {
-    const cards = page.locator('.evidence-card');
-    await expect(cards).toHaveCount(4);
-    const headings = cards.locator('h3');
+  test('case cards expose meaningful titles', async ({ page }) => {
+    const cards = page.locator('.case-card');
+    await expect(cards).toHaveCount(9);
+    const headings = cards.locator('.range-caption strong');
     const count = await headings.count();
     for (let i = 0; i < count; i++) {
       const text = await headings.nth(i).textContent();

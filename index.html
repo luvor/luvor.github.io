@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Islambek Chynybekov — Frontend Team Lead &amp; Product Builder</title>
+  <title>Islambek Chynybekov — Product Designer &amp; Builder</title>
   <meta
     name="description"
-    content="Portfolio of Islambek Chynybekov — Frontend Team Lead and hands-on product builder. Creator of Tripmaxx and co-builder of BENI and REDTEU."
+    content="Portfolio of Islambek Chynybekov: design and development from interface to working product."
   >
   <meta name="theme-color" content="#05070B">
   <meta name="color-scheme" content="dark">
@@ -26,19 +26,19 @@
   <link rel="alternate" hreflang="x-default" href="https://luvor.github.io/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Islambek Chynybekov — Frontend Team Lead &amp; Product Builder">
+  <meta property="og:title" content="Islambek Chynybekov — Product Designer &amp; Builder">
   <meta
     property="og:description"
-    content="Frontend Team Lead and hands-on product builder in Astana. I ship products, production services, and honest demand tests."
+    content="One designer, six disciplines: from interface to working product."
   >
   <meta property="og:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
   <meta property="og:url" content="https://luvor.github.io/">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Islambek Chynybekov — Frontend Team Lead &amp; Product Builder">
+  <meta name="twitter:title" content="Islambek Chynybekov — Product Designer &amp; Builder">
   <meta
     name="twitter:description"
-    content="Frontend Team Lead and hands-on product builder in Astana. Creator of Tripmaxx and co-builder of BENI and REDTEU."
+    content="One designer, six disciplines: from interface to working product."
   >
   <meta name="twitter:image" content="https://luvor.github.io/assets/portfolio/imagine-99.jpg">
 
@@ -47,7 +47,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Islambek Chynybekov",
-    "jobTitle": "Frontend Team Lead and Product Builder",
+    "jobTitle": "Product Designer & Builder",
     "url": "https://luvor.github.io",
     "email": "theluruous@icloud.com",
     "sameAs": [
@@ -89,7 +89,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -111,12 +111,8 @@
         <span></span>
       </button>
       <ul class="nav-links" id="nav-links">
+        <li><a href="#projects" data-i18n="nav.work">Work</a></li>
         <li><a href="#about" data-i18n="nav.about">About</a></li>
-        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
-        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
-        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
-        <li><a href="#education" data-i18n="nav.education">Education</a></li>
-        <li><a href="#evidence" data-i18n="nav.evidence">Evidence</a></li>
         <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
         <li>
           <button
@@ -133,552 +129,121 @@
 
   <main>
     <section id="hero" class="hero">
-      <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="container hero-shell">
-        <div class="hero-copy">
-          <div class="hero-badge">
-            <span class="badge-dot"></span>
-            <span data-i18n="hero.badge">Open to collaboration</span>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <p class="hero-kicker" data-i18n="hero.kicker">Islambek Chynybekov · Product designer and developer</p>
+            <h1 class="hero-name"><span class="hero-name-line" data-i18n="hero.claim">One designer. Six disciplines.</span><span class="hero-name-line"><span data-i18n="hero.claim.accent">From idea to</span> <span class="hero-result" data-i18n="hero.claim.result">working product.</span></span></h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Digital products, from first screen to release.</p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary" data-i18n="hero.cta.work">View Work</a>
+              <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta.contact">Get in Touch</a>
+            </div>
           </div>
-          <p class="hero-kicker" data-i18n="hero.kicker">Frontend Team Lead / Product Builder / Astana</p>
-          <h1 class="hero-name">
-            <span class="hero-name-line">Islambek</span>
-            <span class="hero-name-line gradient-text">Chynybekov</span>
-          </h1>
-          <p class="hero-subtitle" data-i18n="hero.subtitle">
-            I take products from first user conversations to release, then test how they reach people.
-          </p>
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary" data-i18n="hero.cta.work">View Work</a>
-            <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta.contact">Get in Touch</a>
+          <div class="hero-showcase" aria-label="Selected work across six disciplines">
+            <a class="showcase-tile showcase-tripmaxx" href="https://chynybekov.com/en/projects/tripmaxx" rel="noopener" data-case-slug="tripmaxx" data-i18n-attr="aria-label" data-i18n="showcase.ios" aria-label="iOS — Tripmaxx"><img src="assets/portfolio/tripmaxx-frame-2026-11-06.webp" alt=""><span data-i18n="showcase.ios">iOS · Tripmaxx</span></a>
+            <a class="showcase-tile showcase-netmatch" href="https://chynybekov.com/en/projects/netmatch" rel="noopener" data-case-slug="netmatch" data-i18n-attr="aria-label" data-i18n="showcase.product" aria-label="Product UI — NetMatch"><img src="assets/portfolio/netmatch-frame-2026-11-06.webp" alt=""><span data-i18n="showcase.product">Product UI · NetMatch</span></a>
+            <a class="showcase-tile showcase-ozger" href="https://chynybekov.com/en/projects/ozger" rel="noopener" data-case-slug="ozger" data-i18n-attr="aria-label" data-i18n="showcase.brand" aria-label="Brand and print — ÖZGER"><img src="assets/portfolio/ozger-brand-2026-11-09.webp" alt=""><span data-i18n="showcase.brand">Brand / print · ÖZGER</span></a>
+            <a class="showcase-tile showcase-tact" href="https://chynybekov.com/en/projects/tact" rel="noopener" data-case-slug="tact" data-i18n-attr="aria-label" data-i18n="showcase.landing" aria-label="Landing page — TACT"><img src="assets/portfolio/tact-landing-2026-11-05.webp" alt=""><span data-i18n="showcase.landing">Landing · TACT</span></a>
+            <a class="showcase-tile showcase-motion" href="https://chynybekov.com/en/projects/motion-teaser" rel="noopener" data-case-slug="motion-teaser" data-i18n-attr="aria-label" data-i18n="showcase.motion" aria-label="Motion — typography film"><img src="assets/portfolio/motion-teaser-2026-11-08-poster.webp" alt=""><span data-i18n="showcase.motion">Motion · typography film</span></a>
+            <a class="showcase-tile showcase-ai" href="#projects" data-i18n-attr="aria-label" data-i18n="showcase.ai" aria-label="AI visuals — cinematic"><img src="assets/portfolio/ai-cinematic-2026-11-09.webp" alt=""><span data-i18n="showcase.ai">AI visuals</span></a>
           </div>
           <ul class="hero-signals">
-            <li>
-              <strong data-i18n="hero.signal.years.num">5+</strong>
-              <span data-i18n="hero.signal.years.label">years shipping digital products</span>
-            </li>
-            <li>
-              <strong data-i18n="hero.signal.projects.num">App Store</strong>
-              <span data-i18n="hero.signal.projects.label">personally shipped Tripmaxx</span>
-            </li>
-            <li>
-              <strong data-i18n="hero.signal.ai.num">Build → learn</strong>
-              <span data-i18n="hero.signal.ai.label">production delivery and honest experiments</span>
-            </li>
+            <li><strong data-i18n="hero.proof.store">App Store</strong><span data-i18n="hero.proof.store.desc">Tripmaxx, live product</span></li>
+            <li><strong data-i18n="hero.proof.cases">9 cases</strong><span data-i18n="hero.proof.cases.desc">Products, client work, concepts</span></li>
+            <li><strong data-i18n="hero.proof.languages">RU · KZ · EN</strong><span data-i18n="hero.proof.languages.desc">Across live projects</span></li>
           </ul>
-        </div>
-        <aside class="hero-panel reveal-slide">
-          <span class="hero-panel-label" data-i18n="hero.panel.label">Current Focus</span>
-          <h2 class="hero-panel-title" data-i18n="hero.panel.title">
-            Releasing apps, talking to users, and testing distribution.
-          </h2>
-          <div class="hero-panel-grid">
-            <div class="hero-panel-card">
-              <span class="hero-panel-eyebrow" data-i18n="hero.panel.halyk.eyebrow">In engineering</span>
-              <p data-i18n="hero.panel.halyk.text">Leading a frontend team and helping products reach release.</p>
-            </div>
-            <div class="hero-panel-card">
-              <span class="hero-panel-eyebrow" data-i18n="hero.panel.ai.eyebrow">As a founder</span>
-              <p data-i18n="hero.panel.ai.text">Co-building BENI and REDTEU with a partner.</p>
-            </div>
-            <div class="hero-panel-card">
-              <span class="hero-panel-eyebrow" data-i18n="hero.panel.product.eyebrow">In Product</span>
-              <p data-i18n="hero.panel.product.text">Talking to users and testing distribution after release.</p>
-            </div>
-          </div>
-        </aside>
-      </div>
-      <div class="scroll-indicator">
-        <div class="scroll-line"></div>
-      </div>
-    </section>
-
-    <section id="about" class="section about">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-content">
-            <span class="section-label reveal" data-i18n="about.label">About Me</span>
-            <h2 class="section-title reveal-title">
-              <span data-i18n="about.title.1">Building the bridge between</span><br>
-              <span class="gradient-text" data-i18n="about.title.2">AI &amp; great UX</span>
-            </h2>
-            <p class="about-text reveal" data-i18n="about.p1">
-              I am a Frontend Team Lead and hands-on product builder based in Astana, with 5+ years of product engineering experience.
-              I combine product judgment with the engineering work required to ship.
-            </p>
-            <p class="about-text reveal" data-i18n="about.p2">
-              Tripmaxx is my personally shipped App Store product. BENI, REDTEU, and ÖZGER are team efforts across
-              product packaging, production delivery, and commercial testing.
-            </p>
-            <p class="about-text reveal" data-i18n="about.p3">
-              I keep a clear line between what is working, what has launched, and where repeatable distribution is still being discovered.
-            </p>
-            <div class="about-tags reveal">
-              <span class="tag">Frontend Engineering</span>
-              <span class="tag">Product Discovery</span>
-              <span class="tag">Production Delivery</span>
-              <span class="tag">FinTech</span>
-              <span class="tag">Team Leadership</span>
-              <span class="tag">Vue / React</span>
-              <span class="tag">Swift / macOS</span>
-            </div>
-          </div>
-          <div class="about-visual">
-            <div class="about-dossier reveal-slide">
-              <span class="about-note-label" data-i18n="about.dossier.label">Operator Snapshot</span>
-              <div class="about-dossier-grid">
-                <div class="about-dossier-item">
-                  <span data-i18n="about.dossier.role.label">Current role</span>
-                  <strong data-i18n="about.dossier.role.value">Frontend Team Lead / Product Builder</strong>
-                </div>
-                <div class="about-dossier-item">
-                  <span data-i18n="about.dossier.domain.label">Primary domain</span>
-                  <strong data-i18n="about.dossier.domain.value">Consumer products and business operations</strong>
-                </div>
-                <div class="about-dossier-item">
-                  <span data-i18n="about.dossier.edge.label">Core edge</span>
-                  <strong data-i18n="about.dossier.edge.value">Moving from idea to a real launch</strong>
-                </div>
-                <div class="about-dossier-item">
-                  <span data-i18n="about.dossier.style.label">Working style</span>
-                  <strong data-i18n="about.dossier.style.value">Hands-on, evidence-led, production-minded</strong>
-                </div>
-              </div>
-            </div>
-            <div class="about-note reveal">
-              <span class="about-note-label" data-i18n="about.note.label">How I work</span>
-              <ul class="about-note-list">
-                <li data-i18n="about.note.li1">Narrow the idea before building.</li>
-                <li data-i18n="about.note.li2">Own the path through release.</li>
-                <li data-i18n="about.note.li3">Call experiments experiments until results are proven.</li>
-              </ul>
-            </div>
-          </div>
+          <div class="hero-experience"><span data-i18n="experience.label">Experience</span><strong>Halyk Finservice</strong><strong>Kaspi.kz</strong><strong>Air Astana</strong></div>
         </div>
       </div>
     </section>
 
-    <section id="skills" class="section skills">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label reveal" data-i18n="skills.label">Skills &amp; Tools</span>
-          <h2 class="section-title reveal-title" data-i18n="skills.title">Technologies I work with</h2>
-        </div>
-        <div class="skills-grid">
-          <div class="skill-group">
-            <h3 class="skill-group-name">Frontend</h3>
-            <hr class="skill-rule">
-            <ul class="skill-list">
-              <li>Vue 3 / Nuxt 3</li>
-              <li>React / Next.js</li>
-              <li>TypeScript</li>
-              <li>Tailwind CSS / SASS</li>
-              <li>Capacitor / Ionic</li>
-              <li>Tauri Framework</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-name">Product &amp; Delivery</h3>
-            <hr class="skill-rule">
-            <ul class="skill-list">
-              <li>Product Discovery</li>
-              <li>Rapid Prototyping</li>
-              <li>Production Delivery</li>
-              <li>Demand Experiments</li>
-              <li>App Store Release</li>
-              <li>Team Leadership</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-name">Backend &amp; Data</h3>
-            <hr class="skill-rule">
-            <ul class="skill-list">
-              <li>Python / FastAPI</li>
-              <li>Swift 5.10 / macOS</li>
-              <li>Node.js / Nest.js</li>
-              <li>PL/SQL / PostgreSQL</li>
-              <li>REST API / GraphQL</li>
-              <li>Blockchain (Web3)</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-name">Tools &amp; DevOps</h3>
-            <hr class="skill-rule">
-            <ul class="skill-list">
-              <li>Git / GitHub / CI-CD</li>
-              <li>Docker / Railway</li>
-              <li>Webpack / Vite</li>
-              <li>AppStore &amp; Play Store</li>
-              <li>Figma / UI Design</li>
-              <li>Unit / E2E Testing</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="section experience">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label reveal" data-i18n="experience.label">Experience</span>
-          <h2 class="section-title reveal-title">
-            <span data-i18n="experience.title.1">My professional</span> <span class="gradient-text" data-i18n="experience.title.accent">journey</span>
-          </h2>
-        </div>
-        <div class="experience-stack">
-          <div class="timeline-progress-line" aria-hidden="true"></div>
-
-          <div class="experience-card">
-            <span class="experience-watermark" aria-hidden="true">HALYK</span>
-            <div class="experience-content">
-              <span class="experience-date" data-i18n="exp01.date">Jan 2024 — Present</span>
-              <h3 class="experience-role" data-i18n="exp01.role">Team Lead Frontend</h3>
-              <p class="experience-company" data-i18n="exp01.company">Halyk Finservice · Astana, Kazakhstan</p>
-              <p class="experience-desc" data-i18n="exp01.desc">
-                Leading a frontend team, coordinating delivery, mentoring engineers, and reviewing technical decisions.
-              </p>
-              <div class="experience-tags">
-                <span>Vue 3</span><span>TypeScript</span><span>Team Lead</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="experience-card">
-            <span class="experience-watermark" aria-hidden="true">HALYK</span>
-            <div class="experience-content">
-              <span class="experience-date" data-i18n="exp02.date">Jul 2023 — Dec 2023</span>
-              <h3 class="experience-role" data-i18n="exp02.role">Frontend Developer</h3>
-              <p class="experience-company" data-i18n="exp02.company">Halyk Finservice · Astana, Kazakhstan</p>
-              <p class="experience-desc" data-i18n="exp02.desc">
-                Built and maintained frontend product interfaces as part of an engineering team.
-              </p>
-              <div class="experience-tags">
-                <span>Vue 3</span><span>Frontend</span><span>Team delivery</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="experience-card">
-            <span class="experience-watermark" aria-hidden="true">KASPI</span>
-            <div class="experience-content">
-              <span class="experience-date" data-i18n="exp03.date">Aug 2022 — Jul 2023</span>
-              <h3 class="experience-role" data-i18n="exp03.role">Software Developer</h3>
-              <p class="experience-company" data-i18n="exp03.company">Kaspi.kz</p>
-              <p class="experience-desc" data-i18n="exp03.desc">
-                Developed frontend software as part of a product engineering team.
-              </p>
-              <div class="experience-tags">
-                <span>Vue 3</span><span>TypeScript</span><span>Product engineering</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="experience-card">
-            <span class="experience-watermark" aria-hidden="true">AIR ASTANA</span>
-            <div class="experience-content">
-              <span class="experience-date" data-i18n="exp04.date">Feb 2022 — Jun 2022</span>
-              <h3 class="experience-role" data-i18n="exp04.role">Full-stack Developer</h3>
-              <p class="experience-company" data-i18n="exp04.company">Air Astana · Almaty, Kazakhstan</p>
-              <p class="experience-desc" data-i18n="exp04.desc">
-                Worked as a full-stack developer on product delivery with a cross-functional team.
-              </p>
-              <div class="experience-tags">
-                <span>Full-stack</span><span>Product delivery</span><span>Teamwork</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="experience-card">
-            <span class="experience-watermark" aria-hidden="true">MORRISON</span>
-            <div class="experience-content">
-              <span class="experience-date" data-i18n="exp06.date">Jan 2019 — Feb 2020</span>
-              <h3 class="experience-role" data-i18n="exp06.role">Support &amp; Video Creator</h3>
-              <p class="experience-company" data-i18n="exp06.company">Morrison · Almaty, Kazakhstan</p>
-              <p class="experience-desc" data-i18n="exp06.desc">
-                Created JavaScript, web development, and React tutorials and taught structured lessons for student groups.
-              </p>
-              <div class="experience-tags">
-                <span>JavaScript</span><span>React</span><span>Teaching</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="experience-card">
-            <span class="experience-watermark" aria-hidden="true">PRODUCT</span>
-            <div class="experience-content">
-              <span class="experience-date" data-i18n="exp05.date">Other product work</span>
-              <h3 class="experience-role" data-i18n="exp05.role">Frontend product delivery</h3>
-              <p class="experience-company" data-i18n="exp05.company">Projects under NDA</p>
-              <p class="experience-desc" data-i18n="exp05.desc">
-                Developed a software shell for computer clubs and owned the frontend of an operational app and dashboard.
-              </p>
-              <div class="experience-tags">
-                <span>Frontend</span><span>Web</span><span>Product delivery</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
 
     <section id="projects" class="section projects">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label reveal" data-i18n="projects.label">Projects</span>
-          <h2 class="section-title reveal-title">
-            <span data-i18n="projects.title.1">Selected</span> <span class="gradient-text" data-i18n="projects.title.accent">case studies</span>
-          </h2>
-        </div>
-        <div class="projects-stack">
-
-          <!-- CS01: Tripmaxx -->
-          <article class="case-study featured" data-tilt>
-            <div class="case-study-main">
-              <span class="case-study-kicker" data-i18n="cs01.kicker">Case Study 01</span>
-              <h3 data-i18n="cs01.title">Tripmaxx — Personally shipped travel recap app</h3>
-              <p class="case-study-summary" data-i18n="cs01.summary">
-                I created and shipped an on-device iOS app that turns trip photos into a video recap with a route. It is live on the App Store and continues to receive product updates.
-              </p>
-              <ul class="case-study-points">
-                <li data-i18n="cs01.li1">Designed, built, and released the app on the App Store.</li>
-                <li data-i18n="cs01.li2">Processes photos on-device to create a travel story and route.</li>
-                <li data-i18n="cs01.li3">Testing ways to reach new users after release.</li>
-              </ul>
-              <div class="project-links">
-                <a href="https://apps.apple.com/us/app/tripmaxx/id6791935242" target="_blank" rel="noopener" class="project-link">
-                  <span data-i18n="cs01.link">App Store</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="case-study-aside">
-              <div class="case-study-stat">
-                <span data-i18n="cs01.stat1.label">Platform</span>
-                <strong data-i18n="cs01.stat1.value">Live on the App Store</strong>
-                <p data-i18n="cs01.stat1.desc">Apple lists Islambek Chynybekov as developer and seller.</p>
-              </div>
-              <div class="case-study-stat">
-                <span data-i18n="cs01.stat2.label">Role</span>
-                <strong data-i18n="cs01.stat2.value">Creator</strong>
-                <p data-i18n="cs01.stat2.desc">Product, engineering, release, and continued updates.</p>
-              </div>
-              <div class="case-study-stack">
-                <span>iOS</span><span>On-device</span><span>App Store</span><span>Product</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- CS02: BENI -->
-          <article class="case-study" data-tilt>
-            <div class="case-study-main">
-              <span class="case-study-kicker" data-i18n="cs02.kicker">Case Study 02</span>
-              <h3 data-i18n="cs02.title">BENI — Shared venture and delivery platform</h3>
-              <p class="case-study-summary" data-i18n="cs02.summary">
-                Together with a partner, I am building BENI as a shared platform for our own product launches and scoped delivery work.
-              </p>
-              <ul class="case-study-points">
-                <li data-i18n="cs02.li1">Combines product research, design, engineering, and launch work.</li>
-                <li data-i18n="cs02.li2">The live studio and portfolio present our shared work.</li>
-                <li data-i18n="cs02.li3">Built together with a partner across product and delivery.</li>
-              </ul>
-              <div class="project-links">
-                <a href="https://beni.kz/" target="_blank" rel="noopener" class="project-link">
-                  <span data-i18n="cs02.link">Visit BENI</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="case-study-aside">
-              <div class="case-study-stat">
-                <span data-i18n="cs02.stat1.label">Stage</span>
-                <strong data-i18n="cs02.stat1.value">Live venture shell</strong>
-                <p data-i18n="cs02.stat1.desc">A public home for shared launches and delivery.</p>
-              </div>
-              <div class="case-study-stat">
-                <span data-i18n="cs02.stat2.label">Team</span>
-                <strong data-i18n="cs02.stat2.value">Built with a partner</strong>
-                <p data-i18n="cs02.stat2.desc">Shared product and delivery work.</p>
-              </div>
-              <div class="case-study-stack">
-                <span>Product research</span><span>Delivery</span><span>Shared venture</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- CS03: REDTEU -->
-          <article class="case-study" data-tilt>
-            <div class="case-study-main">
-              <span class="case-study-kicker" data-i18n="cs03.kicker">Case Study 03</span>
-              <h3 data-i18n="cs03.title">REDTEU — Productized operations for service businesses</h3>
-              <p class="case-study-summary" data-i18n="cs03.summary">
-                Together with a partner, I am shaping operational problems into a clear digital offer for service businesses and testing where demand exists.
-              </p>
-              <ul class="case-study-points">
-                <li data-i18n="cs03.li1">Published a live offer for service businesses.</li>
-                <li data-i18n="cs03.li2">Structured services and pricing into a clear product catalog.</li>
-                <li data-i18n="cs03.li3">Prepared campaign assets and measurement for demand tests.</li>
-              </ul>
-              <div class="project-links">
-                <a href="https://redteu.kz/" target="_blank" rel="noopener" class="project-link">
-                  <span data-i18n="cs03.link">Visit REDTEU</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="case-study-aside">
-              <div class="case-study-stat">
-                <span data-i18n="cs03.stat1.label">Stage</span>
-                <strong data-i18n="cs03.stat1.value">Live offer</strong>
-                <p data-i18n="cs03.stat1.desc">Productized services with pricing and acquisition assets.</p>
-              </div>
-              <div class="case-study-stat">
-                <span data-i18n="cs03.stat2.label">Current work</span>
-                <strong data-i18n="cs03.stat2.value">Testing demand</strong>
-                <p data-i18n="cs03.stat2.desc">Campaign assets and measurement support the next channel tests.</p>
-              </div>
-              <div class="case-study-stack">
-                <span>Service operations</span><span>Pricing</span><span>Demand tests</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- CS04: OZGER -->
-          <article class="case-study" data-tilt>
-            <div class="case-study-main">
-              <span class="case-study-kicker" data-i18n="cs04.kicker">Case Study 04</span>
-              <h3 data-i18n="cs04.title">ÖZGER — Team production delivery for a real business</h3>
-              <p class="case-study-summary" data-i18n="cs04.summary">
-                In a team, I helped bring a bilingual digital service and its operational workflows into production for a real business.
-              </p>
-              <ul class="case-study-points">
-                <li data-i18n="cs04.li1">Delivered a public bilingual service surface.</li>
-                <li data-i18n="cs04.li2">Supported practical operator and customer workflows.</li>
-                <li data-i18n="cs04.li3">Built workflows for day-to-day operations.</li>
-              </ul>
-              <div class="project-links">
-                <a href="https://ozger.kz/" target="_blank" rel="noopener" class="project-link">
-                  <span data-i18n="cs04.link">Visit ÖZGER</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12l8-8M6 4h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="case-study-aside">
-              <div class="case-study-stat">
-                <span data-i18n="cs04.stat1.label">Stage</span>
-                <strong data-i18n="cs04.stat1.value">Production service</strong>
-                <p data-i18n="cs04.stat1.desc">Public website and operational workflows are live.</p>
-              </div>
-              <div class="case-study-stat">
-                <span data-i18n="cs04.stat2.label">Team</span>
-                <strong data-i18n="cs04.stat2.value">Team delivery</strong>
-                <p data-i18n="cs04.stat2.desc">Built in a team across the public service and its operational workflows.</p>
-              </div>
-              <div class="case-study-stack">
-                <span>Bilingual web</span><span>Operations</span><span>Team delivery</span>
-              </div>
-            </div>
-          </article>
-
+        <div class="section-header"><span class="section-label" data-i18n="range.label">Portfolio</span><h2 class="section-title" data-i18n="range.title">Selected work</h2></div>
+        <div class="range-grid">
+          <a class="case-card case-tripmaxx" href="https://chynybekov.com/en/projects/tripmaxx" rel="noopener" data-case-slug="tripmaxx">
+            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/tripmaxx-frame-2026-11-06.webp" alt="Three Tripmaxx screens from the App Store gallery" data-i18n-attr="alt" data-i18n="case.tripmaxx.alt"></span>
+            <span class="range-caption"><small data-i18n="case.tripmaxx.kind">App Store product</small><strong data-i18n="case.tripmaxx.name">Tripmaxx</strong><span class="range-proof" data-i18n="case.tripmaxx.proof">App Store · works on device</span></span>
+          </a>
+          <a class="case-card case-naqyl" href="https://chynybekov.com/en/projects/naqyl" rel="noopener" data-case-slug="naqyl">
+            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/naqyl-app-frame.webp" alt="NAQYL proverb app screen" data-i18n-attr="alt" data-i18n="case.naqyl.alt"></span>
+            <span class="range-caption"><small data-i18n="case.naqyl.kind">iOS product</small><strong data-i18n="case.naqyl.name">NAQYL</strong><span class="range-proof" data-i18n="case.naqyl.proof">SwiftUI · SwiftData · 5,883 entries · offline</span></span>
+          </a>
+          <a class="case-card case-tact" href="https://chynybekov.com/en/projects/tact" rel="noopener" data-case-slug="tact">
+            <span class="range-media tact-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/tact-landing-2026-11-05.webp" alt="TACT instant-print camera landing page" data-i18n-attr="alt" data-i18n="case.tact.alt"></span>
+            <span class="range-caption"><small data-i18n="case.tact.kind">Landing page concept</small><strong data-i18n="case.tact.name">TACT</strong><span class="range-proof" data-i18n="case.tact.proof">Mobile Lighthouse · 100 / 100 / 96 / 100</span></span>
+          </a>
+          <div class="case-card case-yasnoten">
+            <a class="case-main" href="https://chynybekov.com/en/projects/yasnoten" rel="noopener" data-case-slug="yasnoten">
+              <span class="range-media"><img loading="lazy" width="720" height="1280" src="assets/portfolio/yasnoten-2026-11-08-poster.webp" alt="Yasnoten lantern in a mountain landscape" data-i18n-attr="alt" data-i18n="case.yasnoten.alt"></span>
+              <span class="range-caption"><small data-i18n="case.yasnoten.kind">Web product</small><strong data-i18n="case.yasnoten.name">Yasnoten</strong><span class="range-proof" data-i18n="case.yasnoten.proof">React · TypeScript · Firebase · live build</span></span>
+            </a>
+            <a class="case-live" href="https://yasnoten.web.app" target="_blank" rel="noopener" data-i18n="case.yasnoten.live">Open Yasnoten live ↗</a>
+          </div>
+          <a class="case-card case-netmatch" href="https://chynybekov.com/en/projects/netmatch" rel="noopener" data-case-slug="netmatch">
+            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/netmatch-frame-2026-11-06.webp" alt="NetMatch job cards with take-home pay" data-i18n-attr="alt" data-i18n="case.netmatch.alt"></span>
+            <span class="range-caption"><small data-i18n="case.netmatch.kind">Product UI</small><strong data-i18n="case.netmatch.name">NetMatch</strong><span class="range-proof" data-i18n="case.netmatch.proof">Telegram Mini App · Postgres · live demo</span></span>
+          </a>
+          <a class="case-card case-ozger" href="https://chynybekov.com/en/projects/ozger" rel="noopener" data-case-slug="ozger">
+            <span class="range-media"><img loading="lazy" width="1600" height="1000" src="assets/portfolio/ozger-brand-2026-11-09.webp" alt="ÖZGER identity and print materials" data-i18n-attr="alt" data-i18n="case.ozger.alt"></span>
+            <span class="range-caption"><small data-i18n="case.ozger.kind">Brand, web, print</small><strong data-i18n="case.ozger.name">ÖZGER</strong><span class="range-proof" data-i18n="case.ozger.proof">Live site in Russian and Kazakh</span></span>
+          </a>
+          <div class="case-card case-motion-teaser" data-motion>
+            <a href="https://chynybekov.com/en/projects/motion-teaser" rel="noopener" data-case-slug="motion-teaser"><span class="range-media"><img class="motion-poster" loading="lazy" width="720" height="1280" src="assets/portfolio/motion-teaser-2026-11-08-poster.webp" alt="Frames from the vertical film Agents do" data-i18n-attr="alt" data-i18n="case.motion-teaser.alt"><video data-src="assets/portfolio/motion-teaser-2026-11-08.mp4" poster="assets/portfolio/motion-teaser-2026-11-08-poster.webp" muted playsinline loop preload="none" aria-hidden="true"></video></span><span class="range-caption"><small data-i18n="case.motion-teaser.kind">Motion</small><strong data-i18n="case.motion-teaser.name">Agents</strong><span class="range-proof" data-i18n="case.motion-teaser.proof">Remotion · 1080×1920 · 30 fps · 20 sec</span></span></a>
+            <button class="motion-toggle" type="button" aria-label="Play preview" aria-pressed="false" data-i18n="range.motion.play" data-i18n-attr="aria-label"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path class="motion-play" d="M4 2.5v11L13 8z"/><path class="motion-pause" d="M4 3h3v10H4zm5 0h3v10H9z"/></svg></button>
+          </div>
+          <a class="case-card case-redteu" href="https://chynybekov.com/en/projects/redteu" rel="noopener" data-case-slug="redteu">
+            <span class="range-media case-image case-redteu-image"><img loading="lazy" width="1400" height="875" src="assets/portfolio/redteu-site.webp" alt="REDTEU public site homepage" data-i18n-attr="alt" data-i18n="case.redteu.alt"></span>
+            <span class="range-caption"><small data-i18n="case.redteu.kind">Product workflow</small><strong data-i18n="case.redteu.name">REDTEU</strong><span class="range-proof" data-i18n="case.redteu.proof">Public site · services and prices published</span></span>
+          </a>
+          <a class="case-card case-beni" href="https://chynybekov.com/en/projects/beni" rel="noopener" data-case-slug="beni">
+            <span class="range-media case-image case-beni-image"><img loading="lazy" width="1600" height="900" src="assets/portfolio/beni-hero.webp" alt="BENI studio website hero" data-i18n-attr="alt" data-i18n="case.beni.alt"></span>
+            <span class="range-caption"><small data-i18n="case.beni.kind">Digital studio</small><strong data-i18n="case.beni.name">BENI</strong><span class="range-proof" data-i18n="case.beni.proof">Public studio site · beni.kz</span></span>
+          </a>
         </div>
       </div>
     </section>
-
-    <section id="education" class="section education">
+    <section id="about" class="section about">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label reveal" data-i18n="education.label">Education</span>
-          <h2 class="section-title reveal-title">
-            <span data-i18n="education.title.1">Learning never</span> <span class="gradient-text" data-i18n="education.title.accent">stops</span>
-          </h2>
-        </div>
-        <div class="education-grid">
-          <div class="education-card reveal-slide">
-            <div class="education-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
-            </div>
-            <div class="education-date">2019 — 2023</div>
-            <h3>Bachelor's in IT</h3>
-            <p class="education-school">Almaty Management University (AMU)</p>
-            <p class="education-desc">Degree in Information Technologies. Built a foundation in software engineering, algorithms, and data structures. Actively participated in hackathons and student tech competitions.</p>
-          </div>
-          <div class="education-card reveal-slide">
-            <div class="education-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            </div>
-            <div class="education-date">Cisco · 2022–2023</div>
-            <h3>Networking &amp; Security</h3>
-            <p class="education-school">Cisco Networking Academy</p>
-            <p class="education-desc">Earned Cybersecurity Essentials (x2) and CCNA: Introduction to Networks certifications — strengthening understanding of secure, scalable system architecture.</p>
-          </div>
-          <div class="education-card reveal-slide">
-            <div class="education-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <div class="education-date">Ongoing</div>
-            <h3>Product Building</h3>
-            <p class="education-school">Self-directed practice</p>
-            <p class="education-desc">Building and shipping products across consumer experiences, operational services, and distribution experiments.</p>
+        <div class="about-grid about-compact">
+          <div class="about-content">
+            <span class="section-label reveal" data-i18n="about.label">About Me</span>
+            <h2 class="section-title reveal-title">
+              <span data-i18n="about.title.1">From product idea to</span><br>
+              <span class="gradient-text" data-i18n="about.title.2">a real launch</span>
+            </h2>
+            <p class="about-text reveal" data-i18n="about.p1">Product Designer &amp; Builder based in Astana. I design and ship digital products, from the first screen to release.</p>
+            <ul class="about-proof" aria-label="Selected outcomes"><li><strong>100 / 100 / 96 / 100</strong><span data-i18n="about.proof.lighthouse">TACT · Lighthouse · mobile</span></li><li><strong data-i18n="about.proof.cases">9 cases</strong><span data-i18n="about.proof.cases.label">in the portfolio</span></li><li><strong data-i18n="about.proof.store">App Store</strong><span data-i18n="about.proof.store.label">Tripmaxx live</span></li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="evidence" class="section evidence">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label reveal" data-i18n="evidence.label">Evidence</span>
-          <h2 class="section-title reveal-title">
-            <span data-i18n="evidence.title.1">What this work is really</span> <span class="gradient-text" data-i18n="evidence.title.accent">about</span>
-          </h2>
-        </div>
-        <div class="evidence-grid">
-          <article class="evidence-card reveal-slide">
-            <span class="evidence-label" data-i18n="evidence.card1.label">Delivery</span>
-            <h3 data-i18n="evidence.card1.title">I optimize for throughput that still feels deliberate.</h3>
-            <p data-i18n="evidence.card1.desc">Speed matters only when architecture, review quality, and product clarity survive it.</p>
-          </article>
-          <article class="evidence-card reveal-slide">
-            <span class="evidence-label" data-i18n="evidence.card2.label">Ownership</span>
-            <h3 data-i18n="evidence.card2.title">Tripmaxx proves I can own the path through a public release.</h3>
-            <p data-i18n="evidence.card2.desc">The product is live on the App Store and continues to receive updates.</p>
-          </article>
-          <article class="evidence-card reveal-slide">
-            <span class="evidence-label" data-i18n="evidence.card3.label">Leadership</span>
-            <h3 data-i18n="evidence.card3.title">I make systems calmer for the people shipping them.</h3>
-            <p data-i18n="evidence.card3.desc">That means cleaner decisions, clearer interfaces, better decomposition, and less operational chaos.</p>
-          </article>
-          <article class="evidence-card reveal-slide">
-            <span class="evidence-label" data-i18n="evidence.card4.label">Fit</span>
-            <h3 data-i18n="evidence.card4.title">My best environment is ambitious product work with real complexity and real stakes.</h3>
-            <p data-i18n="evidence.card4.desc">Consumer products, operational services, and teams that care about execution quality.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <section class="proof-strip"><div class="container"><p class="skill-disciplines" data-i18n="skills.strip">Product UI · iOS · Web · Brand · Motion · AI visuals</p></div></section>
 
     <section id="contact" class="section contact">
       <div class="container">
         <span class="section-label reveal" data-i18n="contact.label">Contact</span>
         <h2 class="section-title reveal-title">
-          <span data-i18n="contact.title.1">Let's build something</span><br>
-          <span class="gradient-text" data-i18n="contact.title.accent">amazing together</span>
+          <span data-i18n="contact.title.1">Product design</span><br>
+          <span class="gradient-text" data-i18n="contact.title.accent">and development · Astana</span>
         </h2>
         <a href="mailto:theluruous@icloud.com" class="contact-email">theluruous@&#8203;icloud.com</a>
         <div class="contact-links">
-          <a href="mailto:theluruous@icloud.com" data-i18n="contact.link.email">Email &rarr;</a>
-          <a href="https://chynybekov.com/" target="_blank" rel="noopener" data-i18n="contact.link.site">Personal site &rarr;</a>
-          <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" data-i18n="contact.link.linkedin">LinkedIn &rarr;</a>
-          <a href="https://github.com/luvor" target="_blank" rel="noopener" data-i18n="contact.link.github">GitHub &rarr;</a>
-          <a href="/versions.html" data-i18n="contact.link.versions">Versions &rarr;</a>
+          <a href="mailto:theluruous@icloud.com" data-i18n="contact.link.email">Email →</a>
+          <a href="https://chynybekov.com/" target="_blank" rel="noopener" data-i18n="contact.link.site">Personal site →</a>
+          <a href="https://www.linkedin.com/in/luvor" target="_blank" rel="noopener" data-i18n="contact.link.linkedin">LinkedIn →</a>
+          <a href="https://github.com/luvor" target="_blank" rel="noopener" data-i18n="contact.link.github">GitHub →</a>
+          <a href="/versions.html" data-i18n="contact.link.versions">Versions →</a>
         </div>
-        <p class="copyright" data-i18n="contact.copyright">&copy; 2026 Islambek Chynybekov</p>
+        <p class="copyright" data-i18n="contact.copyright">© 2026 Islambek Chynybekov</p>
       </div>
     </section>
   </main>
 
   <script src="js/i18n.js" defer></script>
-  <script src="js/particles.js" defer></script>
   <script src="js/animations.js" defer></script>
   <script src="js/main.js" defer></script>
   <script>
@@ -695,14 +260,14 @@
         e.preventDefault();
         deferredPrompt = e;
 
-        var badge = document.querySelector('.hero-badge');
-        if (!badge) return;
+        var actions = document.querySelector('.hero-actions');
+        if (!actions || document.querySelector('.pwa-install-btn')) return;
 
         var installBtn = document.createElement('button');
         installBtn.className = 'pwa-install-btn';
         installBtn.textContent = (window.__i18n && window.__i18n.t) ? window.__i18n.t('pwa.install') : 'Install App';
-        installBtn.setAttribute('aria-label', 'Install as application');
-        badge.parentNode.insertBefore(installBtn, badge.nextSibling);
+        installBtn.setAttribute('data-i18n', 'pwa.install');
+        actions.appendChild(installBtn);
 
         installBtn.addEventListener('click', function () {
           if (!deferredPrompt) return;

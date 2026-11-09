@@ -10,7 +10,7 @@
   const scrollProgress = document.getElementById('scroll-progress');
   const customCursor = document.getElementById('custom-cursor');
 
-  const sectionIds = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'evidence', 'contact'];
+  const sectionIds = ['hero', 'projects', 'about', 'contact'];
   const navAnchors = {};
   const sectionOffsets = {};
 
@@ -70,6 +70,10 @@
     scrollTicking = false;
   }
 
+  document.addEventListener('languagechange', function () {
+    recalculateSectionOffsets();
+    onScrollFrame();
+  });
   recalculateSectionOffsets();
   window.addEventListener('load', recalculateSectionOffsets);
   window.addEventListener('resize', function () {
@@ -299,6 +303,91 @@
     mobileQuery.addEventListener('change', handleMobileChange);
     handleMobileChange(mobileQuery);
   }
+
+  // Motion previews only load while visible; the poster is always the fallback.
+  var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll('[data-motion]').forEach(function (tile) {
+    var video = tile.querySelector('video');
+    var button = tile.querySelector('.motion-toggle');
+    if (!video || !button) return;
+    var visible = false;
+    var userPaused = false;
+    var failed = false;
+    var pending = false;
+    var generation = 0;
+
+    function shouldPlay() {
+      return visible && !document.hidden && !motionPreference.matches && !userPaused && !failed;
+    }
+
+    function render() {
+      var playing = shouldPlay() && !video.paused;
+      tile.classList.toggle('is-playing', playing);
+      var key = playing ? 'range.motion.pause' : 'range.motion.play';
+      button.setAttribute('data-i18n', key);
+      button.setAttribute('aria-label', window.__i18n ? window.__i18n.t(key) : (playing ? 'Pause preview' : 'Play preview'));
+      button.setAttribute('aria-pressed', String(playing));
+      button.disabled = motionPreference.matches;
+    }
+
+    function reconcile() {
+      if (!shouldPlay()) {
+        generation++;
+        pending = false;
+        video.pause();
+        if (motionPreference.matches && video.hasAttribute('src')) {
+          video.removeAttribute('src');
+          video.load();
+        }
+        render();
+        return;
+      }
+      if (!video.paused || pending) { render(); return; }
+      var attempt = ++generation;
+      if (!video.hasAttribute('src')) video.src = video.dataset.src;
+      pending = true;
+      video.play().then(function () {
+        if (attempt !== generation || !shouldPlay()) {
+          if (!shouldPlay()) video.pause();
+        } else pending = false;
+        render();
+      }).catch(function () {
+        if (attempt !== generation) return;
+        pending = false;
+        failed = true;
+        video.pause();
+        render();
+      });
+    }
+
+    button.addEventListener('click', function () {
+      if (motionPreference.matches) return;
+      userPaused = pending || !video.paused;
+      failed = false;
+      reconcile();
+    });
+    video.addEventListener('playing', function () {
+      if (!shouldPlay()) video.pause();
+      render();
+    });
+    video.addEventListener('pause', render);
+    video.addEventListener('error', function () {
+      failed = true;
+      reconcile();
+    });
+    motionPreference.addEventListener('change', reconcile);
+    document.addEventListener('visibilitychange', reconcile);
+    document.addEventListener('languagechange', render);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        reconcile();
+      }, { threshold: .25 }).observe(tile);
+    } else {
+      button.hidden = true;
+    }
+    render();
+  });
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && navToggle && navLinks && navLinks.classList.contains('open')) {
