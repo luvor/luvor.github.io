@@ -1,0 +1,26 @@
+# Islambek Chynybekov
+
+> Islambek Chynybekov (Исламбек Чыныбеков) is a product designer and developer based in Astana. His main site is https://chynybekov.com.
+
+## About
+
+I lead frontend delivery at Halyk Finservice and work across product design and engineering, from interface to working product.
+
+## Projects
+
+- Tripmaxx — A travel film made from photos and routes; available on the App Store. — https://chynybekov.com/en/projects/tripmaxx
+- NetMatch — Job search by swipe, with take-home pay shown. — https://chynybekov.com/en/projects/netmatch
+- NAQYL — SwiftUI proverb app with 5,883 entries and offline support. — https://chynybekov.com/en/projects/naqyl
+- TACT — Camera product concept and landing page design. — https://chynybekov.com/en/projects/tact
+- Yasnoten — Product design and web development using React, TypeScript and Firebase. — https://chynybekov.com/en/projects/yasnoten
+- ÖZGER — Engineering work in a team launch; live Russian and Kazakh site. — https://chynybekov.com/en/projects/ozger
+- Agents — Concept and motion design; a 20-second typography film. — https://chynybekov.com/en/projects/motion-teaser
+- REDTEU — Product and service website with bookings, pricing and owner summaries. — https://chynybekov.com/en/projects/redteu
+- BENI — Studio website with services and process. — https://chynybekov.com/en/projects/beni
+
+## Links
+
+- Main site: https://chynybekov.com
+- Portfolio: https://luvor.github.io/
+- GitHub: https://github.com/luvor
+- LinkedIn: https://www.linkedin.com/in/luvor

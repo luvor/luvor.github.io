@@ -42,7 +42,7 @@ Complete rewrite. Key structural changes from current:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Islambek Chynybekov — Senior Frontend Engineer & AI Engineer</title>
+  <title>Islambek Chynybekov — Product designer and developer</title>
   <meta name="description" content="...">
   <meta name="theme-color" content="#000000">
   <!-- Favicon, PWA, OG, Twitter tags (update OG image URL) -->
@@ -53,7 +53,7 @@ Complete rewrite. Key structural changes from current:
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Islambek Chynybekov",
-    "jobTitle": "Senior Frontend Engineer & AI Engineer",
+    "jobTitle": "Product designer and developer",
     "url": "https://luvor.github.io",
     "sameAs": [
       "https://github.com/luvor",
@@ -76,7 +76,7 @@ Key section structures (abbreviated):
       <span class="char-stagger" data-text="ISLAMBEK">ISLAMBEK</span>
       <span class="char-stagger" data-text="CHYNYBEKOV">CHYNYBEKOV</span>
     </h1>
-    <p class="hero-subtitle">Senior Frontend Engineer & AI Integrator<br>
+    <p class="hero-subtitle">Product designer and developer<br>
       building <em>intelligent products</em> that matter.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn btn-primary">View Work ...</a>
@@ -114,7 +114,7 @@ Key section structures (abbreviated):
   <span class="experience-watermark" aria-hidden="true">HALYK</span>
   <div class="experience-content">
     <span class="experience-date">Jan 2024 — Present</span>
-    <h3 class="experience-role">Team Lead Frontend</h3>
+    <h3 class="experience-role">Frontend Team Lead</h3>
     <p class="experience-company">Halyk Finservice</p>
     <p class="experience-desc">...</p>
     <div class="experience-tags"><span>Vue 3</span>...</div>
