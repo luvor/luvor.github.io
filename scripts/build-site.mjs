@@ -28,6 +28,10 @@ const textAssets = [
 
 const staticAssets = [
   'favicon.svg',
+  'robots.txt',
+  'sitemap.xml',
+  'llms.txt',
+  '162631f96075cf4846476746f963cbce.txt',
   'assets/icons/apple-touch-icon.png',
   'assets/icons/icon-192.png',
   'assets/icons/icon-512.png',
